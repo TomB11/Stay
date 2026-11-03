@@ -77,6 +77,24 @@
     700 0.78rem var(--font-body);
   padding: 9px 14px;
 }
+.header-action {
+  text-decoration: none;
+}
+.mobile-menu-start {
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-primary);
+  font:
+    700 0.95rem var(--font-body);
+  padding: 13px 14px;
+  text-align: center;
+  text-decoration: none;
+}
+.mobile-menu-start:hover,
+.mobile-menu-start:focus-visible {
+  background: var(--color-navy);
+  color: var(--color-on-primary);
+}
 .header-action:hover {
   background: var(--color-navy);
   border-color: var(--color-navy);

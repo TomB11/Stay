@@ -86,6 +86,22 @@
 }
 @if (menuOpen()) {
   <nav class="mobile-menu d-md-none" aria-label="Mobile menu">
+    @if (showAction) {
+      <a class="mobile-menu-start" routerLink="/home" (click)="menuOpen.set(false)">{{ t('startCheckIn') }}</a>
+    }
+    @if (auth.isAuthenticated()) {
+      <div class="mobile-menu-group">
+        @for (link of userLinks; track link.path) {
+          <a
+            class="mobile-menu-action"
+            [routerLink]="link.path"
+            routerLinkActive="active"
+            (click)="menuOpen.set(false)"
+            >{{ t(link.labelKey) }}</a
+          >
+        }
+      </div>
+    }
     @if (auth.isAuthenticated()) {
       <div class="mobile-menu-group">
         @for (link of userLinks; track link.path) {
