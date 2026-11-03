@@ -72,12 +72,22 @@ export class AuthService {
        FROM exposure_attempts WHERE user_id = $1 ORDER BY created_at DESC`,
       [userId],
     );
+    const diaryEntries = await this.database.query<
+      AccountExport['diaryEntries'][number]
+    >(
+      `SELECT id, situation, thought, emotion, intensity_before AS "intensityBefore",
+        alternative_thought AS "alternativeThought", intensity_after AS "intensityAfter",
+        created_at AS "createdAt"
+       FROM diary_entries WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId],
+    );
     return {
       exportedAt: new Date().toISOString(),
       account,
       sessions,
       exposureSteps,
       exposureAttempts,
+      diaryEntries,
     };
   }
 

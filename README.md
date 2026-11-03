@@ -32,13 +32,15 @@ AGENTS.md   Konvencie vývoja
 - Globálne: `ValidationPipe` (whitelist, DTO cez class-validator), `ThrottlerGuard` (120 požiadaviek/min), `helmet`
 - `sessions/` – ukladanie a výpis dokončených check-inov (vyžaduje token)
 - `exposure/` – expozičný rebríček: kroky (0–10) a pokusy pred/po, max 30 krokov na účet, vlastníctvo sa overuje pri každom volaní, zahrnuté v exporte a kaskádovom zmazaní
+- `diary/` – denník úzkosti (záznam myšlienok: situácia, myšlienka, emócia, intenzita pred/po, alternatíva), max 1000 záznamov, v exporte a kaskádovom zmazaní
 - `database/` – Postgres pripojenie (`pg`, Neon) a schéma; v teste PGlite (Postgres v pamäti)
-- API prefix `/api`: `GET /health`, `POST /auth/register`, `POST /auth/login`, `POST|GET /sessions`, `GET|POST /exposure`, `POST /exposure/:id/attempts`, `DELETE /exposure/:id`
+- API prefix `/api`: `GET /health`, `POST /auth/register`, `POST /auth/login`, `POST|GET /sessions`, `GET|POST /exposure`, `POST /exposure/:id/attempts`, `DELETE /exposure/:id`, `GET|POST /diary`, `DELETE /diary/:id`
 
 ### Frontend (`frontend/src/app`)
 - `components/` – každý komponent vo vlastnom priečinku (šablóna, štýly, test)
 - `components/session-flow/` – priebeh pre Pred/Po: výber fázy → popis a intenzita → vedené cvičenie (`guided-exercise`, kroky v `sessions/constants/guided-steps.constant.ts`) → check-in → zhrnutie. Fáza „Neviem“ zostáva pri jednovetovej podpore.
 - `components/now-support/` – režim Teraz (`/now`): `breathing-guide`, `grounding-guide`, `relaxation-guide`, `crisis-help`
+- `components/diary/` – denník úzkosti (`/diary`, po prihlásení); krízová detekcia beží nad textom formulára
 - `components/exposure-ladder/` – expozičný rebríček (`/ladder`, po prihlásení): kroky od najľahšieho, zvýraznený „ďalší krok“, krok sa berie ako zvládnutý, keď posledný pokus skončil na úzkosti ≤ 3 (`exposure/exposure-progress.ts`)
 - `core/crisis/` – detekcia krízových fráz vo voľnom texte (`crisis-detector.ts`, vzory v `crisis-patterns.constant.ts`); beží len v prehliadači, text sa nikam neposiela. Pri zhode sa ukáže `crisis-alert` s kontaktmi (nebráni pokračovaniu).
 - `now/` – modely a konštanty režimu Teraz (dych, grounding, svalové uvoľnenie, krízové kontakty)
@@ -76,7 +78,7 @@ Hotové: autentifikácia, história, tri jazyky, dark mode, tok Pred/Po a **rež
 
 Zostáva (podľa priority):
 1. **Bezpečnosť a krízy:** psychológom schválený a rozšírený zoznam krízových fráz, overenie krízových čísel.
-2. **Obsah:** hotový expozičný rebríček; zostáva denník úzkosti, chladový podnet, worry time a kontrola všetkých textov psychológom.
+2. **Obsah:** hotový expozičný rebríček a denník úzkosti; zostáva stránka „Môj pokrok“ (vyhodnotenie), chladový podnet, worry time a kontrola všetkých textov psychológom. Texty denníka sú v databáze zatiaľ nešifrované (šifrovanie citlivých polí je v bode 3).
 2a. **Odpovede z vedených cvičení sa zatiaľ neukladajú** (ostávajú len v pamäti prehliadača). Ak sa majú ukladať do denníka, treba šifrovanie a súhlas.
 2b. **Režim Teraz offline** (service worker / PWA) a voliteľné uloženie do histórie po dokončení.
 3. **Backend:** šifrovanie citlivých polí, migrácie schémy, refresh tokeny/odhlásenie na serveri, throttler za proxy (nastaviť `trust proxy`), CORS pre produkciu.

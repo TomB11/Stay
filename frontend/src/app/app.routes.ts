@@ -39,6 +39,15 @@ const ladderPage: PageContent = {
   isLadder: true,
 };
 
+const diaryPage: PageContent = {
+  eyebrowKey: 'diaryEyebrow',
+  titleKey: 'diaryTitle',
+  descriptionKey: 'diaryDescription',
+  panelTitleKey: 'diaryTitle',
+  panelTextKey: 'diaryDescription',
+  isDiary: true,
+};
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: SessionFlowComponent },
@@ -61,6 +70,12 @@ export const routes: Routes = [
     component: BasicPageComponent,
     canActivate: [authGuard],
     data: ladderPage,
+  },
+  {
+    path: 'diary',
+    component: BasicPageComponent,
+    canActivate: [authGuard],
+    data: diaryPage,
   },
   { path: '**', redirectTo: 'home' },
 ];

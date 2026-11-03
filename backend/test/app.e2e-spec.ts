@@ -284,6 +284,79 @@ describe('AppController (e2e)', () => {
     });
   });
 
+  describe('anxiety diary', () => {
+    const entry = {
+      situation: 'Meeting with the manager',
+      thought: 'I will say something stupid',
+      emotion: 'fear',
+      intensityBefore: 8,
+      alternativeThought: 'I prepared and can ask for clarification',
+      intensityAfter: 5,
+    };
+    const registerUser = async (email: string) => {
+      const response = await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({ email, password: 'secure-password', ...consent })
+        .expect(201);
+      return { Authorization: ['Bearer', response.body.token].join(' ') };
+    };
+
+    it('requires authentication', async () => {
+      await request(app.getHttpServer()).get('/api/diary').expect(401);
+    });
+
+    it('stores, lists, exports and cascades entries on account delete', async () => {
+      const auth = await registerUser('diary@example.com');
+      await request(app.getHttpServer()).post('/api/diary').set(auth).send(entry).expect(201);
+      const list = await request(app.getHttpServer()).get('/api/diary').set(auth).expect(200);
+      expect(list.body).toHaveLength(1);
+      expect(list.body[0]).toMatchObject(entry);
+
+      const exported = await request(app.getHttpServer())
+        .get('/api/auth/export')
+        .set(auth)
+        .expect(200);
+      expect(exported.body.diaryEntries).toHaveLength(1);
+
+      await request(app.getHttpServer()).delete('/api/auth/account').set(auth).expect(204);
+      const [counts] = await app
+        .get(DatabaseService)
+        .query<{ d: number }>('SELECT COUNT(*)::int AS d FROM diary_entries');
+      expect(counts.d).toBe(0);
+    });
+
+    it('validates input and isolates users', async () => {
+      const owner = await registerUser('diary-owner@example.com');
+      const other = await registerUser('diary-other@example.com');
+      await request(app.getHttpServer())
+        .post('/api/diary')
+        .set(owner)
+        .send({ ...entry, thought: '' })
+        .expect(400);
+      await request(app.getHttpServer())
+        .post('/api/diary')
+        .set(owner)
+        .send({ ...entry, intensityAfter: 11 })
+        .expect(400);
+      const created = await request(app.getHttpServer())
+        .post('/api/diary')
+        .set(owner)
+        .send(entry)
+        .expect(201);
+
+      const otherList = await request(app.getHttpServer()).get('/api/diary').set(other);
+      expect(otherList.body).toEqual([]);
+      await request(app.getHttpServer())
+        .delete(`/api/diary/${created.body.id}`)
+        .set(other)
+        .expect(404);
+      await request(app.getHttpServer())
+        .delete(`/api/diary/${created.body.id}`)
+        .set(owner)
+        .expect(204);
+    });
+  });
+
   it('rate limits repeated authentication attempts', async () => {
     const attempt = () =>
       request(app.getHttpServer())

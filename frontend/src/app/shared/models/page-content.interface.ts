@@ -9,4 +9,5 @@ export interface PageContent {
   isHistory?: boolean;
   isProfile?: boolean;
   isLadder?: boolean;
+  isDiary?: boolean;
 }

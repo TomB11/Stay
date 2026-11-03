@@ -16,6 +16,16 @@ export interface AccountExport {
     expectedAnxiety: number;
     createdAt: string;
   }[];
+  diaryEntries: {
+    id: string;
+    situation: string;
+    thought: string;
+    emotion: string;
+    intensityBefore: number;
+    alternativeThought: string;
+    intensityAfter: number;
+    createdAt: string;
+  }[];
   exposureAttempts: {
     id: string;
     stepId: string;
