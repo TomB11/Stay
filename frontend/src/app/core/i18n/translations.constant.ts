@@ -251,6 +251,7 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
       'Your anxiety has been rising recently. It may help to talk to a psychologist or your doctor. STAY can support you, but it does not replace professional help.',
     progressHelpNow: 'I need calm right now',
     navAccount: 'Your account',
+    serverWaking: 'The server is waking up, this can take up to a minute…',
     navPreferences: 'Language and appearance',
   },
   [Language.Slovak]: {
@@ -496,6 +497,7 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
       'Vaša úzkosť v poslednom čase rastie. Môže pomôcť rozhovor s psychológom alebo lekárom. STAY vás môže podporiť, ale odbornú pomoc nenahrádza.',
     progressHelpNow: 'Potrebujem pokoj hneď teraz',
     navAccount: 'Váš účet',
+    serverWaking: 'Server sa prebúdza, môže to trvať až minútu…',
     navPreferences: 'Jazyk a vzhľad',
   },
   [Language.Czech]: {
@@ -740,6 +742,7 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
       'Vaše úzkost v poslední době roste. Může pomoci rozhovor s psychologem nebo lékařem. STAY vás může podpořit, ale odbornou pomoc nenahrazuje.',
     progressHelpNow: 'Potřebuji klid hned teď',
     navAccount: 'Váš účet',
+    serverWaking: 'Server se probouzí, může to trvat až minutu…',
     navPreferences: 'Jazyk a vzhled',
   },
 };

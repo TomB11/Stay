@@ -7,11 +7,12 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { authInterceptor } from './core/auth.interceptor';
+import { networkActivityInterceptor } from './core/network-activity.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([networkActivityInterceptor, authInterceptor])),
     provideRouter(routes),
   ],
 };

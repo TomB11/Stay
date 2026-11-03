@@ -1,1 +1,7 @@
 <router-outlet />
+@if (activity.slow()) {
+  <div class="slow-banner" role="status" aria-live="polite">
+    <span class="slow-spinner" aria-hidden="true"></span>
+    {{ t('serverWaking') }}
+  </div>
+}

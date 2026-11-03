@@ -3,3 +3,35 @@
   display: block;
   min-height: 100dvh;
 }
+.slow-banner {
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  bottom: 20px;
+  box-shadow: var(--shadow-lift);
+  color: var(--color-navy);
+  display: flex;
+  font:
+    700 0.85rem var(--font-body);
+  gap: 10px;
+  left: 50%;
+  max-width: calc(100vw - 32px);
+  padding: 10px 18px;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+.slow-spinner {
+  animation: slow-spin 0.9s linear infinite;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+}
+@keyframes slow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

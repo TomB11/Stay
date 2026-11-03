@@ -227,4 +227,5 @@ export type TranslationKey =
   | 'progressHelpRising'
   | 'progressHelpNow'
   | 'navAccount'
+  | 'serverWaking'
   | 'navPreferences';

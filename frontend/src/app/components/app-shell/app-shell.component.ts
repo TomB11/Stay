@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NetworkActivityService } from '../../core/network-activity.service';
+import { LanguageService } from '../../core/i18n/language.service';
+import { TranslationKey } from '../../core/i18n/translation-key.type';
 
 @Component({
   standalone: true,
@@ -9,4 +12,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app-shell.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppShellComponent {}
+export class AppShellComponent {
+  protected readonly activity = inject(NetworkActivityService);
+  private readonly language = inject(LanguageService);
+
+  protected t(key: TranslationKey): string {
+    return this.language.translate(key);
+  }
+}
