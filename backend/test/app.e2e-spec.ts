@@ -357,6 +357,48 @@ describe('AppController (e2e)', () => {
     });
   });
 
+  describe('insights', () => {
+    it('requires authentication', async () => {
+      await request(app.getHttpServer()).get('/api/insights').expect(401);
+    });
+
+    it('summarises the account data', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({ email: 'insights@example.com', password: 'secure-password', ...consent })
+        .expect(201);
+      const auth = { Authorization: ['Bearer', response.body.token].join(' ') };
+
+      const empty = await request(app.getHttpServer()).get('/api/insights').set(auth).expect(200);
+      expect(empty.body.totalRecords).toBe(0);
+      expect(empty.body.exposure).toEqual({ totalSteps: 0, masteredSteps: 0 });
+
+      await request(app.getHttpServer())
+        .post('/api/sessions')
+        .set(auth)
+        .send({ phase: 'now', situation: 'x', initialIntensity: 8, finalIntensity: 4, feedback: 'yes' })
+        .expect(201);
+      const step = await request(app.getHttpServer())
+        .post('/api/exposure')
+        .set(auth)
+        .send({ title: 'Step', expectedAnxiety: 4 })
+        .expect(201);
+      await request(app.getHttpServer())
+        .post(`/api/exposure/${step.body.id}/attempts`)
+        .set(auth)
+        .send({ anxietyBefore: 6, anxietyAfter: 2 })
+        .expect(201);
+
+      const insights = await request(app.getHttpServer()).get('/api/insights').set(auth).expect(200);
+      expect(insights.body.totalRecords).toBe(1);
+      expect(insights.body.sessionReduction).toEqual({ count: 1, average: 4 });
+      expect(insights.body.helpfulRate).toBe(100);
+      expect(insights.body.exposure).toEqual({ totalSteps: 1, masteredSteps: 1 });
+      expect(insights.body.streakDays).toBe(1);
+      expect(insights.body.suggestProfessionalHelp).toBeNull();
+    });
+  });
+
   it('rate limits repeated authentication attempts', async () => {
     const attempt = () =>
       request(app.getHttpServer())

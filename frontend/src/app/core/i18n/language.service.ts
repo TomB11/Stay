@@ -13,4 +13,8 @@ export class LanguageService {
   translate(key: TranslationKey): string {
     return TRANSLATIONS[this.currentLanguage()][key];
   }
+
+  formatNumber(value: number): string {
+    return new Intl.NumberFormat(this.currentLanguage(), { maximumFractionDigits: 1 }).format(value);
+  }
 }

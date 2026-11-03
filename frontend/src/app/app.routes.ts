@@ -48,6 +48,15 @@ const diaryPage: PageContent = {
   isDiary: true,
 };
 
+const progressPage: PageContent = {
+  eyebrowKey: 'progressEyebrow',
+  titleKey: 'progressTitle',
+  descriptionKey: 'progressDescription',
+  panelTitleKey: 'progressTitle',
+  panelTextKey: 'progressDescription',
+  isProgress: true,
+};
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: SessionFlowComponent },
@@ -76,6 +85,12 @@ export const routes: Routes = [
     component: BasicPageComponent,
     canActivate: [authGuard],
     data: diaryPage,
+  },
+  {
+    path: 'progress',
+    component: BasicPageComponent,
+    canActivate: [authGuard],
+    data: progressPage,
   },
   { path: '**', redirectTo: 'home' },
 ];

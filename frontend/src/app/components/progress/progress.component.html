@@ -1,0 +1,86 @@
+<div class="safety-note" role="note">{{ t('progressNote') }}</div>
+
+@if (error()) {
+  <p class="error" role="alert">{{ t('progressError') }}</p>
+} @else if (insights(); as data) {
+  @if (data.suggestProfessionalHelp) {
+    <aside class="help-banner" role="note">
+      <strong>{{ t('progressHelpTitle') }}</strong>
+      <p>
+        {{ t(data.suggestProfessionalHelp === 'high' ? 'progressHelpHigh' : 'progressHelpRising') }}
+      </p>
+      <a class="btn-link" routerLink="/now">{{ t('progressHelpNow') }}</a>
+    </aside>
+  }
+
+  @if (data.totalRecords === 0 && data.exposure.totalSteps === 0) {
+    <p class="empty">{{ t('progressEmpty') }}</p>
+  } @else {
+    <section class="cards">
+      <article class="card wide">
+        <h2>{{ t('progressTrendTitle') }}</h2>
+        <div class="trend">
+          <div>
+            <span class="value">{{ format(data.averageIntensity.last7Days) }}</span>
+            <span class="label">{{ t('progressLast7') }}</span>
+          </div>
+          <div>
+            <span class="value muted">{{ format(data.averageIntensity.previous7Days) }}</span>
+            <span class="label">{{ t('progressPrevious7') }}</span>
+          </div>
+        </div>
+        <p class="message">{{ t(trendMessage()) }}</p>
+      </article>
+
+      <article class="card">
+        <h2>{{ t('progressExercisesTitle') }}</h2>
+        @if (data.sessionReduction.average !== null) {
+          <span class="value">−{{ format(data.sessionReduction.average) }}</span>
+          <span class="label">{{ t('progressAverageDrop') }} ({{ data.sessionReduction.count }}×)</span>
+          <ul class="phases">
+            @for (item of data.reductionByPhase; track item.phase) {
+              <li>
+                <span>{{ phaseLabel(item.phase) }}</span>
+                <span>−{{ format(item.averageReduction) }}</span>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="message">{{ t('progressNoData') }}</p>
+        }
+      </article>
+
+      <article class="card">
+        <h2>{{ t('progressDiaryTitle') }}</h2>
+        @if (data.diaryReduction.average !== null) {
+          <span class="value">−{{ format(data.diaryReduction.average) }}</span>
+          <span class="label">{{ t('progressAverageDrop') }} ({{ data.diaryReduction.count }}×)</span>
+        } @else {
+          <p class="message">{{ t('progressNoData') }}</p>
+        }
+      </article>
+
+      <article class="card">
+        <h2>{{ t('progressHelpfulTitle') }}</h2>
+        @if (data.helpfulRate !== null) {
+          <span class="value">{{ data.helpfulRate }} %</span>
+          <span class="label">{{ t('progressHelpfulLabel') }}</span>
+        } @else {
+          <p class="message">{{ t('progressNoData') }}</p>
+        }
+      </article>
+
+      <article class="card">
+        <h2>{{ t('progressLadderTitle') }}</h2>
+        <span class="value">{{ data.exposure.masteredSteps }} / {{ data.exposure.totalSteps }}</span>
+        <span class="label">{{ t('progressLadderLabel') }}</span>
+      </article>
+
+      <article class="card">
+        <h2>{{ t('progressStreakTitle') }}</h2>
+        <span class="value">{{ data.streakDays }}</span>
+        <span class="label">{{ t('progressStreakLabel') }}</span>
+      </article>
+    </section>
+  }
+}

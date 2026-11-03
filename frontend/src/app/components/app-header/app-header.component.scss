@@ -71,13 +71,67 @@
   color: var(--color-navy);
 }
 .theme-toggle {
+  align-items: center;
   border: 1px solid color-mix(in srgb, var(--color-text-muted) 70%, transparent);
   border-radius: var(--radius-pill);
   color: var(--color-navy);
+  display: inline-flex;
+  justify-content: center;
+  min-width: 40px;
+  padding: 8px;
+}
+.header-tools {
+  gap: 14px;
+}
+.tool-group {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.tool-group.preferences {
+  background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+.tool-divider {
+  align-self: stretch;
+  background: var(--color-border);
+  margin: 4px 0;
+  width: 1px;
+}
+.user-nav {
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 0 0;
+}
+.user-nav a {
+  border-radius: var(--radius-pill);
+  color: var(--color-text-secondary);
   font:
-    0.72rem var(--font-body);
-  min-width: 44px;
-  padding: 8px 10px;
+    700 0.8rem var(--font-body);
+  padding: 7px 14px;
+}
+.user-nav a:hover,
+.user-nav a:focus-visible,
+.user-nav a.active {
+  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  color: var(--color-navy);
+}
+.mobile-menu-group {
+  display: grid;
+  gap: 8px;
+}
+.mobile-menu-group + .mobile-menu-group {
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+}
+.theme-row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.mobile-menu-action.active {
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
 }
 .menu-toggle {
   border: 1px solid color-mix(in srgb, var(--color-text-muted) 70%, transparent);
@@ -85,9 +139,10 @@
   color: var(--color-navy);
   font:
     700 0.7rem var(--font-body);
-  min-width: 56px;
+  align-items: center;
+  display: inline-flex;
+  min-width: 44px;
   padding: 9px 12px;
-  text-transform: uppercase;
 }
 .mobile-menu {
   background: color-mix(in srgb, var(--color-surface) 94%, transparent);

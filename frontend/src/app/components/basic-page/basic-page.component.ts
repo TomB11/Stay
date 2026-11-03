@@ -6,6 +6,7 @@ import { AccountSettingsComponent } from '../account-settings/account-settings.c
 import { AppHeaderComponent } from '../app-header/app-header.component';
 import { DiaryComponent } from '../diary/diary.component';
 import { ExposureLadderComponent } from '../exposure-ladder/exposure-ladder.component';
+import { ProgressComponent } from '../progress/progress.component';
 import { SessionHistoryComponent } from '../session-history/session-history.component';
 
 @Component({
@@ -16,6 +17,7 @@ import { SessionHistoryComponent } from '../session-history/session-history.comp
     AppHeaderComponent,
     DiaryComponent,
     ExposureLadderComponent,
+    ProgressComponent,
     RouterLink,
     SessionHistoryComponent,
   ],

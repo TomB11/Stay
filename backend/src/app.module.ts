@@ -4,6 +4,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { SessionsModule } from './sessions/sessions.module.js';
+import { InsightsModule } from './insights/insights.module.js';
 import { DiaryModule } from './diary/diary.module.js';
 import { ExposureModule } from './exposure/exposure.module.js';
 import { AuthModule } from './auth/auth.module.js';
@@ -18,6 +19,7 @@ import { DatabaseModule } from './database/database.module.js';
     SessionsModule,
     ExposureModule,
     DiaryModule,
+    InsightsModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SessionRecord } from '../sessions/models/session-record.interface';
+import { Insights } from '../progress/models/insights.interface';
 import { DiaryEntry, NewDiaryEntry } from '../diary/models/diary-entry.interface';
 import { ExposureAttempt, ExposureStep } from '../exposure/models/exposure-step.interface';
 import { API_BASE_URL } from './api.constant';
@@ -36,6 +37,10 @@ export class ApiService {
 
   deleteExposureStep(stepId: string) {
     return this.http.delete<void>(`${API_BASE_URL}/exposure/${stepId}`);
+  }
+
+  getInsights() {
+    return this.http.get<Insights>(`${API_BASE_URL}/insights`);
   }
 
   getDiaryEntries() {

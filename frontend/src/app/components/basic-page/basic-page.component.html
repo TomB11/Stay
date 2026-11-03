@@ -12,6 +12,8 @@
       <app-exposure-ladder />
     } @else if (content.isDiary) {
       <app-diary />
+    } @else if (content.isProgress) {
+      <app-progress />
     } @else {
       <div class="panel">
         <h2>{{ t(content.panelTitleKey) }}</h2>
