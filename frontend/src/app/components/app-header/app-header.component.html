@@ -102,19 +102,6 @@
         }
       </div>
     }
-    @if (auth.isAuthenticated()) {
-      <div class="mobile-menu-group">
-        @for (link of userLinks; track link.path) {
-          <a
-            class="mobile-menu-action"
-            [routerLink]="link.path"
-            routerLinkActive="active"
-            (click)="menuOpen.set(false)"
-            >{{ t(link.labelKey) }}</a
-          >
-        }
-      </div>
-    }
     <div class="mobile-menu-group preferences">
       <div class="mobile-menu-section">
         <span>{{ t('languageLabel') }}</span>
