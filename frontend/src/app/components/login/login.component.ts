@@ -23,7 +23,12 @@ export class LoginComponent {
   protected readonly language = inject(LanguageService);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
-  protected readonly email = signal('');
+
+  constructor() {
+    if (this.auth.isAuthenticated()) {
+      void this.router.navigate(['/home']);
+    }
+  }  protected readonly email = signal('');
   protected readonly password = signal('');
   protected readonly registerMode = signal(false);
   protected readonly error = signal('');

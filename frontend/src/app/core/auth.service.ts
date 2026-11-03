@@ -38,13 +38,13 @@ export class AuthService {
 
   /** Downloads every record the backend stores for the signed-in account. */
   exportData() {
-    return this.http.get<AccountExport>(`/export`);
+    return this.http.get<AccountExport>(`${this.baseUrl}/export`);
   }
 
   /** Permanently deletes the account and signs the user out locally. */
   deleteAccount() {
     return this.http
-      .delete<void>(`/account`)
+      .delete<void>(`${this.baseUrl}/account`)
       .pipe(tap(() => this.logout()));
   }
 

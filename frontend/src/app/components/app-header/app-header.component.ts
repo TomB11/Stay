@@ -5,7 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Language } from '../../core/i18n/language.enum';
 import { LanguageService } from '../../core/i18n/language.service';
 import { AuthService } from '../../core/auth.service';
@@ -30,6 +30,7 @@ export class AppHeaderComponent {
   protected readonly userLinks = USER_NAV_LINKS;
   protected readonly theme = inject(ThemeService);
   protected readonly menuOpen = signal(false);
+  private readonly router = inject(Router);
 
   protected t(key: TranslationKey): string {
     return this.language.translate(key);
@@ -38,6 +39,7 @@ export class AppHeaderComponent {
   protected signOut(): void {
     this.auth.logout();
     this.menuOpen.set(false);
+    void this.router.navigate(['/home']);
   }
 
   protected toggleMenu(): void {
