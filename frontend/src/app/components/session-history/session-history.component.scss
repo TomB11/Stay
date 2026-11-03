@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+.history-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 40px;
+}
+.history-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+}
+.history-item-header,
+.history-item-meta {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.history-item strong {
+  color: var(--color-primary);
+  font:
+    700 0.8rem var(--font-body);
+  text-transform: uppercase;
+}
+.history-item time,
+.history-item-meta {
+  color: var(--color-text-secondary);
+  font:
+    0.75rem var(--font-body);
+}
+.history-item p {
+  color: var(--color-navy);
+  line-height: 1.5;
+  margin: 12px 0;
+}
+.history-item-meta {
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+}

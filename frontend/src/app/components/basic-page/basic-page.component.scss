@@ -1,0 +1,92 @@
+:host {
+  color: var(--color-navy);
+  display: block;
+  font-family: var(--font-body);
+  min-height: 100dvh;
+}
+.wordmark img {
+  display: block;
+  height: 38px;
+  object-fit: contain;
+  width: 110px;
+}
+.page-shell {
+  background: transparent;
+  box-sizing: border-box;
+  min-height: 100dvh;
+  padding: 24px clamp(24px, 6vw, 88px);
+}
+header {
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  font:
+    0.85rem var(--font-body);
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+.wordmark {
+  color: var(--color-navy);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.wordmark span,
+.eyebrow {
+  color: var(--color-primary);
+}
+section {
+  margin: 0 auto;
+  max-width: 650px;
+  padding: clamp(32px, 8vh, 80px) 0;
+}
+.eyebrow {
+  font:
+    700 0.72rem var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+h1 {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin: 18px 0;
+}
+.lead {
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+  line-height: 1.55;
+  max-width: 570px;
+}
+.panel {
+  box-shadow: var(--shadow-soft);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-top: 40px;
+  padding: 25px;
+}
+h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 0;
+}
+.panel p {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+.primary {
+  box-shadow: var(--shadow-soft);
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-on-primary);
+  display: inline-block;
+  font:
+    700 0.9rem var(--font-body);
+  margin-top: 10px;
+  padding: 14px 20px;
+}

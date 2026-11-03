@@ -1,0 +1,25 @@
+<section class="panel">
+  <h2>{{ t('accountDataTitle') }}</h2>
+  <p>{{ t('accountDataText') }}</p>
+  @if (error()) {
+    <p class="error" role="alert">{{ t('accountActionError') }}</p>
+  }
+  <div class="actions">
+    <button class="secondary" type="button" (click)="exportData()">
+      {{ t('exportData') }}
+    </button>
+    @if (confirmingDelete()) {
+      <p class="warning" role="alert">{{ t('deleteConfirmText') }}</p>
+      <button class="danger" type="button" (click)="deleteAccount()">
+        {{ t('deleteConfirmAction') }}
+      </button>
+      <button class="secondary" type="button" (click)="confirmingDelete.set(false)">
+        {{ t('cancelAction') }}
+      </button>
+    } @else {
+      <button class="danger-outline" type="button" (click)="confirmingDelete.set(true)">
+        {{ t('deleteAccount') }}
+      </button>
+    }
+  </div>
+</section>

@@ -1,0 +1,98 @@
+<header class="app-header d-flex align-items-center justify-content-between">
+  <a class="brand" routerLink="/home" aria-label="STAY home">
+    <img src="assets/logo2.png" alt="STAY" />
+  </a>
+  <div class="header-tools d-none d-md-flex align-items-center gap-3">
+    <div class="language-switcher d-flex gap-1" aria-label="Language">
+      <button
+        type="button"
+        [class.active]="language.currentLanguage() === languages.Slovak"
+        (click)="language.setLanguage(languages.Slovak)"
+      >
+        SK
+      </button>
+      <button
+        type="button"
+        [class.active]="language.currentLanguage() === languages.Czech"
+        (click)="language.setLanguage(languages.Czech)"
+      >
+        CZ
+      </button>
+      <button
+        type="button"
+        [class.active]="language.currentLanguage() === languages.English"
+        (click)="language.setLanguage(languages.English)"
+      >
+        EN
+      </button>
+    </div>
+    <p class="tagline d-none d-md-block">{{ t('tagline') }}</p>
+    <button
+      class="theme-toggle btn"
+      type="button"
+      (click)="theme.toggle()"
+      [attr.aria-label]="theme.isDark() ? t('useLightTheme') : t('useDarkTheme')"
+    >
+      {{ theme.isDark() ? 'sun' : 'moon' }}
+    </button>
+    @if (auth.isAuthenticated()) {
+      <button class="header-account btn" type="button" (click)="signOut()">
+        {{ t('signOut') }}
+      </button>
+    } @else {
+      <a class="header-account btn" routerLink="/login">{{ t('loginAction') }}</a>
+    }
+    @if (showAction) {
+      <a class="header-action btn" routerLink="/home">{{ t('startCheckIn') }}</a>
+    }
+  </div>
+  <button
+    class="menu-toggle d-md-none btn"
+    type="button"
+    [attr.aria-expanded]="menuOpen()"
+    [attr.aria-label]="menuOpen() ? t('closeMenu') : t('openMenu')"
+    (click)="toggleMenu()"
+  >
+    {{ menuOpen() ? 'close' : 'menu' }}
+  </button>
+</header>
+@if (menuOpen()) {
+  <nav class="mobile-menu d-md-none" aria-label="Mobile menu">
+    <div class="mobile-menu-section">
+      <span>{{ t('languageLabel') }}</span>
+      <div class="language-switcher d-flex gap-1">
+        <button
+          type="button"
+          [class.active]="language.currentLanguage() === languages.Slovak"
+          (click)="language.setLanguage(languages.Slovak)"
+        >
+          SK
+        </button>
+        <button
+          type="button"
+          [class.active]="language.currentLanguage() === languages.Czech"
+          (click)="language.setLanguage(languages.Czech)"
+        >
+          CZ
+        </button>
+        <button
+          type="button"
+          [class.active]="language.currentLanguage() === languages.English"
+          (click)="language.setLanguage(languages.English)"
+        >
+          EN
+        </button>
+      </div>
+    </div>
+    <button class="mobile-menu-action btn" type="button" (click)="theme.toggle()">
+      {{ theme.isDark() ? t('useLightTheme') : t('useDarkTheme') }}
+    </button>
+    @if (auth.isAuthenticated()) {
+      <button class="mobile-menu-action btn" type="button" (click)="signOut()">
+        {{ t('signOut') }}
+      </button>
+    } @else {
+      <a class="mobile-menu-action btn" routerLink="/login">{{ t('loginAction') }}</a>
+    }
+  </nav>
+}

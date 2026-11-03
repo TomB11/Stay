@@ -1,0 +1,13 @@
+<section class="support-view" aria-labelledby="support-title">
+  <div class="calm-mark" aria-hidden="true">◌</div>
+  <div class="eyebrow">{{ t(guidance.labelKey) }}</div>
+  <h1 id="support-title">{{ t(guidance.titleKey) }}</h1>
+  <p class="session-recap">“{{ situation }}”</p>
+  <div class="practice d-flex align-items-start gap-3">
+    <span>01</span>
+    <p>{{ t(guidance.promptKey) }}</p>
+  </div>
+  <button class="primary btn" type="button" (click)="completed.emit()">
+    {{ t(guidance.actionKey) }}
+  </button>
+</section>

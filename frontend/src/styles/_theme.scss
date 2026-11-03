@@ -1,0 +1,72 @@
+:root {
+  --font-body: ui-rounded, 'Nunito', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-pill: 999px;
+  --space-card: clamp(20px, 4vw, 28px);
+
+  --color-primary: #7c70c9;
+  --color-primary-strong: #6458b8;
+  --color-on-primary: #ffffff;
+  --color-secondary: #5b93c4;
+  --color-accent-aqua: #79c9c3;
+  --color-accent-pink: #d8a6c8;
+  --color-navy: #2a3550;
+  --color-background: #f6f7fb;
+  --color-background-glow: #e9e6fa;
+  --color-background-glow-alt: #def1f0;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1effb;
+  --color-border: #e3e6ef;
+  --color-text-secondary: #5f6b82;
+  --color-text-muted: #98a2b3;
+  --color-danger: #b42318;
+  --color-on-danger: #ffffff;
+  --color-phase-before: #fff7e6;
+  --color-phase-before-border: #f3e4bd;
+  --color-phase-before-icon: #b18b25;
+  --color-phase-now: #fdeff5;
+  --color-phase-now-border: #f2d5e2;
+  --color-phase-now-icon: #b35c8a;
+  --color-phase-after: #edf4ff;
+  --color-phase-after-border: #d3e2f6;
+  --color-phase-after-icon: #5d8bd0;
+  --shadow-soft: 0 1px 2px rgb(42 53 80 / 4%), 0 8px 24px rgb(42 53 80 / 6%);
+  --shadow-lift: 0 2px 4px rgb(42 53 80 / 6%), 0 14px 32px rgb(42 53 80 / 10%);
+}
+
+[data-theme='dark'] {
+  --color-primary: #b5a9f0;
+  --color-primary-strong: #c9c0f6;
+  --color-on-primary: #1b2236;
+  --color-secondary: #91c5ed;
+  --color-accent-aqua: #8fddd6;
+  --color-accent-pink: #efb8dc;
+  --color-navy: #eef2ff;
+  --color-background: #141b2d;
+  --color-background-glow: #231f45;
+  --color-background-glow-alt: #12303a;
+  --color-surface: #222c45;
+  --color-surface-hover: #2c3857;
+  --color-border: #35405e;
+  --color-text-secondary: #c4ccdc;
+  --color-text-muted: #71809d;
+  --color-danger: #ff8a80;
+  --color-on-danger: #25141a;
+  --bs-body-bg: var(--color-background);
+  --bs-body-color: var(--color-navy);
+  --bs-border-color: var(--color-border);
+  --bs-secondary-color: var(--color-text-secondary);
+  --color-phase-before: #3a3527;
+  --color-phase-before-border: #6f6238;
+  --color-phase-before-icon: #e3c36e;
+  --color-phase-now: #3d2c38;
+  --color-phase-now-border: #7a4d65;
+  --color-phase-now-icon: #efa3c6;
+  --color-phase-after: #2a3a54;
+  --color-phase-after-border: #4d6c99;
+  --color-phase-after-icon: #8db8ee;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 20%), 0 8px 24px rgb(0 0 0 / 22%);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 25%), 0 14px 32px rgb(0 0 0 / 32%);
+}

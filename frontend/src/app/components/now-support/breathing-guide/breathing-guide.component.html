@@ -1,0 +1,11 @@
+<section class="breathing" aria-labelledby="breathing-phase">
+  <p class="reassure">{{ t('nowReassure') }}</p>
+  <div class="orb-wrap" aria-hidden="true">
+    <div class="orb" [style.animation-duration.s]="cycleSeconds"></div>
+    <span class="seconds">{{ phaseSecondsLeft() }}</span>
+  </div>
+  <h1 id="breathing-phase" aria-live="polite">{{ t(phaseKey()) }}</h1>
+  <button class="done btn" type="button" (click)="finish()">
+    {{ t('imDone') }}
+  </button>
+</section>

@@ -1,0 +1,173 @@
+@use './styles/theme';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/forms/form-control';
+@import 'bootstrap/scss/forms/form-range';
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/utilities/api';
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+body {
+  background:
+    radial-gradient(60rem 40rem at 12% -8%, var(--color-background-glow), transparent 60%),
+    radial-gradient(50rem 36rem at 105% 8%, var(--color-background-glow-alt), transparent 60%),
+    var(--color-background);
+  background-attachment: fixed;
+  color: var(--color-navy);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.shell,
+.page-shell {
+  background-color: transparent;
+}
+button,
+textarea,
+input {
+  font: inherit;
+}
+
+app-root .session-recap {
+  border-left: 2px solid var(--color-accent-pink);
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 26px 0;
+  padding-left: 16px;
+}
+app-root .practice {
+  align-items: start;
+  border-left: 2px solid var(--color-accent-aqua);
+  display: flex;
+  gap: 18px;
+  margin: 34px 0;
+  padding: 8px 0 8px 18px;
+}
+app-root .practice span {
+  color: var(--color-primary);
+  font:
+    700 0.75rem var(--font-body);
+}
+app-root .practice p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+app-root .question {
+  font-size: 1.15rem;
+  margin: 0 0 14px;
+}
+app-root .feedback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+app-root .feedback-actions button {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-navy);
+  cursor: pointer;
+  font:
+    0.9rem var(--font-body);
+  padding: 12px 18px;
+}
+app-root .feedback-actions button:hover,
+app-root .feedback-actions button:focus-visible {
+  background: var(--color-surface-hover);
+}
+app-root .summary-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 34px 0;
+}
+app-root .summary-grid div {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+}
+app-root .summary-grid small,
+app-root .summary-grid strong {
+  display: block;
+}
+app-root .summary-grid small {
+  color: var(--color-text-secondary);
+  font:
+    0.75rem var(--font-body);
+  margin-bottom: 8px;
+}
+app-root .summary-grid strong {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+app-root .btn-back,
+app-root .btn-link {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.9rem;
+  gap: 8px;
+  line-height: 1;
+  padding: 10px 18px;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+app-root .btn-back::before {
+  content: '';
+  border-bottom: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+  height: 7px;
+  transform: rotate(45deg);
+  width: 7px;
+}
+app-root .btn-link {
+  margin-top: 24px;
+}
+app-root .btn-back:hover,
+app-root .btn-back:focus-visible,
+app-root .btn-link:hover,
+app-root .btn-link:focus-visible {
+  background: var(--color-surface-hover);
+  border-color: var(--color-primary);
+  color: var(--color-navy);
+}
+app-root .btn-back:hover {
+  transform: translateX(-2px);
+}
+app-root a:not([class]):hover,
+app-root a:not([class]):focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

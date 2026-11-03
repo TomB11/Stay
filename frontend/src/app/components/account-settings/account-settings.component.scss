@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+.panel {
+  box-shadow: var(--shadow-soft);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-top: 32px;
+  max-width: 560px;
+  padding: 24px;
+}
+.actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+button {
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font:
+    700 0.9rem var(--font-body);
+  padding: 12px 18px;
+}
+.secondary {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+.danger {
+  background: var(--color-danger);
+  border: 1px solid var(--color-danger);
+  color: var(--color-on-danger);
+}
+.danger-outline {
+  background: transparent;
+  border: 1px solid var(--color-danger);
+  color: var(--color-danger);
+}
+.warning,
+.error {
+  color: var(--color-danger);
+  font:
+    0.88rem var(--font-body);
+  margin: 0;
+}

@@ -1,0 +1,28 @@
+@if (sessions().length) {
+  <div class="history-list">
+    @for (session of sessions(); track session.id) {
+      <article class="history-item">
+        <div class="history-item-header">
+          <strong>{{ phaseLabel(session) }}</strong>
+          <time [dateTime]="session.createdAt">{{ session.createdAt | date: 'medium' }}</time>
+        </div>
+        <p>{{ session.situation }}</p>
+        <div class="history-item-meta">
+          <span>{{ session.initialIntensity }} / 10 → {{ session.finalIntensity }} / 10</span>
+          <span>{{
+            session.feedback === 'yes'
+              ? t('yes')
+              : session.feedback === 'a-little'
+                ? t('aLittleHelp')
+                : t('notReally')
+          }}</span>
+        </div>
+      </article>
+    }
+  </div>
+} @else {
+  <div class="panel">
+    <h2>{{ t('historyPanelTitle') }}</h2>
+    <p>{{ t('historyPanelText') }}</p>
+  </div>
+}

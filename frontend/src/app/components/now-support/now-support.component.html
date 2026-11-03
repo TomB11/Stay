@@ -1,0 +1,45 @@
+<main class="now-shell">
+  <app-header />
+  <section class="now-content">
+    @switch (step()) {
+      @case ('breathing') {
+        <app-breathing-guide (finished)="go('check')" />
+      }
+      @case ('grounding') {
+        <app-grounding-guide (finished)="go('check')" />
+      }
+      @case ('relaxation') {
+        <app-relaxation-guide (finished)="go('check')" />
+      }
+      @case ('help') {
+        <app-crisis-help (closed)="go('check')" />
+      }
+      @case ('check') {
+        <div class="check">
+          <h1>{{ t('checkTitle') }}</h1>
+          <div class="options d-grid gap-2">
+            <button class="option btn" type="button" (click)="go('done')">{{ t('checkYes') }}</button>
+            <button class="option btn" type="button" (click)="go('breathing')">{{ t('keepBreathing') }}</button>
+            <button class="option btn" type="button" (click)="go('grounding')">{{ t('tryGrounding') }}</button>
+            <button class="option btn" type="button" (click)="go('relaxation')">{{ t('tryRelaxation') }}</button>
+            <button class="option help-option btn" type="button" (click)="go('help')">{{ t('needHelp') }}</button>
+          </div>
+        </div>
+      }
+      @case ('done') {
+        <div class="check">
+          <h1>{{ t('doneTitle') }}</h1>
+          <p class="lead">{{ t('doneText') }}</p>
+          <div class="options d-grid gap-2">
+            <button class="option btn" type="button" (click)="go('breathing')">{{ t('doneRestart') }}</button>
+            <a class="option btn" routerLink="/home">{{ t('returnHome') }}</a>
+          </div>
+        </div>
+      }
+    }
+    @if (step() === 'breathing' || step() === 'grounding' || step() === 'relaxation') {
+      <button class="btn-link" type="button" (click)="go('help')">{{ t('needHelp') }}</button>
+    }
+  </section>
+  <footer>{{ t('safetyNotice') }}</footer>
+</main>

@@ -1,0 +1,10 @@
+<ul class="contacts">
+  @for (contact of contacts(); track contact.number) {
+    <li>
+      <a class="contact" [href]="'tel:' + contact.number">
+        <span>{{ t(contact.labelKey) }}</span>
+        <strong>{{ contact.number }}</strong>
+      </a>
+    </li>
+  }
+</ul>

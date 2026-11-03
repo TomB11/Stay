@@ -1,0 +1,39 @@
+<section class="welcome" aria-labelledby="welcome-title">
+  <div class="welcome-layout row align-items-center g-5">
+    <div class="welcome-copy col-md-6">
+      <div class="welcome-brand">
+        <img src="assets/logo.png" alt="STAY" />
+      </div>
+      <h1 id="welcome-title">{{ t('chooseTitle') }}</h1>
+      <p class="intro">{{ t('chooseIntro') }}</p>
+    </div>
+    <div class="phase-panel col-md-6">
+      <div class="phase-list d-grid gap-2">
+        <a class="phase phase-now sos" routerLink="/now">
+          <span class="phase-icon" aria-hidden="true">◉</span
+          ><span
+            ><strong>{{ t('sosButton') }}</strong
+            ><small>{{ t('sosHint') }}</small></span
+          ><span class="arrow">→</span>
+        </a>
+        <button class="phase phase-before" type="button" (click)="selectPhase('before')">
+          <span class="phase-icon" aria-hidden="true">☼</span
+          ><span
+            ><strong>{{ t('before') }}</strong
+            ><small>{{ t('beforeDescription') }}</small></span
+          ><span class="arrow">→</span>
+        </button>
+        <button class="phase phase-after" type="button" (click)="selectPhase('after')">
+          <span class="phase-icon" aria-hidden="true">☁</span
+          ><span
+            ><strong>{{ t('after') }}</strong
+            ><small>{{ t('afterDescription') }}</small></span
+          ><span class="arrow">→</span>
+        </button>
+      </div>
+      <button class="btn-link" type="button" (click)="selectPhase('unsure')">
+        {{ t('unsure') }}
+      </button>
+    </div>
+  </div>
+</section>

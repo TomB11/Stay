@@ -1,0 +1,8 @@
+<section class="help" aria-labelledby="help-title">
+  <h1 id="help-title">{{ t('helpTitle') }}</h1>
+  <p class="warning">{{ t('helpWarning') }}</p>
+  <app-crisis-contacts />
+  <button class="btn-back" type="button" (click)="closed.emit()">
+    {{ t('back') }}
+  </button>
+</section>

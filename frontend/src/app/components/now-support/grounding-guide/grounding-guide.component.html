@@ -1,0 +1,8 @@
+<section class="grounding" aria-labelledby="grounding-step">
+  <p class="eyebrow">{{ t('groundingTitle') }}</p>
+  <div class="count" aria-hidden="true">{{ stepNumber() }}</div>
+  <h1 id="grounding-step" aria-live="polite">{{ t(stepKey()) }}</h1>
+  <button class="next btn" type="button" (click)="next()">
+    {{ t('continue') }}
+  </button>
+</section>

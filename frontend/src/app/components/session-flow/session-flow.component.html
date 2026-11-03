@@ -1,0 +1,41 @@
+<main class="shell">
+  <app-header />
+  @if (currentStep() === 'choose') {
+    <app-choose-phase (phaseSelected)="selectPhase($event)" />
+  } @else if (currentStep() === 'describe') {
+    <app-describe-situation
+      [situation]="situation()"
+      [anxietyLevel]="anxietyLevel()"
+      (situationChange)="updateSituation($event)"
+      (anxietyLevelChange)="updateAnxietyLevel($event)"
+      (continued)="continueToSupport()"
+      (back)="startOver()"
+    />
+  } @else if (currentStep() === 'support' && guidedSteps()) {
+    <app-guided-exercise
+      [steps]="guidedSteps()!"
+      [situation]="situation()"
+      (completed)="completeIntervention()"
+    />
+  } @else if (currentStep() === 'support') {
+    <app-support-section
+      [guidance]="guidance()"
+      [situation]="situation()"
+      (completed)="completeIntervention()"
+    />
+  } @else if (currentStep() === 'check-in') {
+    <app-check-in-section
+      [finalAnxietyLevel]="finalAnxietyLevel()"
+      (finalAnxietyLevelChange)="updateFinalAnxietyLevel($event)"
+      (feedbackSelected)="finishSession($event)"
+    />
+  } @else {
+    <app-summary-section
+      [anxietyLevel]="anxietyLevel()"
+      [finalAnxietyLevel]="finalAnxietyLevel()"
+      [feedback]="feedback()"
+      (restarted)="startOver()"
+    />
+  }
+  <footer>{{ t('safetyNotice') }}</footer>
+</main>

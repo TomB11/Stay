@@ -1,0 +1,19 @@
+<main class="page-shell">
+  <app-header [showAction]="true" />
+  <section>
+    <p class="eyebrow">{{ t(content.eyebrowKey) }}</p>
+    <h1>{{ t(content.titleKey) }}</h1>
+    <p class="lead">{{ t(content.descriptionKey) }}</p>
+    @if (content.isHistory) {
+      <app-session-history />
+    } @else if (content.isProfile) {
+      <app-account-settings />
+    } @else {
+      <div class="panel">
+        <h2>{{ t(content.panelTitleKey) }}</h2>
+        <p>{{ t(content.panelTextKey) }}</p>
+        <a routerLink="/home" class="primary">{{ t('startCheckIn') }}</a>
+      </div>
+    }
+  </section>
+</main>

@@ -1,0 +1,183 @@
+:host {
+  display: block;
+}
+.welcome {
+  margin: 0 auto;
+  max-width: 650px;
+  padding: clamp(32px, 8vh, 80px) 0 48px;
+}
+.welcome-brand {
+  margin: 0 auto 34px;
+  text-align: center;
+}
+.welcome-brand img {
+  display: block;
+  height: 150px;
+  margin: 0 auto;
+  object-fit: contain;
+  width: 132px;
+}
+.welcome-brand p {
+  color: var(--color-navy);
+  font:
+    0.9rem var(--font-body);
+  margin: 4px 0 0;
+}
+.eyebrow {
+  color: var(--color-primary);
+  font:
+    700 0.72rem var(--font-body);
+  letter-spacing: 0.12em;
+  margin-bottom: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.welcome h1,
+.intro {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.welcome h1 {
+  color: var(--color-navy);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.12;
+  margin-top: 0;
+}
+.intro {
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+  line-height: 1.55;
+  max-width: 560px;
+}
+.phase-list {
+  display: grid;
+  gap: 10px;
+}
+.phase {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: var(--shadow-soft);
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-navy);
+  cursor: pointer;
+  display: grid;
+  font-family: var(--font-body);
+  gap: 16px;
+  grid-template-columns: 32px 1fr auto;
+  padding: 18px 20px;
+  text-align: left;
+}
+.phase-before {
+  background: var(--color-phase-before);
+  border-color: var(--color-phase-before-border);
+}
+.phase-now {
+  background: var(--color-phase-now);
+  border-color: var(--color-phase-now-border);
+}
+.phase-after {
+  background: var(--color-phase-after);
+  border-color: var(--color-phase-after-border);
+}
+.phase:hover,
+.phase:focus-visible {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+.sos {
+  padding-bottom: 24px;
+  padding-top: 24px;
+  text-decoration: none;
+}
+.sos strong {
+  font-size: 1.25rem;
+}
+.phase strong,
+.phase small {
+  display: block;
+}
+.phase strong {
+  font-size: 1.08rem;
+  font-weight: 600;
+}
+.phase small {
+  color: var(--color-text-secondary);
+  font:
+    0.8rem var(--font-body);
+  margin-top: 3px;
+}
+.phase-icon {
+  align-items: center;
+  display: flex;
+  font-size: 1.35rem;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+}
+.phase-before .phase-icon {
+  color: var(--color-phase-before-icon);
+}
+.phase-now .phase-icon {
+  color: var(--color-phase-now-icon);
+}
+.phase-after .phase-icon {
+  color: var(--color-phase-after-icon);
+}
+.arrow {
+  color: var(--color-text-secondary);
+  font:
+    1.4rem var(--font-body);
+}
+@media (max-width: 560px) {
+  .welcome {
+    padding: 68px 0 48px;
+  }
+  .phase {
+    padding: 19px 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .welcome {
+    max-width: 1100px;
+    padding: clamp(36px, 7vh, 76px) 0 40px;
+  }
+  .welcome-layout {
+    min-height: calc(100dvh - 190px);
+  }
+  .welcome-copy {
+    padding-right: clamp(16px, 4vw, 64px);
+    text-align: left;
+  }
+  .welcome-brand {
+    margin-left: 0;
+    text-align: left;
+  }
+  .welcome-brand img {
+    margin-left: 0;
+  }
+  .welcome .eyebrow,
+  .welcome h1,
+  .welcome .intro {
+    text-align: left;
+  }
+  .welcome h1,
+  .welcome .intro {
+    margin-left: 0;
+  }
+  .phase-panel {
+    padding-left: clamp(16px, 4vw, 64px);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .welcome-layout {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

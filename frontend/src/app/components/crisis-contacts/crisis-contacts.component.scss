@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+.contacts {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.contact {
+  align-items: center;
+  background: var(--color-phase-now);
+  border: 1px solid var(--color-phase-now-border);
+  border-radius: var(--radius-md);
+  color: var(--color-navy);
+  display: flex;
+  font-family: var(--font-body);
+  justify-content: space-between;
+  padding: 18px 20px;
+  text-decoration: none;
+}
+.contact strong {
+  font-size: 1.3rem;
+}
+
+.contact {
+  box-shadow: var(--shadow-soft);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+.contact:hover,
+.contact:focus-visible {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}

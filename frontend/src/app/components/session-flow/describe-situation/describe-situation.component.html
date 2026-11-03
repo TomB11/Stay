@@ -1,0 +1,45 @@
+<section class="form-view" aria-labelledby="situation-title">
+  <button class="btn-back" type="button" (click)="back.emit()">{{ t('back') }}</button>
+  <div class="eyebrow">{{ t('describeEyebrow') }}</div>
+  <h1 id="situation-title">{{ t('describeTitle') }}</h1>
+  <p class="intro">{{ t('describeIntro') }}</p>
+  <label for="situation">{{ t('situationLabel') }}</label>
+  <textarea
+    class="form-control"
+    id="situation"
+    [maxlength]="maxLength"
+    [ngModel]="situation"
+    (ngModelChange)="updateSituation($event)"
+    [placeholder]="t('situationPlaceholder')"
+  ></textarea>
+  @if (crisisDetected) {
+    <app-crisis-alert />
+  }
+  <div class="level-group">
+    <div class="d-flex align-items-baseline justify-content-between">
+      <label for="level">{{ t('intensityLabel') }}</label
+      ><output>{{ anxietyLevel }} / 10</output>
+    </div>
+    <input
+      class="form-range"
+      id="level"
+      type="range"
+      min="1"
+      max="10"
+      [ngModel]="anxietyLevel"
+      (ngModelChange)="updateAnxietyLevel($event)"
+    />
+    <div class="range-labels d-flex justify-content-between">
+      <span>{{ t('aLittle') }}</span
+      ><span>{{ t('aLot') }}</span>
+    </div>
+  </div>
+  <button
+    class="primary btn"
+    type="button"
+    [disabled]="!situation.trim()"
+    (click)="continued.emit()"
+  >
+    {{ t('continue') }}
+  </button>
+</section>

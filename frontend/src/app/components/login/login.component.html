@@ -1,0 +1,83 @@
+<main class="auth-page">
+  <app-header />
+  <section class="auth-content">
+    <p class="eyebrow">{{ t('loginEyebrow') }}</p>
+    <h1>{{ registerMode() ? t('registerTitle') : t('loginTitle') }}</h1>
+    <p class="lead">{{ t('loginDescription') }}</p>
+    <form class="auth-form" #authForm="ngForm" (ngSubmit)="submit(authForm)">
+      <label for="email">{{ t('emailLabel') }}</label>
+      <input
+        class="form-control"
+        id="email"
+        name="email"
+        type="email"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+        #emailControl="ngModel"
+        [pattern]="emailPattern"
+        required
+      />
+      @if (emailControl.hasError('required') && (emailControl.touched || authForm.submitted)) {
+        <p class="field-error" role="alert">{{ t('emailRequired') }}</p>
+      } @else if (emailControl.hasError('pattern') && (emailControl.touched || authForm.submitted)) {
+        <p class="field-error" role="alert">{{ t('emailInvalid') }}</p>
+      }
+      <label for="password">{{ t('passwordLabel') }}</label>
+      <input
+        class="form-control"
+        id="password"
+        name="password"
+        type="password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        #passwordControl="ngModel"
+        minlength="8"
+        required
+      />
+      @if (passwordControl.hasError('required') && (passwordControl.touched || authForm.submitted)) {
+        <p class="field-error" role="alert">{{ t('passwordRequired') }}</p>
+      } @else if (passwordControl.hasError('minlength') && (passwordControl.touched || authForm.submitted)) {
+        <p class="field-error" role="alert">{{ t('passwordTooShort') }}</p>
+      }
+      @if (registerMode()) {
+        <label class="consent" for="consent">
+          <input
+            id="consent"
+            name="consent"
+            type="checkbox"
+            [ngModel]="false"
+            #consentControl="ngModel"
+            required
+          />
+          <span>{{ t('consentLabel') }}</span>
+        </label>
+        @if (consentControl.invalid && (consentControl.touched || authForm.submitted)) {
+          <p class="field-error" role="alert">{{ t('consentRequired') }}</p>
+        }
+        <label class="consent" for="age">
+          <input
+            id="age"
+            name="age"
+            type="checkbox"
+            [ngModel]="false"
+            #ageControl="ngModel"
+            required
+          />
+          <span>{{ t('ageLabel') }}</span>
+        </label>
+        @if (ageControl.invalid && (ageControl.touched || authForm.submitted)) {
+          <p class="field-error" role="alert">{{ t('consentRequired') }}</p>
+        }
+      }
+      @if (error()) {
+        <p class="auth-error" role="alert">{{ error() }}</p>
+      }
+      <button class="primary btn" type="submit">
+        {{ registerMode() ? t('registerAction') : t('loginAction') }}
+      </button>
+    </form>
+    <button class="switch-mode" type="button" (click)="toggleMode()">
+      {{ registerMode() ? t('haveAccount') : t('needAccount') }}
+    </button>
+  </section>
+</main>

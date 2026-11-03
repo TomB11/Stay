@@ -1,0 +1,20 @@
+<section class="support-view summary" aria-labelledby="summary-title">
+  <div class="eyebrow">{{ t('completeEyebrow') }}</div>
+  <h1 id="summary-title">{{ t('summaryTitle') }}</h1>
+  <div class="summary-grid row g-2">
+    <div class="col">
+      <small>{{ t('startedAt') }}</small
+      ><strong>{{ anxietyLevel }} / 10</strong>
+    </div>
+    <div class="col">
+      <small>{{ t('nowAt') }}</small
+      ><strong>{{ finalAnxietyLevel }} / 10</strong>
+    </div>
+  </div>
+  <p class="support-copy">
+    {{ feedback === 'yes' ? t('summaryHelped') : t('summaryNotHelped') }}
+  </p>
+  <button class="primary btn" type="button" (click)="restarted.emit()">
+    {{ t('returnHome') }}
+  </button>
+</section>

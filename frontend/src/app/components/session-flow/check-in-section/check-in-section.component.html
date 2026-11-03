@@ -1,0 +1,34 @@
+<section class="form-view check-in" aria-labelledby="check-in-title">
+  <div class="eyebrow">{{ t('checkInEyebrow') }}</div>
+  <h1 id="check-in-title">{{ t('checkInTitle') }}</h1>
+  <p class="intro">{{ t('checkInIntro') }}</p>
+  <div class="level-group">
+    <div class="d-flex align-items-baseline justify-content-between">
+      <label for="final-level">{{ t('currentIntensity') }}</label
+      ><output>{{ finalAnxietyLevel }} / 10</output>
+    </div>
+    <input
+      class="form-range"
+      id="final-level"
+      type="range"
+      min="1"
+      max="10"
+      [ngModel]="finalAnxietyLevel"
+      (ngModelChange)="updateAnxietyLevel($event)"
+    />
+    <div class="range-labels d-flex justify-content-between">
+      <span>{{ t('aLittle') }}</span
+      ><span>{{ t('aLot') }}</span>
+    </div>
+  </div>
+  <p class="question">{{ t('helpQuestion') }}</p>
+  <div class="feedback-actions d-flex flex-wrap gap-2">
+    <button class="btn" type="button" (click)="feedbackSelected.emit('yes')">
+      {{ t('yes') }}</button
+    ><button class="btn" type="button" (click)="feedbackSelected.emit('a-little')">
+      {{ t('aLittleHelp') }}</button
+    ><button class="btn" type="button" (click)="feedbackSelected.emit('no')">
+      {{ t('notReally') }}
+    </button>
+  </div>
+</section>

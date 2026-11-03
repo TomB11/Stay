@@ -1,0 +1,86 @@
+:host {
+  color: var(--color-navy);
+  display: block;
+  font-family: var(--font-body);
+  min-height: 100dvh;
+}
+.auth-page {
+  min-height: 100dvh;
+  padding: 24px clamp(24px, 6vw, 88px);
+}
+.auth-content {
+  margin: 0 auto;
+  max-width: 560px;
+  padding: clamp(70px, 14vh, 140px) 0;
+}
+.eyebrow {
+  color: var(--color-primary);
+  font:
+    700 0.72rem var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.auth-content h1 {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.12;
+  margin: 18px 0;
+}
+.lead {
+  color: var(--color-text-secondary);
+  font-size: 1.15rem;
+  line-height: 1.55;
+}
+.auth-form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: grid;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 24px;
+}
+.auth-form label {
+  font:
+    700 0.88rem var(--font-body);
+  margin-top: 8px;
+}
+.auth-form .primary {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  color: var(--color-on-primary);
+  font:
+    700 0.9rem var(--font-body);
+  margin-top: 12px;
+  padding: 13px 18px;
+}
+.auth-form .consent {
+  align-items: flex-start;
+  display: flex;
+  font-weight: 400;
+  gap: 10px;
+}
+.auth-error {
+  color: var(--color-danger);
+  font:
+    0.82rem var(--font-body);
+  margin: 8px 0 0;
+}
+.field-error {
+  color: var(--color-danger);
+  font:
+    0.82rem var(--font-body);
+  margin: -4px 0 2px;
+}
+.switch-mode {
+  background: transparent;
+  border: 0;
+  color: var(--color-secondary);
+  cursor: pointer;
+  font:
+    0.9rem var(--font-body);
+  margin-top: 18px;
+  padding: 0;
+  text-decoration: underline;
+}

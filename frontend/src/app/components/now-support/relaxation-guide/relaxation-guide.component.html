@@ -1,0 +1,9 @@
+<section class="relaxation" aria-labelledby="relaxation-group">
+  <p class="eyebrow">{{ t('relaxationTitle') }} · {{ groupIndex() + 1 }}/{{ groupCount }}</p>
+  <h1 id="relaxation-group">{{ t(groupKey()) }}</h1>
+  <p class="phase" [class.release]="phase() === 'release'" aria-live="polite">
+    {{ t(phaseKey()) }}
+  </p>
+  <p class="hint">{{ t('relaxHint') }}</p>
+  <button class="next btn" type="button" (click)="skip()">{{ t('continue') }}</button>
+</section>

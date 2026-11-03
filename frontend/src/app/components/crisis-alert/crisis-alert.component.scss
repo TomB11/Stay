@@ -1,0 +1,22 @@
+:host {
+  display: block;
+}
+.alert-box {
+  background: var(--color-surface);
+  border: 2px solid var(--color-accent-pink);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px;
+}
+h2 {
+  color: var(--color-navy);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+p {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}

@@ -1,0 +1,44 @@
+<section class="guided" aria-labelledby="guided-prompt">
+  <div class="progress-row d-flex align-items-center justify-content-between">
+    @if (index() > 0) {
+      <button class="btn-back" type="button" (click)="previous()">{{ t('back') }}</button>
+    } @else {
+      <span></span>
+    }
+    <span class="progress" aria-live="polite">{{ index() + 1 }} / {{ steps().length }}</span>
+  </div>
+  @if (index() === 0 && situation()) {
+    <p class="recap">“{{ situation() }}”</p>
+  }
+  <h1 id="guided-prompt">{{ t(step().promptKey) }}</h1>
+  @if (step().kind === 'text') {
+    <textarea
+      class="form-control"
+      [ngModel]="answer()"
+      (ngModelChange)="setAnswer($event)"
+      [placeholder]="t('guidedPlaceholder')"
+      aria-labelledby="guided-prompt"
+    ></textarea>
+    @if (crisisDetected()) {
+      <app-crisis-alert />
+    }
+  } @else {
+    <div class="options d-grid gap-2" role="radiogroup" aria-labelledby="guided-prompt">
+      @for (optionKey of step().optionKeys; track optionKey) {
+        <button
+          class="option"
+          type="button"
+          role="radio"
+          [class.selected]="answer() === optionKey"
+          [attr.aria-checked]="answer() === optionKey"
+          (click)="setAnswer(optionKey)"
+        >
+          {{ t(optionKey) }}
+        </button>
+      }
+    </div>
+  }
+  <button class="primary btn" type="button" (click)="next()">
+    {{ isLast() ? t('guidedFinish') : t('continue') }}
+  </button>
+</section>

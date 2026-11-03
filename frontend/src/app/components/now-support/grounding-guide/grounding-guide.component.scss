@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+.grounding {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: clamp(24px, 6vh, 64px) 0;
+  text-align: center;
+}
+.eyebrow {
+  color: var(--color-primary);
+  font:
+    700 0.8rem var(--font-body);
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.count {
+  color: var(--color-primary);
+  font-size: clamp(5rem, 22vw, 9rem);
+  line-height: 1;
+}
+h1 {
+  color: var(--color-navy);
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+  max-width: 520px;
+}
+.next {
+  background: var(--color-primary);
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--color-on-primary);
+  min-width: 160px;
+  padding: 12px 28px;
+}
