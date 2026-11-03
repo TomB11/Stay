@@ -57,7 +57,7 @@ Premenné prostredia backendu: `PORT`, `FRONTEND_ORIGIN`, `DATABASE_URL` (Neon, 
 - **Databáza:** Neon (Postgres, región EÚ).
 - **Backend:** Render podľa `render.yaml` (Blueprint). Nastav `DATABASE_URL` (z Neonu) a `FRONTEND_ORIGIN` = pôvod GitHub Pages bez cesty, napr. `https://tomb11.github.io`.
 - **Frontend:** GitHub Pages cez `.github/workflows/pages.yml` (push do `main`). V repozitári zapni Settings → Pages → Source: GitHub Actions.
-- Produkčný frontend volá absolútnu URL z `frontend/src/environments/environment.production.ts`; ak sa Render URL líši od `stay-backend.onrender.com`, uprav ju.
+- Produkčný frontend volá absolútnu URL z `frontend/src/environments/environment.production.ts`; ak sa Render URL líši od `stay-backend-e716.onrender.com`, uprav ju.
 - Free Render po nečinnosti zaspí, prvé volanie je pomalšie.
 ## Testy a kontrola
 
