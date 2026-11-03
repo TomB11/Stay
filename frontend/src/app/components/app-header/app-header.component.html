@@ -36,6 +36,9 @@
       {{ theme.isDark() ? 'sun' : 'moon' }}
     </button>
     @if (auth.isAuthenticated()) {
+      <a class="header-account btn" routerLink="/ladder">{{ t('ladderNav') }}</a>
+      <a class="header-account btn" routerLink="/history">{{ t('navHistory') }}</a>
+      <a class="header-account btn" routerLink="/profile">{{ t('navProfile') }}</a>
       <button class="header-account btn" type="button" (click)="signOut()">
         {{ t('signOut') }}
       </button>
@@ -88,6 +91,9 @@
       {{ theme.isDark() ? t('useLightTheme') : t('useDarkTheme') }}
     </button>
     @if (auth.isAuthenticated()) {
+      <a class="mobile-menu-action btn" routerLink="/ladder" (click)="menuOpen.set(false)">{{ t('ladderNav') }}</a>
+      <a class="mobile-menu-action btn" routerLink="/history" (click)="menuOpen.set(false)">{{ t('navHistory') }}</a>
+      <a class="mobile-menu-action btn" routerLink="/profile" (click)="menuOpen.set(false)">{{ t('navProfile') }}</a>
       <button class="mobile-menu-action btn" type="button" (click)="signOut()">
         {{ t('signOut') }}
       </button>

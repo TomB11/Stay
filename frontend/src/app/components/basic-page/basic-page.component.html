@@ -8,6 +8,8 @@
       <app-session-history />
     } @else if (content.isProfile) {
       <app-account-settings />
+    } @else if (content.isLadder) {
+      <app-exposure-ladder />
     } @else {
       <div class="panel">
         <h2>{{ t(content.panelTitleKey) }}</h2>

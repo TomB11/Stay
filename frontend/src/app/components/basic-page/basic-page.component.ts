@@ -4,6 +4,7 @@ import { LanguageService } from '../../core/i18n/language.service';
 import { PageContent } from '../../shared/models/page-content.interface';
 import { AccountSettingsComponent } from '../account-settings/account-settings.component';
 import { AppHeaderComponent } from '../app-header/app-header.component';
+import { ExposureLadderComponent } from '../exposure-ladder/exposure-ladder.component';
 import { SessionHistoryComponent } from '../session-history/session-history.component';
 
 @Component({
@@ -12,6 +13,7 @@ import { SessionHistoryComponent } from '../session-history/session-history.comp
   imports: [
     AccountSettingsComponent,
     AppHeaderComponent,
+    ExposureLadderComponent,
     RouterLink,
     SessionHistoryComponent,
   ],

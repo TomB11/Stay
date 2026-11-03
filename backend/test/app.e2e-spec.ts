@@ -191,6 +191,99 @@ describe('AppController (e2e)', () => {
     });
   });
 
+  describe('exposure ladder', () => {
+    const registerUser = async (email: string) => {
+      const response = await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({ email, password: 'secure-password', ...consent })
+        .expect(201);
+      return { Authorization: ['Bearer', response.body.token].join(' ') };
+    };
+
+    it('requires authentication', async () => {
+      await request(app.getHttpServer()).get('/api/exposure').expect(401);
+    });
+
+    it('creates ordered steps, records attempts, exports and cascades on delete', async () => {
+      const auth = await registerUser('ladder@example.com');
+      const hard = await request(app.getHttpServer())
+        .post('/api/exposure')
+        .set(auth)
+        .send({ title: 'Present to the team', expectedAnxiety: 8 })
+        .expect(201);
+      await request(app.getHttpServer())
+        .post('/api/exposure')
+        .set(auth)
+        .send({ title: 'Ask a question', expectedAnxiety: 3 })
+        .expect(201);
+      await request(app.getHttpServer())
+        .post(`/api/exposure/${hard.body.id}/attempts`)
+        .set(auth)
+        .send({ anxietyBefore: 8, anxietyAfter: 5 })
+        .expect(201);
+
+      const list = await request(app.getHttpServer()).get('/api/exposure').set(auth).expect(200);
+      expect(list.body.map((step: { title: string }) => step.title)).toEqual([
+        'Ask a question',
+        'Present to the team',
+      ]);
+      expect(list.body[1].attempts).toHaveLength(1);
+
+      const exported = await request(app.getHttpServer())
+        .get('/api/auth/export')
+        .set(auth)
+        .expect(200);
+      expect(exported.body.exposureSteps).toHaveLength(2);
+      expect(exported.body.exposureAttempts).toHaveLength(1);
+
+      await request(app.getHttpServer()).delete('/api/auth/account').set(auth).expect(204);
+      const [counts] = await app
+        .get(DatabaseService)
+        .query<{ s: number; a: number }>(
+          'SELECT (SELECT COUNT(*) FROM exposure_steps)::int AS s, (SELECT COUNT(*) FROM exposure_attempts)::int AS a',
+        );
+      expect(counts).toEqual({ s: 0, a: 0 });
+    });
+
+    it('validates input and isolates users', async () => {
+      const owner = await registerUser('owner@example.com');
+      const other = await registerUser('other@example.com');
+      await request(app.getHttpServer())
+        .post('/api/exposure')
+        .set(owner)
+        .send({ title: '', expectedAnxiety: 3 })
+        .expect(400);
+      await request(app.getHttpServer())
+        .post('/api/exposure')
+        .set(owner)
+        .send({ title: 'Step', expectedAnxiety: 11 })
+        .expect(400);
+      const step = await request(app.getHttpServer())
+        .post('/api/exposure')
+        .set(owner)
+        .send({ title: 'Step', expectedAnxiety: 4 })
+        .expect(201);
+
+      await request(app.getHttpServer())
+        .post(`/api/exposure/${step.body.id}/attempts`)
+        .set(other)
+        .send({ anxietyBefore: 4, anxietyAfter: 2 })
+        .expect(404);
+      await request(app.getHttpServer())
+        .delete(`/api/exposure/${step.body.id}`)
+        .set(other)
+        .expect(404);
+      await request(app.getHttpServer()).delete('/api/exposure/not-a-uuid').set(owner).expect(400);
+      const otherList = await request(app.getHttpServer()).get('/api/exposure').set(other);
+      expect(otherList.body).toEqual([]);
+
+      await request(app.getHttpServer())
+        .delete(`/api/exposure/${step.body.id}`)
+        .set(owner)
+        .expect(204);
+    });
+  });
+
   it('rate limits repeated authentication attempts', async () => {
     const attempt = () =>
       request(app.getHttpServer())

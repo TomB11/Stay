@@ -20,6 +20,29 @@ export const DATABASE_SCHEMA = `
   CREATE INDEX IF NOT EXISTS sessions_user_id_idx
     ON sessions(user_id, created_at DESC);
 
+  CREATE TABLE IF NOT EXISTS exposure_steps (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    expected_anxiety INTEGER NOT NULL,
+    created_at TEXT NOT NULL
+  );
+
+  CREATE INDEX IF NOT EXISTS exposure_steps_user_id_idx
+    ON exposure_steps(user_id, expected_anxiety);
+
+  CREATE TABLE IF NOT EXISTS exposure_attempts (
+    id TEXT PRIMARY KEY,
+    step_id TEXT NOT NULL REFERENCES exposure_steps(id) ON DELETE CASCADE,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    anxiety_before INTEGER NOT NULL,
+    anxiety_after INTEGER NOT NULL,
+    created_at TEXT NOT NULL
+  );
+
+  CREATE INDEX IF NOT EXISTS exposure_attempts_user_id_idx
+    ON exposure_attempts(user_id, created_at DESC);
+
   CREATE TABLE IF NOT EXISTS auth_tokens (
     token_hash TEXT PRIMARY KEY,
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

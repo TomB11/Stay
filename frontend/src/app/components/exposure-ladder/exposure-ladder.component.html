@@ -1,0 +1,107 @@
+<div class="safety-note" role="note">{{ t('ladderSafetyNote') }}</div>
+
+@if (error()) {
+  <p class="error" role="alert">{{ t('ladderError') }}</p>
+}
+
+<form class="add-step panel" (ngSubmit)="addStep()">
+  <label for="step-title">{{ t('ladderStepLabel') }}</label>
+  <input
+    id="step-title"
+    name="title"
+    type="text"
+    autocomplete="off"
+    [maxLength]="maxTitleLength"
+    [placeholder]="t('ladderStepPlaceholder')"
+    [ngModel]="newTitle()"
+    (ngModelChange)="newTitle.set($event)"
+  />
+  <div class="level-row">
+    <label for="step-expected">{{ t('ladderExpectedLabel') }}</label>
+    <output>{{ newExpected() }} / 10</output>
+  </div>
+  <input
+    id="step-expected"
+    name="expected"
+    type="range"
+    [min]="minAnxiety"
+    [max]="maxAnxiety"
+    [ngModel]="newExpected()"
+    (ngModelChange)="newExpected.set($event)"
+  />
+  <button class="primary" type="submit" [disabled]="!newTitle().trim()">
+    {{ t('ladderAddStep') }}
+  </button>
+</form>
+
+@if (steps().length) {
+  <ol class="steps">
+    @for (step of steps(); track step.id) {
+      <li class="step" [class.next]="statuses().get(step.id) === 'next'" [class.mastered]="statuses().get(step.id) === 'mastered'">
+        <div class="step-header">
+          <strong>{{ step.title }}</strong>
+          <span class="level">{{ step.expectedAnxiety }} / 10</span>
+        </div>
+        @if (statuses().get(step.id) === 'next') {
+          <span class="badge">{{ t('ladderNextStep') }}</span>
+        } @else if (statuses().get(step.id) === 'mastered') {
+          <span class="badge done">{{ t('ladderMastered') }}</span>
+        }
+        @if (step.attempts.length) {
+          <p class="last-result">
+            {{ t('ladderLastResult') }}: {{ step.attempts[0].anxietyBefore }} →
+            {{ step.attempts[0].anxietyAfter }} ({{ step.attempts.length }}×)
+          </p>
+        }
+        @if (activeStepId() === step.id) {
+          <div class="attempt-form">
+            <p class="hint">{{ t('ladderAttemptHint') }}</p>
+            <div class="level-row">
+              <label [for]="'before-' + step.id">{{ t('ladderBefore') }}</label>
+              <output>{{ before() }} / 10</output>
+            </div>
+            <input
+              type="range"
+              [id]="'before-' + step.id"
+              [min]="minAnxiety"
+              [max]="maxAnxiety"
+              [ngModel]="before()"
+              (ngModelChange)="before.set($event)"
+            />
+            <div class="level-row">
+              <label [for]="'after-' + step.id">{{ t('ladderAfter') }}</label>
+              <output>{{ after() }} / 10</output>
+            </div>
+            <input
+              type="range"
+              [id]="'after-' + step.id"
+              [min]="minAnxiety"
+              [max]="maxAnxiety"
+              [ngModel]="after()"
+              (ngModelChange)="after.set($event)"
+            />
+            <div class="step-actions">
+              <button class="primary" type="button" (click)="saveAttempt(step.id)">
+                {{ t('ladderSaveAttempt') }}
+              </button>
+              <button class="secondary" type="button" (click)="activeStepId.set(null)">
+                {{ t('cancelAction') }}
+              </button>
+            </div>
+          </div>
+        } @else {
+          <div class="step-actions">
+            <button class="secondary" type="button" (click)="openAttempt(step)">
+              {{ t('ladderRecordAttempt') }}
+            </button>
+            <button class="link-danger" type="button" (click)="removeStep(step.id)">
+              {{ t('ladderDeleteStep') }}
+            </button>
+          </div>
+        }
+      </li>
+    }
+  </ol>
+} @else {
+  <p class="empty">{{ t('ladderEmpty') }}</p>
+}

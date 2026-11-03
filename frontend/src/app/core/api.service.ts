@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SessionRecord } from '../sessions/models/session-record.interface';
+import { ExposureAttempt, ExposureStep } from '../exposure/models/exposure-step.interface';
 import { API_BASE_URL } from './api.constant';
 
 /** Authorization headers are attached by the auth interceptor. */
@@ -18,5 +19,21 @@ export class ApiService {
 
   getSessions() {
     return this.http.get<SessionRecord[]>(`${API_BASE_URL}/sessions`);
+  }
+
+  getExposureSteps() {
+    return this.http.get<ExposureStep[]>(`${API_BASE_URL}/exposure`);
+  }
+
+  addExposureStep(step: Pick<ExposureStep, 'title' | 'expectedAnxiety'>) {
+    return this.http.post<ExposureStep>(`${API_BASE_URL}/exposure`, step);
+  }
+
+  addExposureAttempt(stepId: string, attempt: Pick<ExposureAttempt, 'anxietyBefore' | 'anxietyAfter'>) {
+    return this.http.post<ExposureAttempt>(`${API_BASE_URL}/exposure/${stepId}/attempts`, attempt);
+  }
+
+  deleteExposureStep(stepId: string) {
+    return this.http.delete<void>(`${API_BASE_URL}/exposure/${stepId}`);
   }
 }

@@ -40,7 +40,18 @@ let AuthService = class AuthService {
         const sessions = await this.database.query(`SELECT id, phase, situation, initial_intensity AS "initialIntensity",
         final_intensity AS "finalIntensity", feedback, created_at AS "createdAt"
        FROM sessions WHERE user_id = $1 ORDER BY created_at DESC`, [userId]);
-        return { exportedAt: new Date().toISOString(), account, sessions };
+        const exposureSteps = await this.database.query(`SELECT id, title, expected_anxiety AS "expectedAnxiety", created_at AS "createdAt"
+       FROM exposure_steps WHERE user_id = $1 ORDER BY created_at DESC`, [userId]);
+        const exposureAttempts = await this.database.query(`SELECT id, step_id AS "stepId", anxiety_before AS "anxietyBefore",
+        anxiety_after AS "anxietyAfter", created_at AS "createdAt"
+       FROM exposure_attempts WHERE user_id = $1 ORDER BY created_at DESC`, [userId]);
+        return {
+            exportedAt: new Date().toISOString(),
+            account,
+            sessions,
+            exposureSteps,
+            exposureAttempts,
+        };
     }
     async login(credentials) {
         const [user] = await this.database.query('SELECT id, email, password_hash AS "passwordHash" FROM users WHERE email = $1', [this.normalizeEmail(credentials.email)]);

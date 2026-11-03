@@ -30,6 +30,15 @@ const profilePage: PageContent = {
   isProfile: true,
 };
 
+const ladderPage: PageContent = {
+  eyebrowKey: 'ladderEyebrow',
+  titleKey: 'ladderTitle',
+  descriptionKey: 'ladderDescription',
+  panelTitleKey: 'ladderPanelTitle',
+  panelTextKey: 'ladderPanelText',
+  isLadder: true,
+};
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: SessionFlowComponent },
@@ -46,6 +55,12 @@ export const routes: Routes = [
     component: BasicPageComponent,
     canActivate: [authGuard],
     data: profilePage,
+  },
+  {
+    path: 'ladder',
+    component: BasicPageComponent,
+    canActivate: [authGuard],
+    data: ladderPage,
   },
   { path: '**', redirectTo: 'home' },
 ];

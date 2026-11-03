@@ -57,7 +57,28 @@ export class AuthService {
        FROM sessions WHERE user_id = $1 ORDER BY created_at DESC`,
       [userId],
     );
-    return { exportedAt: new Date().toISOString(), account, sessions };
+    const exposureSteps = await this.database.query<
+      AccountExport['exposureSteps'][number]
+    >(
+      `SELECT id, title, expected_anxiety AS "expectedAnxiety", created_at AS "createdAt"
+       FROM exposure_steps WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId],
+    );
+    const exposureAttempts = await this.database.query<
+      AccountExport['exposureAttempts'][number]
+    >(
+      `SELECT id, step_id AS "stepId", anxiety_before AS "anxietyBefore",
+        anxiety_after AS "anxietyAfter", created_at AS "createdAt"
+       FROM exposure_attempts WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId],
+    );
+    return {
+      exportedAt: new Date().toISOString(),
+      account,
+      sessions,
+      exposureSteps,
+      exposureAttempts,
+    };
   }
 
   /** Verifies credentials without exposing password hashes to the API. */

@@ -10,6 +10,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { SessionsModule } from './sessions/sessions.module.js';
+import { ExposureModule } from './exposure/exposure.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { DEFAULT_THROTTLE } from './auth/constants/auth-limits.constant.js';
 import { DatabaseModule } from './database/database.module.js';
@@ -22,6 +23,7 @@ AppModule = __decorate([
             DatabaseModule,
             AuthModule,
             SessionsModule,
+            ExposureModule,
         ],
         controllers: [AppController],
         providers: [

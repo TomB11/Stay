@@ -8,4 +8,5 @@ export interface PageContent {
   panelTextKey: TranslationKey;
   isHistory?: boolean;
   isProfile?: boolean;
+  isLadder?: boolean;
 }

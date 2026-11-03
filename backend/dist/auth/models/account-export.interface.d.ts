@@ -14,4 +14,17 @@ export interface AccountExport {
         feedback: string;
         createdAt: string;
     }[];
+    exposureSteps: {
+        id: string;
+        title: string;
+        expectedAnxiety: number;
+        createdAt: string;
+    }[];
+    exposureAttempts: {
+        id: string;
+        stepId: string;
+        anxietyBefore: number;
+        anxietyAfter: number;
+        createdAt: string;
+    }[];
 }
