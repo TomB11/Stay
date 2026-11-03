@@ -78,7 +78,7 @@
   </button>
 </header>
 @if (auth.isAuthenticated()) {
-  <nav class="user-nav d-none d-md-flex" [attr.aria-label]="t('navAccount')">
+  <nav class="user-nav d-none d-md-grid" [attr.aria-label]="t('navAccount')">
     @for (link of userLinks; track link.path) {
       <a [routerLink]="link.path" routerLinkActive="active">{{ t(link.labelKey) }}</a>
     }

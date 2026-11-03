@@ -2,10 +2,24 @@
   display: block;
 }
 .app-header {
+  align-items: center;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  justify-content: space-between;
   min-height: 58px;
-  padding-bottom: 18px;
+  padding-bottom: 12px;
+}
+.header-tools {
+  margin-left: auto;
+}
+.theme-toggle,
+.menu-toggle,
+.header-account {
+  background: transparent;
+  cursor: pointer;
 }
 .brand {
   display: inline-flex;
@@ -100,21 +114,31 @@
   width: 1px;
 }
 .user-nav {
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 10px 0 0;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 12px 0 0;
 }
 .user-nav a {
-  border-radius: var(--radius-pill);
-  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-navy);
   font:
-    700 0.8rem var(--font-body);
-  padding: 7px 14px;
+    700 0.85rem var(--font-body);
+  padding: 11px 14px;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 .user-nav a:hover,
 .user-nav a:focus-visible,
 .user-nav a.active {
-  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 16%, var(--color-surface));
+  border-color: var(--color-primary);
   color: var(--color-navy);
 }
 .mobile-menu-group {
