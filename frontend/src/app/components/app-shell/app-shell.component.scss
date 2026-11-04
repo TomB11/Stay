@@ -3,6 +3,23 @@
   display: block;
   min-height: 100dvh;
 }
+.legal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: center;
+  padding: 8px 16px 28px;
+}
+.legal-footer a {
+  color: var(--color-text-secondary);
+  font:
+    0.8rem var(--font-body);
+  text-decoration: underline;
+}
+.legal-footer a:hover,
+.legal-footer a:focus-visible {
+  color: var(--color-navy);
+}
 .slow-banner {
   align-items: center;
   background: var(--color-surface);

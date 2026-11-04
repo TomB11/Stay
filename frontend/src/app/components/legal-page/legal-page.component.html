@@ -1,0 +1,15 @@
+<main class="page-shell">
+  <app-header [showAction]="true" />
+  <article>
+    <p class="eyebrow">{{ t(page.eyebrowKey) }}</p>
+    <h1>{{ t(page.titleKey) }}</h1>
+    <p class="lead">{{ t(page.introKey) }}</p>
+    @for (section of page.sections; track section.titleKey) {
+      <section class="legal-section">
+        <h2>{{ t(section.titleKey) }}</h2>
+        <p>{{ t(section.bodyKey) }}</p>
+      </section>
+    }
+    <a class="btn-back" routerLink="/home">{{ t('legalBack') }}</a>
+  </article>
+</main>

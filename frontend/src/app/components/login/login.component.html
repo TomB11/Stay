@@ -49,7 +49,12 @@
             #consentControl="ngModel"
             required
           />
-          <span>{{ t('consentLabel') }}</span>
+          <span
+            >{{ t('consentLabel') }}
+            <a routerLink="/privacy" target="_blank">{{ t('privacyLink') }}</a>
+            ·
+            <a routerLink="/terms" target="_blank">{{ t('termsLink') }}</a></span
+          >
         </label>
         @if (consentControl.invalid && (consentControl.touched || authForm.submitted)) {
           <p class="field-error" role="alert">{{ t('consentRequired') }}</p>

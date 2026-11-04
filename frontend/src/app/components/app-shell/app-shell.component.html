@@ -1,4 +1,8 @@
 <router-outlet />
+<footer class="legal-footer">
+  <a routerLink="/privacy">{{ t('privacyLink') }}</a>
+  <a routerLink="/terms">{{ t('termsLink') }}</a>
+</footer>
 @if (activity.slow()) {
   <div class="slow-banner" role="status" aria-live="polite">
     <span class="slow-spinner" aria-hidden="true"></span>

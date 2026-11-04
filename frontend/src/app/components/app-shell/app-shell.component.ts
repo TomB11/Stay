@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { NetworkActivityService } from '../../core/network-activity.service';
 import { LanguageService } from '../../core/i18n/language.service';
 import { TranslationKey } from '../../core/i18n/translation-key.type';
@@ -7,7 +7,7 @@ import { TranslationKey } from '../../core/i18n/translation-key.type';
 @Component({
   standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app-shell.component.html',
   styleUrl: './app-shell.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

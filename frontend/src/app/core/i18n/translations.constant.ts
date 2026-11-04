@@ -252,6 +252,48 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
     progressHelpNow: 'I need calm right now',
     navAccount: 'Your account',
     serverWaking: 'The server is waking up, this can take up to a minute…',
+    legalEyebrow: 'Legal',
+    legalBack: '← Back',
+    privacyLink: 'Privacy policy',
+    termsLink: 'Terms of use',
+    privacyTitle: 'Privacy policy',
+    privacyIntro:
+      'STAY handles information about your mental state, which is especially sensitive. This page explains what we store, why, and what you can do with it. Last updated: 2026.',
+    privacyS1Title: 'Who is responsible',
+    privacyS1Body:
+      'The controller of your data is the operator of STAY: [operator name and contact e-mail to be completed before launch].',
+    privacyS2Title: 'What we store',
+    privacyS2Body:
+      'Your e-mail address and a hashed password; check-ins you save (situation, intensity, exercise feedback); ladder steps and attempts; diary entries (situation, thought, emotion, intensities, alternative thought). Your browser also keeps the sign-in token, language and theme choice locally. The /now support mode works without an account and stores nothing on the server.',
+    privacyS3Title: 'Why and on what basis',
+    privacyS3Body:
+      'We process this data only to provide the features you use (history, ladder, diary, progress). Because it concerns your mental state, the basis is your explicit consent given at registration, which you can withdraw at any time by deleting your account. We do not use your data for advertising, analytics or profiling, and STAY does not use generative AI.',
+    privacyS4Title: 'Where it is stored',
+    privacyS4Body:
+      'Data is stored in a Neon PostgreSQL database and served by a backend on Render; the web app is hosted on GitHub Pages. These providers act as processors and may process data outside your country. Connections are encrypted in transit and passwords are stored only as hashes. Diary and check-in texts are not yet additionally encrypted inside the database.',
+    privacyS5Title: 'Your rights',
+    privacyS5Body:
+      'In your profile you can download all your data and permanently delete your account together with all records. You also have the right to access, rectification, restriction, objection and to lodge a complaint with your data protection authority (in Slovakia the Office for Personal Data Protection, in Czechia the Office for Personal Data Protection – ÚOOÚ).',
+    privacyS6Title: 'Age and contact',
+    privacyS6Body:
+      'STAY is intended for people aged 16 and over. If you have a question about your data, contact the operator at the e-mail address above.',
+    termsTitle: 'Terms of use',
+    termsIntro: 'By creating an account or using STAY you agree to these terms. Last updated: 2026.',
+    termsS1Title: 'What STAY is',
+    termsS1Body:
+      'STAY is a self-help tool that offers techniques from cognitive behavioural and acceptance-based approaches to cope with anxiety. It is not therapy or treatment, it does not diagnose and it does not replace a doctor or psychologist.',
+    termsS2Title: 'In an emergency',
+    termsS2Body:
+      'If you are in danger or thinking about harming yourself, do not rely on the app. Call the emergency number 112 or one of the crisis lines listed in STAY immediately.',
+    termsS3Title: 'Your account',
+    termsS3Body:
+      'You must be at least 16 years old. Keep your password private and provide a valid e-mail address. You can delete your account at any time in your profile.',
+    termsS4Title: 'Fair use',
+    termsS4Body:
+      'Do not misuse the service, try to break its security or access other people’s data. We may limit or block access if the service is abused.',
+    termsS5Title: 'No guarantees and changes',
+    termsS5Body:
+      'STAY is provided as is, without a guarantee that it will help or be always available. We may change the service or these terms; important changes will be announced in the app.',
     navPreferences: 'Language and appearance',
   },
   [Language.Slovak]: {
@@ -498,6 +540,48 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
     progressHelpNow: 'Potrebujem pokoj hneď teraz',
     navAccount: 'Váš účet',
     serverWaking: 'Server sa prebúdza, môže to trvať až minútu…',
+    legalEyebrow: 'Právne informácie',
+    legalBack: '← Späť',
+    privacyLink: 'Zásady ochrany súkromia',
+    termsLink: 'Podmienky používania',
+    privacyTitle: 'Zásady ochrany súkromia',
+    privacyIntro:
+      'STAY pracuje s informáciami o vašom psychickom stave, ktoré sú mimoriadne citlivé. Tu vysvetľujeme, čo ukladáme, prečo a čo s tým môžete urobiť. Posledná aktualizácia: 2026.',
+    privacyS1Title: 'Kto je zodpovedný',
+    privacyS1Body:
+      'Prevádzkovateľom vašich údajov je prevádzkovateľ služby STAY: [názov prevádzkovateľa a kontaktný e-mail doplniť pred spustením].',
+    privacyS2Title: 'Čo ukladáme',
+    privacyS2Body:
+      'Váš e-mail a zahashované heslo; uložené zastavenia (situácia, intenzita, spätná väzba k cvičeniu); kroky a pokusy v rebríčku; záznamy v denníku (situácia, myšlienka, emócia, intenzity, alternatívna myšlienka). Prehliadač si lokálne pamätá aj prihlasovací token, jazyk a vzhľad. Režim /now funguje bez účtu a na serveri nič neukladá.',
+    privacyS3Title: 'Prečo a na akom základe',
+    privacyS3Body:
+      'Údaje spracúvame len na poskytovanie funkcií, ktoré používate (história, rebríček, denník, pokrok). Keďže ide o údaje o psychickom stave, základom je váš výslovný súhlas pri registrácii, ktorý môžete kedykoľvek odvolať zmazaním účtu. Údaje nepoužívame na reklamu, analytiku ani profilovanie a STAY nepoužíva generatívnu AI.',
+    privacyS4Title: 'Kde sú údaje uložené',
+    privacyS4Body:
+      'Údaje sú v databáze Neon PostgreSQL a obsluhuje ich backend na Render; webová aplikácia beží na GitHub Pages. Títo poskytovatelia sú sprostredkovatelia a môžu údaje spracúvať aj mimo vašej krajiny. Spojenie je šifrované a heslá sa ukladajú len ako haše. Texty denníka a zastavení zatiaľ nie sú v databáze šifrované navyše.',
+    privacyS5Title: 'Vaše práva',
+    privacyS5Body:
+      'V profile si môžete stiahnuť všetky svoje údaje a natrvalo zmazať účet so všetkými záznamami. Máte tiež právo na prístup, opravu, obmedzenie, námietku a podať sťažnosť dozornému orgánu (na Slovensku Úrad na ochranu osobných údajov SR, v Česku ÚOOÚ).',
+    privacyS6Title: 'Vek a kontakt',
+    privacyS6Body:
+      'STAY je určený osobám od 16 rokov. S otázkami k svojim údajom sa obráťte na prevádzkovateľa na uvedenom e-maile.',
+    termsTitle: 'Podmienky používania',
+    termsIntro: 'Vytvorením účtu alebo používaním STAY súhlasíte s týmito podmienkami. Posledná aktualizácia: 2026.',
+    termsS1Title: 'Čo STAY je',
+    termsS1Body:
+      'STAY je nástroj svojpomoci, ktorý ponúka techniky z kognitívno-behaviorálnych a akceptačných prístupov na zvládanie úzkosti. Nie je to terapia ani liečba, nestanovuje diagnózy a nenahrádza lekára ani psychológa.',
+    termsS2Title: 'V núdzi',
+    termsS2Body:
+      'Ak ste v ohrození alebo myslíte na sebapoškodenie, nespoliehajte sa na aplikáciu. Okamžite volajte tiesňovú linku 112 alebo niektorú z krízových liniek uvedených v STAY.',
+    termsS3Title: 'Váš účet',
+    termsS3Body:
+      'Musíte mať aspoň 16 rokov. Heslo nezdieľajte a uveďte platný e-mail. Účet môžete kedykoľvek zmazať vo svojom profile.',
+    termsS4Title: 'Férové používanie',
+    termsS4Body:
+      'Službu nezneužívajte, nepokúšajte sa narušiť jej bezpečnosť ani získať údaje iných ľudí. Pri zneužití môžeme prístup obmedziť alebo zablokovať.',
+    termsS5Title: 'Bez záruk a zmeny',
+    termsS5Body:
+      'STAY poskytujeme tak, ako je, bez záruky, že pomôže alebo bude vždy dostupný. Službu aj podmienky môžeme meniť; dôležité zmeny oznámime v aplikácii.',
     navPreferences: 'Jazyk a vzhľad',
   },
   [Language.Czech]: {
@@ -743,6 +827,48 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
     progressHelpNow: 'Potřebuji klid hned teď',
     navAccount: 'Váš účet',
     serverWaking: 'Server se probouzí, může to trvat až minutu…',
+    legalEyebrow: 'Právní informace',
+    legalBack: '← Zpět',
+    privacyLink: 'Zásady ochrany soukromí',
+    termsLink: 'Podmínky používání',
+    privacyTitle: 'Zásady ochrany soukromí',
+    privacyIntro:
+      'STAY pracuje s informacemi o vašem psychickém stavu, které jsou mimořádně citlivé. Zde vysvětlujeme, co ukládáme, proč a co s tím můžete udělat. Poslední aktualizace: 2026.',
+    privacyS1Title: 'Kdo je odpovědný',
+    privacyS1Body:
+      'Správcem vašich údajů je provozovatel služby STAY: [název provozovatele a kontaktní e-mail doplnit před spuštěním].',
+    privacyS2Title: 'Co ukládáme',
+    privacyS2Body:
+      'Váš e-mail a zahashované heslo; uložená zastavení (situace, intenzita, zpětná vazba ke cvičení); kroky a pokusy v žebříčku; záznamy v deníku (situace, myšlenka, emoce, intenzity, alternativní myšlenka). Prohlížeč si lokálně pamatuje také přihlašovací token, jazyk a vzhled. Režim /now funguje bez účtu a na serveru nic neukládá.',
+    privacyS3Title: 'Proč a na jakém základě',
+    privacyS3Body:
+      'Údaje zpracováváme jen k poskytování funkcí, které používáte (historie, žebříček, deník, pokrok). Protože jde o údaje o psychickém stavu, základem je váš výslovný souhlas při registraci, který můžete kdykoli odvolat smazáním účtu. Údaje nepoužíváme k reklamě, analytice ani profilování a STAY nepoužívá generativní AI.',
+    privacyS4Title: 'Kde jsou údaje uložené',
+    privacyS4Body:
+      'Údaje jsou v databázi Neon PostgreSQL a obsluhuje je backend na Renderu; webová aplikace běží na GitHub Pages. Tito poskytovatelé jsou zpracovatelé a mohou údaje zpracovávat i mimo vaši zemi. Spojení je šifrované a hesla se ukládají jen jako hashe. Texty deníku a zastavení zatím nejsou v databázi šifrované navíc.',
+    privacyS5Title: 'Vaše práva',
+    privacyS5Body:
+      'V profilu si můžete stáhnout všechna svá data a trvale smazat účet se všemi záznamy. Máte také právo na přístup, opravu, omezení, námitku a podat stížnost dozorovému úřadu (v Česku Úřad pro ochranu osobních údajů, na Slovensku Úrad na ochranu osobných údajov SR).',
+    privacyS6Title: 'Věk a kontakt',
+    privacyS6Body:
+      'STAY je určen osobám od 16 let. S dotazy k vašim údajům se obraťte na provozovatele na uvedeném e-mailu.',
+    termsTitle: 'Podmínky používání',
+    termsIntro: 'Vytvořením účtu nebo používáním STAY souhlasíte s těmito podmínkami. Poslední aktualizace: 2026.',
+    termsS1Title: 'Co STAY je',
+    termsS1Body:
+      'STAY je nástroj svépomoci, který nabízí techniky z kognitivně-behaviorálních a akceptačních přístupů ke zvládání úzkosti. Není to terapie ani léčba, nestanovuje diagnózy a nenahrazuje lékaře ani psychologa.',
+    termsS2Title: 'V nouzi',
+    termsS2Body:
+      'Pokud jste v ohrožení nebo myslíte na sebepoškození, nespoléhejte na aplikaci. Okamžitě volejte tísňovou linku 112 nebo některou z krizových linek uvedených ve STAY.',
+    termsS3Title: 'Váš účet',
+    termsS3Body:
+      'Musíte mít alespoň 16 let. Heslo nesdílejte a uveďte platný e-mail. Účet můžete kdykoli smazat ve svém profilu.',
+    termsS4Title: 'Férové používání',
+    termsS4Body:
+      'Službu nezneužívejte, nepokoušejte se narušit její bezpečnost ani získat údaje jiných lidí. Při zneužití můžeme přístup omezit nebo zablokovat.',
+    termsS5Title: 'Bez záruk a změny',
+    termsS5Body:
+      'STAY poskytujeme tak, jak je, bez záruky, že pomůže nebo bude vždy dostupný. Službu i podmínky můžeme měnit; důležité změny oznámíme v aplikaci.',
     navPreferences: 'Jazyk a vzhled',
   },
 };

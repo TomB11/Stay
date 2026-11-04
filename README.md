@@ -87,4 +87,4 @@ Zostáva (podľa priority):
 5. **Pokrok:** trendy intenzity, spúšťače, čo pomohlo; história len vypisuje záznamy.
 6. **Frontend:** `API_BASE_URL` do environment konfigurácie, lazy routes, profil a nastavenia sú len placeholdery, preklad podľa jazyka prehliadača, trvalé uloženie jazyka, a11y audit, migrácia `@import` v SCSS na `@use`.
 7. **Testy:** chýbajú unit testy backendových služieb a guardu, testy `ApiService`, interceptora a `SessionFlowComponent`.
-8. **Právo a prevádzka:** podmienky, zásady ochrany údajov, CI, deployment.
+8. **Právo a prevádzka:** stránky `/privacy` a `/terms` sú hotové (sk/cs/en, odkazy v pätičke a pri súhlase pri registrácii), no pred spustením treba doplniť údaje prevádzkovateľa (placeholder v `privacyS1Body`) a nechať texty skontrolovať právnikom. Zostáva CI.

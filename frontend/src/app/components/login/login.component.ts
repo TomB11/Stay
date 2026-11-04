@@ -5,7 +5,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 import { LanguageService } from '../../core/i18n/language.service';
 import { TranslationKey } from '../../core/i18n/translation-key.type';
@@ -14,7 +14,7 @@ import { AppHeaderComponent } from '../app-header/app-header.component';
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports: [AppHeaderComponent, FormsModule],
+  imports: [AppHeaderComponent, FormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

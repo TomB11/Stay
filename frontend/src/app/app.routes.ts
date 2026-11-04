@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { BasicPageComponent } from './components/basic-page/basic-page.component';
 import { SessionFlowComponent } from './components/session-flow/session-flow.component';
 import { LoginComponent } from './components/login/login.component';
+import { LegalPageComponent } from './components/legal-page/legal-page.component';
 import { NowSupportComponent } from './components/now-support/now-support.component';
 import { PageContent } from './shared/models/page-content.interface';
 import { authGuard } from './core/auth.guard';
@@ -62,6 +63,8 @@ export const routes: Routes = [
   { path: 'home', component: SessionFlowComponent },
   { path: 'now', component: NowSupportComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'privacy', component: LegalPageComponent, data: { legal: 'privacy' } },
+  { path: 'terms', component: LegalPageComponent, data: { legal: 'terms' } },
   {
     path: 'history',
     component: BasicPageComponent,
