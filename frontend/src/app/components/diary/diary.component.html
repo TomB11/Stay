@@ -28,7 +28,7 @@
       (blur)="focused.set(null)"
     ></textarea>
     @if (focused() === 'situation') {
-      <div class="starters" role="group" [attr.aria-label]="t('diaryStarterHint')">
+      <div class="starters" animate.leave="stay-leave" role="group" [attr.aria-label]="t('diaryStarterHint')">
         @for (key of starters('situation'); track key) {
           <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="addStarter('situation', key)">
             {{ t(key) }}
@@ -56,7 +56,7 @@
       (blur)="focused.set(null)"
     ></textarea>
     @if (focused() === 'thought') {
-      <div class="starters" role="group" [attr.aria-label]="t('diaryStarterHint')">
+      <div class="starters" animate.leave="stay-leave" role="group" [attr.aria-label]="t('diaryStarterHint')">
         @for (key of starters('thought'); track key) {
           <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="addStarter('thought', key)">
             {{ t(key) }}
@@ -131,7 +131,7 @@
       (blur)="focused.set(null)"
     ></textarea>
     @if (focused() === 'alternative') {
-      <div class="starters" role="group" [attr.aria-label]="t('diaryStarterHint')">
+      <div class="starters" animate.leave="stay-leave" role="group" [attr.aria-label]="t('diaryStarterHint')">
         @for (key of starters('alternative'); track key) {
           <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="addStarter('alternative', key)">
             {{ t(key) }}
@@ -156,7 +156,7 @@
   </section>
 
   @if (crisisDetected()) {
-    <app-crisis-alert />
+    <app-crisis-alert animate.leave="stay-leave" />
   }
 
   <button class="primary" type="submit" [disabled]="!canSave()">{{ t('diarySave') }}</button>
@@ -166,7 +166,7 @@
   <h2 class="past-title">{{ t('diaryPastEntries') }}</h2>
   <ul class="entries">
     @for (entry of entries(); track entry.id) {
-      <li class="entry">
+      <li class="entry" animate.leave="stay-leave">
         <div class="entry-header">
           <time [attr.datetime]="entry.createdAt">{{ entry.createdAt | date: 'medium' }}</time>
           <span class="level">{{ entry.intensityBefore }} → {{ entry.intensityAfter }}</span>

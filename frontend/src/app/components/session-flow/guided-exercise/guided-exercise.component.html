@@ -20,7 +20,7 @@
       aria-labelledby="guided-prompt"
     ></textarea>
     @if (crisisDetected()) {
-      <app-crisis-alert />
+      <app-crisis-alert animate.leave="stay-leave" />
     }
   } @else {
     <div class="options d-grid gap-2" role="radiogroup" aria-labelledby="guided-prompt">

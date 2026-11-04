@@ -18,10 +18,10 @@
     (blur)="focused = false"
   ></textarea>
   @if (focused) {
-    <app-prompt-starters [keys]="prompts.starters" (picked)="addStarter($event)" />
+    <app-prompt-starters animate.leave="stay-leave" [keys]="prompts.starters" (picked)="addStarter($event)" />
   }
   @if (crisisDetected) {
-    <app-crisis-alert />
+    <app-crisis-alert animate.leave="stay-leave" />
   }
   <div class="level-group">
     <div class="d-flex align-items-baseline justify-content-between">

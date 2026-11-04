@@ -28,8 +28,26 @@
   }
 }
 
+@keyframes stay-leave {
+  to {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+
 // All motion is opt-in so users who prefer reduced motion get a static UI.
 @media (prefers-reduced-motion: no-preference) {
+  // Elements removed via animate.leave="stay-leave" fade out before they disappear.
+  app-root .stay-leave {
+    animation: stay-leave 220ms var(--ease-out) forwards;
+    pointer-events: none;
+  }
+
+  // Elements that appear conditionally (starters, forms, alerts) ease in.
+  app-root :is(.starters, .attempt-form, .error, app-crisis-alert) {
+    animation: stay-drop var(--motion-base) var(--ease-out) backwards;
+  }
+
   // A routed page fades in whenever the route changes.
   router-outlet + * {
     animation: stay-fade var(--motion-base) var(--ease-out) backwards;

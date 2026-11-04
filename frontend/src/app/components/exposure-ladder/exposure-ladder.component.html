@@ -1,23 +1,34 @@
 <div class="safety-note" role="note">{{ t('ladderSafetyNote') }}</div>
 
 @if (error()) {
-  <p class="error" role="alert">{{ t('ladderError') }}</p>
+  <p class="error" role="alert" animate.leave="stay-leave">{{ t('ladderError') }}</p>
 }
 
 <form class="add-step panel" (ngSubmit)="addStep()">
-  <label for="step-title">{{ t('ladderStepLabel') }}</label>
+  <div class="label-row">
+    <label for="step-title">{{ t('ladderStepLabel') }}</label>
+    <app-info-tip [text]="t('ladderTipStep')" />
+  </div>
   <input
     id="step-title"
     name="title"
     type="text"
     autocomplete="off"
     [maxLength]="maxTitleLength"
-    [placeholder]="t('ladderStepPlaceholder')"
+    [placeholder]="placeholder"
     [ngModel]="newTitle()"
     (ngModelChange)="newTitle.set($event)"
+    (focus)="focused.set(true)"
+    (blur)="focused.set(false)"
   />
+  @if (focused()) {
+    <app-prompt-starters animate.leave="stay-leave" [keys]="starters" (picked)="addStarter($event)" />
+  }
   <div class="level-row">
-    <label for="step-expected">{{ t('ladderExpectedLabel') }}</label>
+    <span class="label-row">
+      <label for="step-expected">{{ t('ladderExpectedLabel') }}</label>
+      <app-info-tip [text]="t('ladderTipExpected')" />
+    </span>
     <output>{{ newExpected() }} / 10</output>
   </div>
   <input
@@ -37,7 +48,7 @@
 @if (steps().length) {
   <ol class="steps">
     @for (step of steps(); track step.id) {
-      <li class="step" [class.next]="statuses().get(step.id) === 'next'" [class.mastered]="statuses().get(step.id) === 'mastered'">
+      <li class="step" animate.leave="stay-leave" [class.next]="statuses().get(step.id) === 'next'" [class.mastered]="statuses().get(step.id) === 'mastered'">
         <div class="step-header">
           <strong>{{ step.title }}</strong>
           <span class="level">{{ step.expectedAnxiety }} / 10</span>
@@ -54,7 +65,7 @@
           </p>
         }
         @if (activeStepId() === step.id) {
-          <div class="attempt-form">
+          <div class="attempt-form" animate.leave="stay-leave">
             <p class="hint">{{ t('ladderAttemptHint') }}</p>
             <div class="level-row">
               <label [for]="'before-' + step.id">{{ t('ladderBefore') }}</label>

@@ -55,6 +55,20 @@ describe('ExposureLadderComponent', () => {
     expect(items[2].classList).not.toContain('next');
   });
 
+  it('offers starters on focus and appends the picked one to the title', async () => {
+    flushSteps([]);
+    const input = root().querySelector('#step-title') as HTMLInputElement;
+    expect(input.placeholder).not.toBe('');
+    expect(root().querySelector('app-prompt-starters')).toBeNull();
+
+    input.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
+    (root().querySelector('app-prompt-starters button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(input.value.length).toBeGreaterThan(0);
+  });
+
   it('adds a step and reloads the ladder', () => {
     flushSteps([]);
     const input = root().querySelector('#step-title') as HTMLInputElement;

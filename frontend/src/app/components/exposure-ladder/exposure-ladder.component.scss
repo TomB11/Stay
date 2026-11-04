@@ -45,6 +45,11 @@ input[type='range'] {
   display: flex;
   justify-content: space-between;
 }
+.label-row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
 output,
 .level {
   color: var(--color-primary);

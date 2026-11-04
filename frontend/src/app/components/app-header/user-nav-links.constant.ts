@@ -9,6 +9,7 @@ export interface UserNavLink {
 export const USER_NAV_LINKS: readonly UserNavLink[] = [
   { path: '/dashboard', labelKey: 'dashboardNav' },
   { path: '/diary', labelKey: 'diaryNav' },
+  { path: '/ladder', labelKey: 'ladderNav' },
 ];
 
 /** Secondary pages grouped under the "..." menu. */

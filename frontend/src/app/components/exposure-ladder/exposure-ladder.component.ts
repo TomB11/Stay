@@ -16,13 +16,16 @@ import {
   MAX_STEP_TITLE_LENGTH,
   MIN_ANXIETY,
 } from '../../exposure/constants/exposure.constant';
+import { LADDER_PLACEHOLDERS, LADDER_STARTERS } from '../../exposure/constants/ladder-prompts.constant';
 import { stepStatuses } from '../../exposure/exposure-progress';
 import { ExposureStep } from '../../exposure/models/exposure-step.interface';
+import { InfoTipComponent } from '../info-tip/info-tip.component';
+import { PromptStartersComponent } from '../prompt-starters/prompt-starters.component';
 
 @Component({
   standalone: true,
   selector: 'app-exposure-ladder',
-  imports: [FormsModule],
+  imports: [FormsModule, InfoTipComponent, PromptStartersComponent],
   templateUrl: './exposure-ladder.component.html',
   styleUrl: './exposure-ladder.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +40,13 @@ export class ExposureLadderComponent implements OnInit {
   protected readonly newTitle = signal('');
   protected readonly newExpected = signal(DEFAULT_EXPECTED_ANXIETY);
   protected readonly activeStepId = signal<string | null>(null);
+  protected readonly focused = signal(false);
+  protected readonly starters = LADDER_STARTERS;
+  /** Random per visit so the example placeholder is not always the same. */
+  private readonly seed = Math.floor(Math.random() * 1000);
+  protected get placeholder(): string {
+    return this.t(LADDER_PLACEHOLDERS[this.seed % LADDER_PLACEHOLDERS.length]);
+  }
   protected readonly before = signal(DEFAULT_EXPECTED_ANXIETY);
   protected readonly after = signal(DEFAULT_EXPECTED_ANXIETY);
   protected readonly language = inject(LanguageService);
@@ -48,6 +58,11 @@ export class ExposureLadderComponent implements OnInit {
 
   protected t(key: TranslationKey): string {
     return this.language.translate(key);
+  }
+
+  protected addStarter(text: string): void {
+    const current = this.newTitle().trim();
+    this.newTitle.set((current ? `${current} ${text}` : text).slice(0, this.maxTitleLength));
   }
 
   protected addStep(): void {
