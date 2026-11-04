@@ -4,7 +4,8 @@
   <a routerLink="/terms">{{ t('termsLink') }}</a>
 </footer>
 @if (activity.slow()) {
-  <div class="slow-banner" role="status" aria-live="polite">
+  <div class="slow-backdrop" aria-hidden="true"></div>
+  <div class="slow-banner" role="status" aria-live="polite" animate.leave="stay-leave">
     <span class="slow-spinner" aria-hidden="true"></span>
     {{ t('serverWaking') }}
   </div>

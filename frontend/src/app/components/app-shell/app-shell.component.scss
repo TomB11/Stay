@@ -20,6 +20,18 @@
 .legal-footer a:focus-visible {
   color: var(--color-navy);
 }
+.slow-backdrop {
+  animation: slow-fade 0.3s ease-out;
+  background: color-mix(in srgb, var(--color-navy) 35%, transparent);
+  inset: 0;
+  position: fixed;
+  z-index: 999;
+}
+@keyframes slow-fade {
+  from {
+    opacity: 0;
+  }
+}
 .slow-banner {
   align-items: center;
   background: var(--color-surface);
