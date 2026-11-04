@@ -58,6 +58,15 @@ const progressPage: PageContent = {
   isProgress: true,
 };
 
+const dashboardPage: PageContent = {
+  eyebrowKey: 'dashboardEyebrow',
+  titleKey: 'dashboardTitle',
+  descriptionKey: 'dashboardDescription',
+  panelTitleKey: 'dashboardTitle',
+  panelTextKey: 'dashboardDescription',
+  isDashboard: true,
+};
+
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: SessionFlowComponent },
@@ -88,6 +97,12 @@ export const routes: Routes = [
     component: BasicPageComponent,
     canActivate: [authGuard],
     data: diaryPage,
+  },
+  {
+    path: 'dashboard',
+    component: BasicPageComponent,
+    canActivate: [authGuard],
+    data: dashboardPage,
   },
   {
     path: 'progress',

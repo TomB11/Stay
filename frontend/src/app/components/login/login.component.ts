@@ -26,7 +26,7 @@ export class LoginComponent {
 
   constructor() {
     if (this.auth.isAuthenticated()) {
-      void this.router.navigate(['/home']);
+      void this.router.navigate(['/dashboard']);
     }
   }  protected readonly email = signal('');
   protected readonly password = signal('');
@@ -40,7 +40,7 @@ export class LoginComponent {
     this.error.set('');
   }
 
-  /** Sends credentials to the API and returns to the check-in after success. */
+  /** Sends credentials to the API and opens the dashboard after success. */
   protected submit(form: NgForm): void {
     if (form.invalid) {
       form.control.markAllAsTouched();
@@ -51,7 +51,7 @@ export class LoginComponent {
       ? this.auth.register(this.email(), this.password())
       : this.auth.login(this.email(), this.password());
     request.subscribe({
-      next: () => this.router.navigate(['/home']),
+      next: () => this.router.navigate(['/dashboard']),
       error: () => this.error.set(this.t('authError')),
     });
   }

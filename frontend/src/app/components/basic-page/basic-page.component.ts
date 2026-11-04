@@ -4,6 +4,7 @@ import { LanguageService } from '../../core/i18n/language.service';
 import { PageContent } from '../../shared/models/page-content.interface';
 import { AccountSettingsComponent } from '../account-settings/account-settings.component';
 import { AppHeaderComponent } from '../app-header/app-header.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 import { DiaryComponent } from '../diary/diary.component';
 import { ExposureLadderComponent } from '../exposure-ladder/exposure-ladder.component';
 import { ProgressComponent } from '../progress/progress.component';
@@ -15,6 +16,7 @@ import { SessionHistoryComponent } from '../session-history/session-history.comp
   imports: [
     AccountSettingsComponent,
     AppHeaderComponent,
+    DashboardComponent,
     DiaryComponent,
     ExposureLadderComponent,
     ProgressComponent,

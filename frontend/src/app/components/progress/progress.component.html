@@ -1,6 +1,5 @@
-<div class="safety-note" role="note">{{ t('progressNote') }}</div>
+﻿<div class="safety-note" role="note">{{ t('progressNote') }}</div>
 
-<app-rewards />
 
 @if (error()) {
   <p class="error" role="alert">{{ t('progressError') }}</p>
@@ -18,8 +17,6 @@
   @if (data.totalRecords === 0 && data.exposure.totalSteps === 0) {
     <p class="empty">{{ t('progressEmpty') }}</p>
   } @else {
-    <details class="insights-details">
-    <summary>{{ t('progressDetailsTitle') }}</summary>
     <section class="cards">
       <article class="card wide">
         <h2>{{ t('progressTrendTitle') }}</h2>
@@ -86,6 +83,5 @@
         <span class="label">{{ t('progressStreakLabel') }}</span>
       </article>
     </section>
-    </details>
   }
 }

@@ -5,14 +5,11 @@ import { LanguageService } from '../../core/i18n/language.service';
 import { TranslationKey } from '../../core/i18n/translation-key.type';
 import { MAX_REWARD_TITLE_LENGTH } from '../../rewards/constants/rewards-limits.constant';
 import { OpenedReward, RewardsOverview } from '../../rewards/models/rewards.interface';
-import { CourageTreeComponent } from '../courage-tree/courage-tree.component';
-import { DailyMissionComponent } from '../daily-mission/daily-mission.component';
-import { LadderBadgesComponent } from '../ladder-badges/ladder-badges.component';
 
 @Component({
   standalone: true,
   selector: 'app-rewards',
-  imports: [FormsModule, DailyMissionComponent, CourageTreeComponent, LadderBadgesComponent],
+  imports: [FormsModule],
   templateUrl: './rewards.component.html',
   styleUrl: './rewards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

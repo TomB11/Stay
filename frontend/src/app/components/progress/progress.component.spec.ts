@@ -38,10 +38,7 @@ describe('ProgressComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    http.match((req) => req.url === `${API_BASE_URL}/rewards`);
-    http.verify();
-  });
+  afterEach(() => http.verify());
 
   it('renders the summary cards', () => {
     flush(insights());

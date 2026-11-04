@@ -14,12 +14,11 @@ import { Insights } from '../../progress/models/insights.interface';
 import { TREND_MESSAGE, trendDirection } from '../../progress/progress-trend';
 import { SESSION_PHASE_LABEL } from '../../sessions/constants/session-phase-label.constant';
 import { SessionPhase } from '../../sessions/models/session-phase.type';
-import { RewardsComponent } from '../rewards/rewards.component';
 
 @Component({
   standalone: true,
   selector: 'app-progress',
-  imports: [RouterLink, RewardsComponent],
+  imports: [RouterLink],
   templateUrl: './progress.component.html',
   styleUrl: './progress.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

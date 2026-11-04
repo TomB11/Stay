@@ -11,4 +11,5 @@ export interface PageContent {
   isLadder?: boolean;
   isDiary?: boolean;
   isProgress?: boolean;
+  isDashboard?: boolean;
 }

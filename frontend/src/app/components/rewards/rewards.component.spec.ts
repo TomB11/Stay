@@ -73,18 +73,6 @@ describe('RewardsComponent', () => {
     expect(root().querySelector('.reward-title')?.textContent).toContain('Coffee');
   });
 
-  it('shows the daily mission, the tree and locked badges', () => {
-    flush(overview({ actions: 3 }));
-    expect(root().querySelector('.mission')).toBeTruthy();
-    expect(root().querySelectorAll('.leaf').length).toBe(3);
-    expect(root().querySelectorAll('.badge.earned').length).toBe(0);
-  });
-
-  it('earns ladder badges from the ladder stats', () => {
-    flush(overview({ ladder: { attempts: 5, masteredSteps: 1, highestMasteredAnxiety: 7 } }));
-    expect(root().querySelectorAll('.badge.earned').length).toBe(4);
-  });
-
   it('adds a reward', async () => {
     flush(overview());
     await fixture.whenStable();

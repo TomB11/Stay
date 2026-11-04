@@ -17,6 +17,14 @@ describe('AppHeaderComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
+  it('opens the more menu with history and profile links', () => {
+    TestBed.inject(AuthService).token.set('token');
+    fixture.detectChanges();
+    (fixture.nativeElement.querySelector('.more-toggle') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('.more-menu a').length).toBe(3);
+  });
+
   it('signs out and returns to home', () => {
     const auth = TestBed.inject(AuthService);
     const navigate = spyOn(TestBed.inject(Router), 'navigate').and.resolveTo(true);

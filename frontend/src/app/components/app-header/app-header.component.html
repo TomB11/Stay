@@ -82,6 +82,32 @@
     @for (link of userLinks; track link.path) {
       <a [routerLink]="link.path" routerLinkActive="active">{{ t(link.labelKey) }}</a>
     }
+    <div class="more">
+      <button
+        type="button"
+        class="more-toggle"
+        aria-haspopup="true"
+        [attr.aria-expanded]="moreOpen()"
+        [attr.aria-label]="t('moreMenu')"
+        [attr.title]="t('moreMenu')"
+        (click)="toggleMore()"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor">
+          <circle cx="5" cy="12" r="1.8" />
+          <circle cx="12" cy="12" r="1.8" />
+          <circle cx="19" cy="12" r="1.8" />
+        </svg>
+      </button>
+      @if (moreOpen()) {
+        <div class="more-menu">
+          @for (link of moreLinks; track link.path) {
+            <a [routerLink]="link.path" routerLinkActive="active" (click)="moreOpen.set(false)">{{
+              t(link.labelKey)
+            }}</a>
+          }
+        </div>
+      }
+    </div>
   </nav>
 }
 @if (menuOpen()) {
@@ -92,6 +118,18 @@
     @if (auth.isAuthenticated()) {
       <div class="mobile-menu-group">
         @for (link of userLinks; track link.path) {
+          <a
+            class="mobile-menu-action"
+            [routerLink]="link.path"
+            routerLinkActive="active"
+            (click)="menuOpen.set(false)"
+            >{{ t(link.labelKey) }}</a
+          >
+        }
+      </div>
+      <div class="mobile-menu-group">
+        <span class="mobile-menu-heading">{{ t('moreMenu') }}</span>
+        @for (link of moreLinks; track link.path) {
           <a
             class="mobile-menu-action"
             [routerLink]="link.path"

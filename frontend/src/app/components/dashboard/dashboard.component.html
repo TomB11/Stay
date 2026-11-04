@@ -1,0 +1,45 @@
+@if (error()) {
+  <p class="error" role="alert">{{ t('rewardsError') }}</p>
+} @else if (overview(); as data) {
+  <section class="tree-card">
+    <app-courage-tree [actions]="data.actions" />
+  </section>
+
+  <div class="tabs" role="tablist" [attr.aria-label]="t('dashboardTabs')">
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        role="tab"
+        class="tab"
+        [id]="'tab-' + tab.id"
+        [class.active]="activeTab() === tab.id"
+        [attr.aria-selected]="activeTab() === tab.id"
+        [attr.aria-controls]="'panel-' + tab.id"
+        (click)="selectTab(tab.id)"
+      >
+        <span aria-hidden="true">{{ tab.icon }}</span>
+        {{ t(tab.labelKey) }}
+        @if (tab.id === 'rewards' && data.giftsAvailable > 0) {
+          <span class="dot" [attr.aria-label]="t('rewardsReady')"></span>
+        }
+      </button>
+    }
+  </div>
+
+  <div class="tab-panel" role="tabpanel" [id]="'panel-' + activeTab()" [attr.aria-labelledby]="'tab-' + activeTab()">
+    @switch (activeTab()) {
+      @case ('mission') {
+        <app-daily-mission [today]="data.actionsToday" />
+      }
+      @case ('rewards') {
+        <app-rewards />
+      }
+      @case ('ladder') {
+        <app-ladder-badges [ladder]="data.ladder" />
+        <a class="primary open-ladder" routerLink="/ladder">{{ t('dashboardOpenLadder') }}</a>
+      }
+    }
+  </div>
+} @else {
+  <p class="loading" role="status">{{ t('dashboardLoading') }}</p>
+}

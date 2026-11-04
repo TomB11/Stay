@@ -14,6 +14,8 @@
       <app-diary />
     } @else if (content.isProgress) {
       <app-progress />
+    } @else if (content.isDashboard) {
+      <app-dashboard />
     } @else {
       <div class="panel">
         <h2>{{ t(content.panelTitleKey) }}</h2>
