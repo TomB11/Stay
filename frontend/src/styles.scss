@@ -47,6 +47,13 @@ input {
   font: inherit;
 }
 
+/* Placeholders use a semantic token so they stay readable in dark mode. */
+textarea::placeholder,
+input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.75;
+}
+
 app-root .session-recap {
   border-left: 2px solid var(--color-accent-pink);
   color: var(--color-text-secondary);

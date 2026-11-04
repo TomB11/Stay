@@ -6,6 +6,7 @@
     <app-describe-situation
       [situation]="situation()"
       [anxietyLevel]="anxietyLevel()"
+      [phase]="selectedPhase() ?? 'unsure'"
       (situationChange)="updateSituation($event)"
       (anxietyLevelChange)="updateAnxietyLevel($event)"
       (continued)="continueToSupport()"

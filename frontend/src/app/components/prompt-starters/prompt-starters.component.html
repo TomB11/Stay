@@ -1,0 +1,7 @@
+<div class="starters" role="group" [attr.aria-label]="t('phStartersHint')">
+  @for (key of keys(); track key) {
+    <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="picked.emit(t(key))">
+      {{ t(key) }}
+    </button>
+  }
+</div>

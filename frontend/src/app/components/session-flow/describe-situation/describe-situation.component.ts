@@ -11,12 +11,16 @@ import { detectCrisis } from '../../../core/crisis/crisis-detector';
 import { MAX_SITUATION_LENGTH } from '../../../core/api.constant';
 import { LanguageService } from '../../../core/i18n/language.service';
 import { TranslationKey } from '../../../core/i18n/translation-key.type';
+import { SITUATION_PROMPTS } from '../../../sessions/constants/situation-prompts.constant';
+import { SessionPhase } from '../../../sessions/models/session-phase.type';
 import { CrisisAlertComponent } from '../../crisis-alert/crisis-alert.component';
+import { InfoTipComponent } from '../../info-tip/info-tip.component';
+import { PromptStartersComponent } from '../../prompt-starters/prompt-starters.component';
 
 @Component({
   standalone: true,
   selector: 'app-describe-situation',
-  imports: [FormsModule, CrisisAlertComponent],
+  imports: [FormsModule, CrisisAlertComponent, InfoTipComponent, PromptStartersComponent],
   templateUrl: './describe-situation.component.html',
   styleUrl: './describe-situation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +28,10 @@ import { CrisisAlertComponent } from '../../crisis-alert/crisis-alert.component'
 export class DescribeSituationComponent {
   @Input() situation = '';
   @Input() anxietyLevel = 5;
+  @Input() phase: SessionPhase = 'unsure';
+  protected focused = false;
+  /** Random per visit so the example placeholder is not always the same. */
+  private readonly seed = Math.floor(Math.random() * 1000);
   @Output() protected readonly situationChange = new EventEmitter<string>();
   @Output() protected readonly anxietyLevelChange = new EventEmitter<number>();
   @Output() protected readonly continued = new EventEmitter<void>();
@@ -32,6 +40,18 @@ export class DescribeSituationComponent {
   protected readonly maxLength = MAX_SITUATION_LENGTH;
   protected get crisisDetected(): boolean {
     return detectCrisis(this.situation);
+  }
+
+  protected get prompts() {
+    return SITUATION_PROMPTS[this.phase];
+  }
+  protected get placeholder(): string {
+    const options = this.prompts.placeholders;
+    return this.t(options[this.seed % options.length]);
+  }
+  protected addStarter(text: string): void {
+    const current = this.situation.trim();
+    this.updateSituation(current ? ` ${text}` : text);
   }
 
   protected t(key: TranslationKey): string {

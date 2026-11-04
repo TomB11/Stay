@@ -3,21 +3,29 @@
   <div class="eyebrow">{{ t('describeEyebrow') }}</div>
   <h1 id="situation-title">{{ t('describeTitle') }}</h1>
   <p class="intro">{{ t('describeIntro') }}</p>
-  <label for="situation">{{ t('situationLabel') }}</label>
+  <div class="label-row">
+    <label for="situation">{{ t('situationLabel') }}</label>
+    <app-info-tip [text]="t('phTipSituation')" />
+  </div>
   <textarea
     class="form-control"
     id="situation"
     [maxlength]="maxLength"
     [ngModel]="situation"
     (ngModelChange)="updateSituation($event)"
-    [placeholder]="t('situationPlaceholder')"
+    [placeholder]="placeholder"
+    (focus)="focused = true"
+    (blur)="focused = false"
   ></textarea>
+  @if (focused) {
+    <app-prompt-starters [keys]="prompts.starters" (picked)="addStarter($event)" />
+  }
   @if (crisisDetected) {
     <app-crisis-alert />
   }
   <div class="level-group">
     <div class="d-flex align-items-baseline justify-content-between">
-      <label for="level">{{ t('intensityLabel') }}</label
+      <span class="label-row"><label for="level">{{ t('intensityLabel') }}</label><app-info-tip [text]="t('phTipIntensity')" /></span
       ><output>{{ anxietyLevel }} / 10</output>
     </div>
     <input
