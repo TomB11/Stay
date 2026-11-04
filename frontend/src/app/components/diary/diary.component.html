@@ -4,90 +4,156 @@
   <p class="error" role="alert">{{ t('diaryError') }}</p>
 }
 
-<form class="panel" (ngSubmit)="save()">
-  <label for="diary-situation">{{ t('diarySituation') }}</label>
-  <textarea
-    id="diary-situation"
-    name="situation"
-    rows="2"
-    [maxLength]="maxText"
-    [placeholder]="t('diarySituationHint')"
-    [ngModel]="situation()"
-    (ngModelChange)="situation.set($event)"
-  ></textarea>
+<form class="page" (ngSubmit)="save()">
+  <header class="page-head">
+    <span class="page-title">{{ t('diaryNewPage') }}</span>
+    <time class="page-date" [attr.datetime]="today.toISOString()">{{ today | date: 'longDate' }}</time>
+  </header>
 
-  <label for="diary-thought">{{ t('diaryThought') }}</label>
-  <textarea
-    id="diary-thought"
-    name="thought"
-    rows="2"
-    [maxLength]="maxText"
-    [placeholder]="t('diaryThoughtHint')"
-    [ngModel]="thought()"
-    (ngModelChange)="thought.set($event)"
-  ></textarea>
-
-  <label for="diary-emotion">{{ t('diaryEmotion') }}</label>
-  <div class="chips">
-    @for (key of emotions; track key) {
-      <button
-        type="button"
-        class="chip"
-        [class.active]="emotion() === t(key)"
-        (click)="pickEmotion(key)"
-      >
-        {{ t(key) }}
-      </button>
+  <section class="step">
+    <div class="step-head">
+      <span class="step-no" aria-hidden="true">1</span>
+      <label for="diary-situation">{{ t('diarySituation') }}</label>
+      <app-info-tip [text]="t('diaryTipSituation')" />
+    </div>
+    <textarea
+      id="diary-situation"
+      name="situation"
+      rows="2"
+      [maxLength]="maxText"
+      [placeholder]="placeholder('situation')"
+      [ngModel]="situation()"
+      (ngModelChange)="situation.set($event)"
+      (focus)="focused.set('situation')"
+      (blur)="focused.set(null)"
+    ></textarea>
+    @if (focused() === 'situation') {
+      <div class="starters" role="group" [attr.aria-label]="t('diaryStarterHint')">
+        @for (key of starters('situation'); track key) {
+          <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="addStarter('situation', key)">
+            {{ t(key) }}
+          </button>
+        }
+      </div>
     }
-  </div>
-  <input
-    id="diary-emotion"
-    name="emotion"
-    type="text"
-    autocomplete="off"
-    [maxLength]="maxEmotion"
-    [ngModel]="emotion()"
-    (ngModelChange)="emotion.set($event)"
-  />
+  </section>
 
-  <div class="level-row">
-    <label for="diary-before">{{ t('diaryIntensityBefore') }}</label>
-    <output>{{ intensityBefore() }} / 10</output>
-  </div>
-  <input
-    id="diary-before"
-    name="before"
-    type="range"
-    min="0"
-    max="10"
-    [ngModel]="intensityBefore()"
-    (ngModelChange)="intensityBefore.set($event)"
-  />
+  <section class="step">
+    <div class="step-head">
+      <span class="step-no" aria-hidden="true">2</span>
+      <label for="diary-thought">{{ t('diaryThought') }}</label>
+      <app-info-tip [text]="t('diaryTipThought')" />
+    </div>
+    <textarea
+      id="diary-thought"
+      name="thought"
+      rows="2"
+      [maxLength]="maxText"
+      [placeholder]="placeholder('thought')"
+      [ngModel]="thought()"
+      (ngModelChange)="thought.set($event)"
+      (focus)="focused.set('thought')"
+      (blur)="focused.set(null)"
+    ></textarea>
+    @if (focused() === 'thought') {
+      <div class="starters" role="group" [attr.aria-label]="t('diaryStarterHint')">
+        @for (key of starters('thought'); track key) {
+          <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="addStarter('thought', key)">
+            {{ t(key) }}
+          </button>
+        }
+      </div>
+    }
+  </section>
 
-  <label for="diary-alternative">{{ t('diaryAlternative') }}</label>
-  <p class="hint">{{ t('diaryAlternativeHint') }}</p>
-  <textarea
-    id="diary-alternative"
-    name="alternative"
-    rows="3"
-    [maxLength]="maxText"
-    [ngModel]="alternative()"
-    (ngModelChange)="alternative.set($event)"
-  ></textarea>
+  <section class="step">
+    <div class="step-head">
+      <span class="step-no" aria-hidden="true">3</span>
+      <label for="diary-emotion">{{ t('diaryEmotion') }}</label>
+      <app-info-tip [text]="t('diaryTipEmotion')" />
+    </div>
+    <div class="chips">
+      @for (key of emotions; track key) {
+        <button
+          type="button"
+          class="chip"
+          [class.active]="emotion() === t(key)"
+          (click)="pickEmotion(key)"
+        >
+          {{ t(key) }}
+        </button>
+      }
+    </div>
+    <input
+      id="diary-emotion"
+      name="emotion"
+      type="text"
+      autocomplete="off"
+      [maxLength]="maxEmotion"
+      [ngModel]="emotion()"
+      (ngModelChange)="emotion.set($event)"
+    />
 
-  <div class="level-row">
-    <label for="diary-after">{{ t('diaryIntensityAfter') }}</label>
-    <output>{{ intensityAfter() }} / 10</output>
-  </div>
-  <input
-    id="diary-after"
-    name="after"
-    type="range"
-    min="0"
-    max="10"
-    [ngModel]="intensityAfter()"
-    (ngModelChange)="intensityAfter.set($event)"
-  />
+    <div class="level-row">
+      <span class="level-label">
+        <label for="diary-before">{{ t('diaryIntensityBefore') }}</label>
+        <app-info-tip [text]="t('diaryTipIntensity')" />
+      </span>
+      <output>{{ intensityBefore() }} / 10</output>
+    </div>
+    <input
+      id="diary-before"
+      name="before"
+      type="range"
+      min="0"
+      max="10"
+      [ngModel]="intensityBefore()"
+      (ngModelChange)="intensityBefore.set($event)"
+    />
+  </section>
+
+  <section class="step">
+    <div class="step-head">
+      <span class="step-no" aria-hidden="true">4</span>
+      <label for="diary-alternative">{{ t('diaryAlternative') }}</label>
+      <app-info-tip [text]="t('diaryTipAlternative')" />
+    </div>
+    <p class="hint">{{ t('diaryAlternativeHint') }}</p>
+    <textarea
+      id="diary-alternative"
+      name="alternative"
+      rows="3"
+      [maxLength]="maxText"
+      [placeholder]="placeholder('alternative')"
+      [ngModel]="alternative()"
+      (ngModelChange)="alternative.set($event)"
+      (focus)="focused.set('alternative')"
+      (blur)="focused.set(null)"
+    ></textarea>
+    @if (focused() === 'alternative') {
+      <div class="starters" role="group" [attr.aria-label]="t('diaryStarterHint')">
+        @for (key of starters('alternative'); track key) {
+          <button type="button" class="chip" (mousedown)="$event.preventDefault()" (click)="addStarter('alternative', key)">
+            {{ t(key) }}
+          </button>
+        }
+      </div>
+    }
+
+    <div class="level-row">
+      <label for="diary-after">{{ t('diaryIntensityAfter') }}</label>
+      <output>{{ intensityAfter() }} / 10</output>
+    </div>
+    <input
+      id="diary-after"
+      name="after"
+      type="range"
+      min="0"
+      max="10"
+      [ngModel]="intensityAfter()"
+      (ngModelChange)="intensityAfter.set($event)"
+    />
+  </section>
 
   @if (crisisDetected()) {
     <app-crisis-alert />
@@ -97,6 +163,7 @@
 </form>
 
 @if (entries().length) {
+  <h2 class="past-title">{{ t('diaryPastEntries') }}</h2>
   <ul class="entries">
     @for (entry of entries(); track entry.id) {
       <li class="entry">

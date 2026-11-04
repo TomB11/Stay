@@ -85,6 +85,21 @@ describe('DiaryComponent', () => {
     expect(root().querySelector('app-crisis-alert')).toBeTruthy();
   });
 
+  it('offers starter phrases while a field is focused and adds the picked one', async () => {
+    flushEntries([]);
+    const textarea = root().querySelector('#diary-situation') as HTMLTextAreaElement;
+    expect(root().querySelector('.starters')).toBeNull();
+    textarea.dispatchEvent(new Event('focus'));
+    fixture.detectChanges();
+    const chip = root().querySelector('.starters .chip') as HTMLButtonElement;
+    expect(chip).toBeTruthy();
+    chip.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(textarea.value.length).toBeGreaterThan(0);
+    expect(textarea.placeholder.length).toBeGreaterThan(0);
+  });
+
   it('deletes an entry', () => {
     flushEntries([entry]);
     (root().querySelector('.link-danger') as HTMLButtonElement).click();

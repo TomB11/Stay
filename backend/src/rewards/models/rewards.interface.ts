@@ -21,6 +21,8 @@ export interface LadderStats {
 export interface RewardsOverview {
   actions: number;
   actionsToday: ActionsToday;
+  /** All-time counts per kind of brave step. */
+  totals: ActionsToday;
   ladder: LadderStats;
   giftsEarned: number;
   giftsAvailable: number;

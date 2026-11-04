@@ -7,7 +7,7 @@ import {
   badgeLevelFor,
 } from '../../rewards/constants/ladder-badges.constant';
 import { InfoTipComponent } from '../info-tip/info-tip.component';
-import { LadderStats } from '../../rewards/models/rewards.interface';
+import { ActionsToday, LadderStats } from '../../rewards/models/rewards.interface';
 
 @Component({
   standalone: true,
@@ -20,8 +20,14 @@ import { LadderStats } from '../../rewards/models/rewards.interface';
 export class LadderBadgesComponent {
   readonly ladder = input.required<LadderStats>();
   readonly actions = input(0);
+  readonly totals = input<ActionsToday>({ sessions: 0, diaryEntries: 0, exposureAttempts: 0 });
   protected readonly badges = computed(() => {
-    const stats = { ...this.ladder(), actions: this.actions() };
+    const stats = {
+      ...this.ladder(),
+      actions: this.actions(),
+      sessions: this.totals().sessions,
+      diaryEntries: this.totals().diaryEntries,
+    };
     const items = LADDER_BADGES.map((badge) => {
       const progress = badgeLevelFor(badge, stats);
       return {

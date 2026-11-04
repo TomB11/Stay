@@ -35,7 +35,7 @@
         <app-rewards />
       }
       @case ('ladder') {
-        <app-ladder-badges [ladder]="data.ladder" [actions]="data.actions" />
+        <app-ladder-badges [ladder]="data.ladder" [actions]="data.actions" [totals]="data.totals" />
         <a class="primary open-ladder" routerLink="/ladder">{{ t('dashboardOpenLadder') }}</a>
       }
     }

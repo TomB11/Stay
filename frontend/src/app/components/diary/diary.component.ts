@@ -18,13 +18,18 @@ import {
   DIARY_MAX_EMOTION_LENGTH,
   DIARY_MAX_TEXT_LENGTH,
 } from '../../diary/constants/diary.constant';
+import {
+  DIARY_PROMPTS,
+  DiaryPromptField,
+} from '../../diary/constants/diary-prompts.constant';
 import { DiaryEntry } from '../../diary/models/diary-entry.interface';
 import { CrisisAlertComponent } from '../crisis-alert/crisis-alert.component';
+import { InfoTipComponent } from '../info-tip/info-tip.component';
 
 @Component({
   standalone: true,
   selector: 'app-diary',
-  imports: [CrisisAlertComponent, DatePipe, FormsModule],
+  imports: [CrisisAlertComponent, DatePipe, FormsModule, InfoTipComponent],
   templateUrl: './diary.component.html',
   styleUrl: './diary.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,6 +52,10 @@ export class DiaryComponent implements OnInit {
   protected readonly crisisDetected = computed(() =>
     detectCrisis(`${this.situation()} ${this.thought()} ${this.alternative()}`),
   );
+  protected readonly focused = signal<DiaryPromptField | null>(null);
+  protected readonly today = new Date();
+  /** Changes on every visit and after each saved page, so example placeholders vary. */
+  private readonly promptSeed = signal(Math.floor(Math.random() * 1000));
   protected readonly language = inject(LanguageService);
   private readonly api = inject(ApiService);
 
@@ -56,6 +65,22 @@ export class DiaryComponent implements OnInit {
 
   protected t(key: TranslationKey): string {
     return this.language.translate(key);
+  }
+
+  protected placeholder(field: DiaryPromptField): string {
+    const options = DIARY_PROMPTS[field].placeholders;
+    return this.t(options[this.promptSeed() % options.length]);
+  }
+
+  protected starters(field: DiaryPromptField): readonly TranslationKey[] {
+    return DIARY_PROMPTS[field].starters;
+  }
+
+  /** Appends a starter phrase to the focused field so the user can type less. */
+  protected addStarter(field: DiaryPromptField, key: TranslationKey): void {
+    const target = { situation: this.situation, thought: this.thought, alternative: this.alternative }[field];
+    const current = target().trim();
+    target.set(current ? `${current} ${this.t(key)}` : this.t(key));
   }
 
   protected pickEmotion(key: TranslationKey): void {
@@ -77,6 +102,7 @@ export class DiaryComponent implements OnInit {
       .subscribe({
         next: () => {
           this.resetForm();
+          this.promptSeed.update((seed) => seed + 1);
           this.load();
         },
         error: () => this.error.set(true),

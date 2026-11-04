@@ -2,7 +2,7 @@ import { TranslationKey } from '../../core/i18n/translation-key.type';
 import { LadderStats } from '../models/rewards.interface';
 
 /** Everything a badge can level up on. */
-export type BadgeStats = LadderStats & { actions: number };
+export type BadgeStats = LadderStats & { actions: number; sessions: number; diaryEntries: number };
 
 export interface BadgeTrack {
   id: string;
@@ -55,6 +55,22 @@ export const LADDER_BADGES: readonly BadgeTrack[] = [
     descriptionKey: 'badgePersistenceDesc',
     value: (stats) => stats.actions,
     levels: [5, 15, 40, 80, 150],
+  },
+{
+    id: 'calm',
+    icon: '🌬️',
+    titleKey: 'badgeCalmTitle',
+    descriptionKey: 'badgeCalmDesc',
+    value: (stats) => stats.sessions,
+    levels: [1, 5, 15, 40, 80],
+  },
+  {
+    id: 'insight',
+    icon: '📖',
+    titleKey: 'badgeInsightTitle',
+    descriptionKey: 'badgeInsightDesc',
+    value: (stats) => stats.diaryEntries,
+    levels: [1, 5, 15, 40, 80],
   },
 ];
 

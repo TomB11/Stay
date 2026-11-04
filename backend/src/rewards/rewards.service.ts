@@ -45,14 +45,16 @@ export class RewardsService {
       masteredSteps: mastered.count,
       highestMasteredAnxiety: mastered.highest,
     };
-    const [counts] = await this.database.query<{ actions: number }>(
-      `SELECT (
-          (SELECT COUNT(*) FROM sessions WHERE user_id = $1) +
-          (SELECT COUNT(*) FROM diary_entries WHERE user_id = $1) +
-          (SELECT COUNT(*) FROM exposure_attempts WHERE user_id = $1)
-        )::int AS actions`,
+    const [totals] = await this.database.query<ActionsToday>(
+      `SELECT
+          (SELECT COUNT(*) FROM sessions WHERE user_id = $1)::int AS sessions,
+          (SELECT COUNT(*) FROM diary_entries WHERE user_id = $1)::int AS "diaryEntries",
+          (SELECT COUNT(*) FROM exposure_attempts WHERE user_id = $1)::int AS "exposureAttempts"`,
       [userId],
     );
+    const counts = {
+      actions: totals.sessions + totals.diaryEntries + totals.exposureAttempts,
+    };
     const rows = await this.database.query<RewardView & { title: string }>(
       `SELECT id, title, opened_at AS "openedAt", redeemed_at AS "redeemedAt"
        FROM rewards WHERE user_id = $1 ORDER BY created_at ASC`,
@@ -64,6 +66,7 @@ export class RewardsService {
     return {
       actions: counts.actions,
       actionsToday: today,
+      totals,
       ladder,
       giftsEarned,
       giftsAvailable: Math.max(0, giftsEarned - opened),

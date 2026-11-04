@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard.component';
 const overview: RewardsOverview = {
   actions: 6,
   actionsToday: { sessions: 1, diaryEntries: 0, exposureAttempts: 0 },
+  totals: { sessions: 0, diaryEntries: 0, exposureAttempts: 0 },
   ladder: { attempts: 1, masteredSteps: 0, highestMasteredAnxiety: 0 },
   giftsEarned: 1,
   giftsAvailable: 1,

@@ -9,6 +9,7 @@ import { RewardsComponent } from './rewards.component';
 const overview = (overrides: Partial<RewardsOverview> = {}): RewardsOverview => ({
   actions: 3,
   actionsToday: { sessions: 0, diaryEntries: 0, exposureAttempts: 0 },
+  totals: { sessions: 0, diaryEntries: 0, exposureAttempts: 0 },
   ladder: { attempts: 0, masteredSteps: 0, highestMasteredAnxiety: 0 },
   giftsEarned: 0,
   giftsAvailable: 0,

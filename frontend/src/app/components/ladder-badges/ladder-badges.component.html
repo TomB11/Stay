@@ -12,7 +12,7 @@
         <path class="ribbon" d="M24 0 L40 34 L56 0 L66 0 L48 44 L32 44 L14 0 Z" />
         <circle class="rim" cx="40" cy="62" r="30" />
         <circle class="face" cx="40" cy="62" r="23" />
-        <text x="40" y="71" text-anchor="middle" class="emoji">{{ badge.level > 0 ? badge.icon : '🔒' }}</text>
+        <text x="40" y="71" text-anchor="middle" class="emoji">{{ badge.icon }}</text>
       </svg>
       <strong>{{ t(badge.titleKey) }}</strong>
       @if (badge.tierKey) {

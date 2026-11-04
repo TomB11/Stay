@@ -21,6 +21,7 @@ export interface LadderStats {
 export interface RewardsOverview {
   actions: number;
   actionsToday: ActionsToday;
+  totals: ActionsToday;
   ladder: LadderStats;
   giftsEarned: number;
   giftsAvailable: number;

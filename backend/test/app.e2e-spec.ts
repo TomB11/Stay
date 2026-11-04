@@ -447,6 +447,7 @@ describe('AppController (e2e)', () => {
       expect(redeemed.title).toBe(opened.body.title);
       expect(redeemed.redeemedAt).not.toBeNull();
       expect(after.body.actionsToday.diaryEntries).toBe(5);
+      expect(after.body.totals.diaryEntries).toBe(5);
       expect(after.body.ladder).toEqual({ attempts: 0, masteredSteps: 0, highestMasteredAnxiety: 0 });
       const future = new Date(Date.now() + 86_400_000).toISOString();
       const tomorrow = await request(server)

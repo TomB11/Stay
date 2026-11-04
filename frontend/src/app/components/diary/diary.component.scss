@@ -12,15 +12,69 @@
   margin-top: 32px;
   padding: 14px 18px;
 }
-.panel {
+.page {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-left: 6px solid var(--color-primary);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-soft);
   display: grid;
-  gap: 10px;
+  gap: 22px;
   margin-top: 24px;
-  padding: 22px;
+  padding: 24px 22px;
+}
+.page-head {
+  align-items: baseline;
+  border-bottom: 2px dashed var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+.page-title {
+  color: var(--color-navy);
+  font:
+    italic 600 1.35rem Georgia, 'Times New Roman', serif;
+}
+.page-date {
+  color: var(--color-text-secondary);
+  font:
+    0.82rem var(--font-body);
+}
+.step {
+  display: grid;
+  gap: 8px;
+}
+.step-head,
+.level-label {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+.step-no {
+  align-items: center;
+  background: var(--color-primary);
+  border-radius: 50%;
+  color: var(--color-on-primary);
+  display: inline-flex;
+  flex: none;
+  font:
+    700 0.8rem var(--font-body);
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+.starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.past-title {
+  color: var(--color-text-secondary);
+  font:
+    700 0.75rem var(--font-body);
+  letter-spacing: 0.08em;
+  margin: 32px 0 0;
+  text-transform: uppercase;
 }
 label {
   color: var(--color-navy);
@@ -37,6 +91,16 @@ input[type='text'] {
     1rem var(--font-body);
   padding: 12px 14px;
   resize: vertical;
+}
+textarea {
+  background-image: repeating-linear-gradient(
+    transparent 0,
+    transparent 1.65rem,
+    color-mix(in srgb, var(--color-border) 80%, transparent) 1.65rem,
+    color-mix(in srgb, var(--color-border) 80%, transparent) calc(1.65rem + 1px)
+  );
+  background-attachment: local;
+  line-height: 1.7rem;
 }
 input[type='range'] {
   accent-color: var(--color-primary);
@@ -109,7 +173,7 @@ button {
   display: grid;
   gap: 12px;
   list-style: none;
-  margin: 28px 0 0;
+  margin: 12px 0 0;
   padding: 0;
 }
 .entry {
