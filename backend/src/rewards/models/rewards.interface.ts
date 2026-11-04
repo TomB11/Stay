@@ -6,8 +6,22 @@ export interface RewardView {
   redeemedAt: string | null;
 }
 
+export interface ActionsToday {
+  sessions: number;
+  diaryEntries: number;
+  exposureAttempts: number;
+}
+
+export interface LadderStats {
+  attempts: number;
+  masteredSteps: number;
+  highestMasteredAnxiety: number;
+}
+
 export interface RewardsOverview {
   actions: number;
+  actionsToday: ActionsToday;
+  ladder: LadderStats;
   giftsEarned: number;
   giftsAvailable: number;
   actionsToNextGift: number;

@@ -47,6 +47,8 @@
       </div>
     }
 
+    <app-daily-mission [today]="data.actionsToday" />
+
     <form class="add-form" (ngSubmit)="add()">
       <label for="reward-title">{{ t('rewardsAddLabel') }}</label>
       <div class="add-row">
@@ -99,5 +101,8 @@
         }
       </ul>
     }
+
+    <app-courage-tree [actions]="data.actions" />
+    <app-ladder-badges [ladder]="data.ladder" />
   }
 </section>

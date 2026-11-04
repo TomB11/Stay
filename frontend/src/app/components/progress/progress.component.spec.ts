@@ -39,7 +39,7 @@ describe('ProgressComponent', () => {
   });
 
   afterEach(() => {
-    http.match(`${API_BASE_URL}/rewards`);
+    http.match((req) => req.url === `${API_BASE_URL}/rewards`);
     http.verify();
   });
 

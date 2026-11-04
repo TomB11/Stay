@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+.mission {
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 16px 18px;
+}
+.mission.done {
+  border-color: var(--color-primary);
+}
+.icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.text {
+  display: grid;
+  flex: 1 1 200px;
+  gap: 2px;
+}
+.eyebrow {
+  color: var(--color-text-secondary);
+  font:
+    700 0.72rem var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+strong {
+  color: var(--color-navy);
+  font:
+    700 1rem var(--font-body);
+}
+p {
+  color: var(--color-text-secondary);
+  font:
+    0.88rem/1.5 var(--font-body);
+  margin: 0;
+}
+.note {
+  margin-top: 8px;
+}

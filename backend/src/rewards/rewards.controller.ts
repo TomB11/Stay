@@ -7,6 +7,7 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard.js';
@@ -21,8 +22,11 @@ export class RewardsController {
   constructor(private readonly rewardsService: RewardsService) {}
 
   @Get()
-  overview(@CurrentUserId() userId: string): Promise<RewardsOverview> {
-    return this.rewardsService.getOverview(userId);
+  overview(
+    @CurrentUserId() userId: string,
+    @Query('since') since?: string,
+  ): Promise<RewardsOverview> {
+    return this.rewardsService.getOverview(userId, since);
   }
 
   @Post()

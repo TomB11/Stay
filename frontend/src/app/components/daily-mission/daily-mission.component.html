@@ -1,0 +1,12 @@
+<article class="mission" [class.done]="done()">
+  <span class="icon" aria-hidden="true">{{ done() ? '✅' : '🎯' }}</span>
+  <div class="text">
+    <span class="eyebrow">{{ t('missionLabel') }}</span>
+    <strong>{{ t(mission.titleKey) }}</strong>
+    <p>{{ done() ? t('missionDone') : t(mission.descriptionKey) }}</p>
+  </div>
+  @if (!done()) {
+    <a class="btn-link" [routerLink]="mission.link">{{ t('missionStart') }}</a>
+  }
+</article>
+<p class="note">{{ t('missionNote') }}</p>

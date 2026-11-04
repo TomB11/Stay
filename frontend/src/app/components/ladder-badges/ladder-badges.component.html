@@ -1,0 +1,10 @@
+<h3>{{ t('badgesTitle') }}</h3>
+<ul class="badges">
+  @for (badge of badges(); track badge.id) {
+    <li class="badge" [class.earned]="badge.earned">
+      <span class="icon" aria-hidden="true">{{ badge.earned ? badge.icon : '🔒' }}</span>
+      <strong>{{ t(badge.titleKey) }}</strong>
+      <span class="desc">{{ badge.earned ? t(badge.descriptionKey) : t('badgeLocked') }}</span>
+    </li>
+  }
+</ul>

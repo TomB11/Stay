@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+h3 {
+  color: var(--color-text-secondary);
+  font:
+    700 0.75rem var(--font-body);
+  letter-spacing: 0.08em;
+  margin: 8px 0;
+  text-transform: uppercase;
+}
+.badges {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.badge {
+  align-content: start;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  opacity: 0.65;
+  padding: 14px 10px;
+  text-align: center;
+}
+.badge.earned {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+  border: 1px solid var(--color-primary);
+  opacity: 1;
+}
+.icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+strong {
+  color: var(--color-navy);
+  font:
+    700 0.85rem var(--font-body);
+}
+.desc {
+  color: var(--color-text-secondary);
+  font:
+    0.78rem/1.4 var(--font-body);
+}
+
+@keyframes badge-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .badge.earned .icon {
+    animation: badge-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+}

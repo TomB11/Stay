@@ -6,6 +6,7 @@ import { DiaryEntry, NewDiaryEntry } from '../diary/models/diary-entry.interface
 import { ExposureAttempt, ExposureStep } from '../exposure/models/exposure-step.interface';
 import { API_BASE_URL } from './api.constant';
 import { OpenedReward, Reward, RewardsOverview } from '../rewards/models/rewards.interface';
+import { startOfLocalDay } from '../rewards/daily-mission';
 
 /** Authorization headers are attached by the auth interceptor. */
 @Injectable({ providedIn: 'root' })
@@ -57,7 +58,8 @@ export class ApiService {
   }
 
   getRewards() {
-    return this.http.get<RewardsOverview>(`${API_BASE_URL}/rewards`);
+    const since = startOfLocalDay(new Date()).toISOString();
+    return this.http.get<RewardsOverview>(`${API_BASE_URL}/rewards`, { params: { since } });
   }
 
   addReward(title: string) {

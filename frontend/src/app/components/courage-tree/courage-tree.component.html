@@ -1,0 +1,26 @@
+<h3>{{ t('treeTitle') }}</h3>
+<div class="tree-wrap">
+  <svg viewBox="0 0 200 200" role="img" [attr.aria-label]="t('treeTitle')">
+    <path class="trunk" d="M92 190 L96 110 Q100 100 104 110 L108 190 Z" />
+    <path class="branch" d="M100 130 Q82 112 70 100 M100 120 Q118 106 132 92" />
+    <g class="leaves">
+      @for (leaf of leaves(); track $index) {
+        <ellipse
+          class="leaf"
+          [class.shade-1]="leaf.shade === 1"
+          [class.shade-2]="leaf.shade === 2"
+          rx="7"
+          ry="4"
+          [attr.transform]="'translate(' + leaf.x + ' ' + leaf.y + ') rotate(' + leaf.rotation + ')'"
+        />
+      }
+    </g>
+  </svg>
+  <p class="count">
+    <strong>{{ actions() }}</strong> {{ t('treeCount') }}
+    @if (extraLeaves() > 0) {
+      <span>(+{{ extraLeaves() }})</span>
+    }
+  </p>
+  <p class="hint">{{ t('treeHint') }}</p>
+</div>

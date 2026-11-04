@@ -1,0 +1,70 @@
+:host {
+  display: block;
+}
+h3 {
+  color: var(--color-text-secondary);
+  font:
+    700 0.75rem var(--font-body);
+  letter-spacing: 0.08em;
+  margin: 8px 0;
+  text-transform: uppercase;
+}
+.tree-wrap {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+}
+svg {
+  max-width: 260px;
+  width: 100%;
+}
+.trunk {
+  fill: color-mix(in srgb, var(--color-text-secondary) 70%, var(--color-surface));
+}
+.branch {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-text-secondary) 70%, var(--color-surface));
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+.leaf {
+  fill: var(--color-primary);
+  opacity: 0.95;
+}
+.leaf.shade-1 {
+  fill: color-mix(in srgb, var(--color-primary) 75%, var(--color-surface));
+}
+.leaf.shade-2 {
+  fill: color-mix(in srgb, var(--color-primary) 55%, var(--color-surface));
+}
+.count {
+  color: var(--color-navy);
+  font:
+    0.95rem var(--font-body);
+  margin: 0;
+}
+.count strong {
+  color: var(--color-primary);
+  font-size: 1.3rem;
+}
+.hint {
+  color: var(--color-text-secondary);
+  font:
+    0.85rem/1.5 var(--font-body);
+  margin: 0;
+}
+
+@keyframes leaf-grow {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .leaf {
+    animation: leaf-grow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+}

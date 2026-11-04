@@ -6,16 +6,45 @@ import {
 } from './constants/rewards-limits.constant.js';
 import { CreateRewardDto } from './dto/create-reward.dto.js';
 import type {
+  ActionsToday,
+  LadderStats,
   OpenedReward,
   RewardsOverview,
   RewardView,
 } from './models/rewards.interface.js';
+import { MASTERED_ANXIETY } from '../insights/constants/insights.constant.js';
 
 @Injectable()
 export class RewardsService {
   constructor(private readonly database: DatabaseService) {}
 
-  async getOverview(userId: string): Promise<RewardsOverview> {
+  async getOverview(userId: string, since?: string): Promise<RewardsOverview> {
+    const dayStart = this.parseSince(since);
+    const [today] = await this.database.query<ActionsToday>(
+      `SELECT
+          (SELECT COUNT(*) FROM sessions WHERE user_id = $1 AND created_at >= $2)::int AS sessions,
+          (SELECT COUNT(*) FROM diary_entries WHERE user_id = $1 AND created_at >= $2)::int AS "diaryEntries",
+          (SELECT COUNT(*) FROM exposure_attempts WHERE user_id = $1 AND created_at >= $2)::int AS "exposureAttempts"`,
+      [userId, dayStart],
+    );
+    const [attempts] = await this.database.query<{ count: number }>(
+      'SELECT COUNT(*)::int AS count FROM exposure_attempts WHERE user_id = $1',
+      [userId],
+    );
+    const [mastered] = await this.database.query<{ count: number; highest: number }>(
+      `SELECT COUNT(*)::int AS count, COALESCE(MAX(s.expected_anxiety), 0)::int AS highest
+       FROM exposure_steps s
+       WHERE s.user_id = $1 AND (
+         SELECT a.anxiety_after FROM exposure_attempts a
+         WHERE a.step_id = s.id ORDER BY a.created_at DESC LIMIT 1
+       ) <= $2`,
+      [userId, MASTERED_ANXIETY],
+    );
+    const ladder: LadderStats = {
+      attempts: attempts.count,
+      masteredSteps: mastered.count,
+      highestMasteredAnxiety: mastered.highest,
+    };
     const [counts] = await this.database.query<{ actions: number }>(
       `SELECT (
           (SELECT COUNT(*) FROM sessions WHERE user_id = $1) +
@@ -34,6 +63,8 @@ export class RewardsService {
     const opened = rewards.filter((reward) => reward.openedAt).length;
     return {
       actions: counts.actions,
+      actionsToday: today,
+      ladder,
       giftsEarned,
       giftsAvailable: Math.max(0, giftsEarned - opened),
       actionsToNextGift: GIFT_EVERY_ACTIONS - (counts.actions % GIFT_EVERY_ACTIONS),
@@ -94,5 +125,13 @@ export class RewardsService {
       [rewardId, userId],
     );
     if (!rows.length) throw new NotFoundException('Reward not found.');
+  }
+
+  /** The client sends the start of its local day; without it "today" is the last 24 hours. */
+  private parseSince(since?: string): string {
+    if (since === undefined) return new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const parsed = new Date(since);
+    if (Number.isNaN(parsed.getTime())) throw new BadRequestException('Invalid date.');
+    return parsed.toISOString();
   }
 }

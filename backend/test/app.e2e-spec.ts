@@ -446,6 +446,16 @@ describe('AppController (e2e)', () => {
       const redeemed = after.body.rewards.find((r: { id: string }) => r.id === opened.body.id);
       expect(redeemed.title).toBe(opened.body.title);
       expect(redeemed.redeemedAt).not.toBeNull();
+      expect(after.body.actionsToday.diaryEntries).toBe(5);
+      expect(after.body.ladder).toEqual({ attempts: 0, masteredSteps: 0, highestMasteredAnxiety: 0 });
+      const future = new Date(Date.now() + 86_400_000).toISOString();
+      const tomorrow = await request(server)
+        .get('/api/rewards')
+        .query({ since: future })
+        .set(auth)
+        .expect(200);
+      expect(tomorrow.body.actionsToday.diaryEntries).toBe(0);
+      await request(server).get('/api/rewards').query({ since: 'nope' }).set(auth).expect(400);
     });
 
     it('does not let another user touch a reward', async () => {
