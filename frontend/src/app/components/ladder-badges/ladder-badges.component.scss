@@ -30,8 +30,40 @@ h3 {
   padding: 14px 10px;
   text-align: center;
 }
-.tier-0 {
-  opacity: 0.65;
+.tier-0 .medal {
+  opacity: 0.55;
+}
+.badge {
+  position: relative;
+}
+.badge.focus {
+  border: 2px dashed var(--color-primary);
+}
+.focus-label {
+  background: var(--color-primary);
+  border-radius: var(--radius-pill);
+  color: var(--color-on-primary);
+  font:
+    700 0.66rem var(--font-body);
+  left: 50%;
+  padding: 2px 10px;
+  position: absolute;
+  top: -9px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.bar {
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+.bar span {
+  background: var(--tier-dark, var(--color-primary));
+  display: block;
+  height: 100%;
 }
 .tier-1 {
   --tier-main: #cd8b55;

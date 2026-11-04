@@ -1,31 +1,16 @@
 <section class="rewards">
-  <h2 class="section-title">{{ t('rewardsTitle') }}</h2>
-  <p class="hint">{{ t('rewardsIntro') }}</p>
+  <h2 class="section-title">
+    {{ t('rewardsTitle') }}
+    <app-info-tip [text]="t('rewardsIntro')" />
+  </h2>
 
   @if (error()) {
     <p class="error" role="alert">{{ t('rewardsError') }}</p>
   }
 
   @if (overview(); as data) {
-    <div class="gift-progress">
-      <div
-        class="bar"
-        role="progressbar"
-        aria-valuemin="0"
-        [attr.aria-valuemax]="data.actionsPerGift"
-        [attr.aria-valuenow]="data.actionsPerGift - data.actionsToNextGift"
-        [attr.aria-label]="t('rewardsNextGift')"
-      >
-        <span [style.width.%]="progressPercent()"></span>
-      </div>
-      <span class="hint">
-        {{ data.actionsToNextGift }} {{ t('rewardsActionsToNext') }} · {{ data.actions }}
-        {{ t('rewardsActionsTotal') }}
-      </span>
-    </div>
-
     @if (revealed(); as gift) {
-      <div class="reveal" role="status">
+      <div class="hero reveal" role="status">
         <span class="gift-icon open" aria-hidden="true">🎁</span>
         <strong>{{ t('rewardsRevealed') }}</strong>
         <p class="reward-title">{{ gift.title }}</p>
@@ -34,7 +19,7 @@
         </button>
       </div>
     } @else if (data.giftsAvailable > 0) {
-      <div class="reveal">
+      <div class="hero ready-hero">
         <span class="gift-icon ready" aria-hidden="true">🎁</span>
         <strong>{{ t('rewardsReady') }}</strong>
         @if (wrapped().length) {
@@ -45,33 +30,40 @@
           <p class="hint">{{ t('rewardsAddToOpen') }}</p>
         }
       </div>
+    } @else {
+      <div class="hero">
+        <span class="gift-icon" aria-hidden="true">🎁</span>
+        <strong>
+          {{ data.actionsToNextGift }} {{ t('rewardsActionsToNext') }}
+          <app-info-tip [text]="t('rewardsActionsTotal')" />
+        </strong>
+      </div>
     }
 
-    <form class="add-form" (ngSubmit)="add()">
-      <label for="reward-title">{{ t('rewardsAddLabel') }}</label>
-      <div class="add-row">
-        <input
-          id="reward-title"
-          name="title"
-          type="text"
-          autocomplete="off"
-          [maxLength]="maxTitle"
-          [placeholder]="t('rewardsAddHint')"
-          [ngModel]="title()"
-          (ngModelChange)="title.set($event)"
-        />
-        <button type="submit" class="primary" [disabled]="!title().trim()">
-          {{ t('rewardsAdd') }}
-        </button>
+    <div class="gift-progress">
+      <div class="progress-head">
+        <span>{{ t('rewardsNextGift') }}</span>
+        <strong>{{ data.actionsPerGift - data.actionsToNextGift }} / {{ data.actionsPerGift }}</strong>
       </div>
-    </form>
+      <div
+        class="bar"
+        role="progressbar"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="data.actionsPerGift"
+        [attr.aria-valuenow]="data.actionsPerGift - data.actionsToNextGift"
+        [attr.aria-label]="t('rewardsNextGift')"
+      >
+        <span [style.width.%]="progressPercent()"></span>
+      </div>
+      <span class="hint">{{ data.actions }} {{ t('rewardsActionsTotal') }}</span>
+    </div>
 
     @if (wrapped().length) {
       <h3>{{ t('rewardsWrappedTitle') }} ({{ wrapped().length }})</h3>
-      <ul class="gifts">
+      <ul class="gift-grid">
         @for (reward of wrapped(); track reward.id) {
-          <li class="gift">
-            <span aria-hidden="true">🎁</span>
+          <li class="gift-tile">
+            <span class="tile-icon" aria-hidden="true">🎁</span>
             <span class="gift-name">{{ t('rewardsWrappedName') }}</span>
             <button type="button" class="link-danger" (click)="remove(reward.id)">
               {{ t('rewardsDelete') }}
@@ -99,5 +91,24 @@
         }
       </ul>
     }
+
+    <form class="add-form" (ngSubmit)="add()">
+      <label for="reward-title">{{ t('rewardsAddLabel') }}</label>
+      <div class="add-row">
+        <input
+          id="reward-title"
+          name="title"
+          type="text"
+          autocomplete="off"
+          [maxLength]="maxTitle"
+          [placeholder]="t('rewardsAddHint')"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+        />
+        <button type="submit" class="primary" [disabled]="!title().trim()">
+          {{ t('rewardsAdd') }}
+        </button>
+      </div>
+    </form>
   }
 </section>

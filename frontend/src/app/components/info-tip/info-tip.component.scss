@@ -1,0 +1,49 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+.tip {
+  display: inline-block;
+  position: relative;
+}
+.trigger {
+  background: transparent;
+  border: 1px solid var(--color-text-secondary);
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  cursor: help;
+  font:
+    italic 700 0.7rem/1 serif;
+  height: 18px;
+  padding: 0;
+  width: 18px;
+}
+.bubble {
+  background: var(--color-navy);
+  border-radius: var(--radius-sm);
+  color: var(--color-surface);
+  font:
+    400 0.78rem/1.45 var(--font-body);
+  left: 50%;
+  letter-spacing: normal;
+  max-width: 240px;
+  opacity: 0;
+  padding: 8px 10px;
+  pointer-events: none;
+  position: absolute;
+  text-transform: none;
+  top: calc(100% + 6px);
+  transform: translateX(-50%);
+  transition: opacity 0.15s;
+  visibility: hidden;
+  width: max-content;
+  z-index: 20;
+}
+.tip:hover .bubble,
+.trigger:focus-visible + .bubble {
+  opacity: 1;
+  visibility: visible;
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+}

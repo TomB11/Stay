@@ -12,21 +12,22 @@ describe('LadderBadgesComponent', () => {
 
   it('levels a badge up as its value grows', () => {
     const courage = LADDER_BADGES[0];
-    expect(badgeLevelFor(courage, { attempts: 0, masteredSteps: 0, highestMasteredAnxiety: 0 }).level).toBe(0);
-    expect(badgeLevelFor(courage, { attempts: 5, masteredSteps: 0, highestMasteredAnxiety: 0 })).toEqual({
+    expect(badgeLevelFor(courage, { attempts: 0, masteredSteps: 0, highestMasteredAnxiety: 0, actions: 0 }).level).toBe(0);
+    expect(badgeLevelFor(courage, { attempts: 5, masteredSteps: 0, highestMasteredAnxiety: 0, actions: 0 })).toEqual({
       level: 2,
       value: 5,
       next: 15,
     });
-    expect(badgeLevelFor(courage, { attempts: 99, masteredSteps: 0, highestMasteredAnxiety: 0 }).next).toBeNull();
+    expect(badgeLevelFor(courage, { attempts: 99, masteredSteps: 0, highestMasteredAnxiety: 0, actions: 0 }).next).toBeNull();
   });
 
   it('shows locked medals and upgraded tiers', () => {
-    fixture.componentRef.setInput('ladder', { attempts: 15, masteredSteps: 0, highestMasteredAnxiety: 0 });
+    fixture.componentRef.setInput('ladder', { attempts: 15, masteredSteps: 0, highestMasteredAnxiety: 0, actions: 0 });
     fixture.detectChanges();
     const items = fixture.nativeElement.querySelectorAll('.badge') as NodeListOf<HTMLElement>;
-    expect(items.length).toBe(3);
+    expect(items.length).toBe(4);
     expect(items[0].classList).toContain('tier-3');
     expect(items[1].classList).toContain('tier-0');
+    expect(fixture.nativeElement.querySelectorAll('.focus').length).toBe(1);
   });
 });

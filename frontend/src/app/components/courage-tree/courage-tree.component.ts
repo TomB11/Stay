@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { InfoTipComponent } from '../info-tip/info-tip.component';
 import { LanguageService } from '../../core/i18n/language.service';
 import { TranslationKey } from '../../core/i18n/translation-key.type';
 import { MAX_TREE_LEAVES, TREE_LEAVES } from '../../rewards/constants/tree-leaves.constant';
@@ -7,6 +8,7 @@ import { FULL_GROWN_ACTIONS, treeStageFor } from '../../rewards/constants/tree-s
 
 @Component({
   standalone: true,
+  imports: [InfoTipComponent],
   selector: 'app-courage-tree',
   templateUrl: './courage-tree.component.html',
   styleUrl: './courage-tree.component.scss',

@@ -44,14 +44,14 @@ describe('RewardsComponent', () => {
   it('shows progress to the next gift without an open button', () => {
     flush(overview());
     expect(root().querySelector('[role="progressbar"]')).toBeTruthy();
-    expect(root().querySelector('.reveal')).toBeNull();
+    expect(root().querySelector('.ready-hero')).toBeNull();
   });
 
   it('hides the contents of wrapped gifts', () => {
     flush(
       overview({ rewards: [{ id: 'r1', title: null, openedAt: null, redeemedAt: null }] }),
     );
-    expect(root().querySelectorAll('.gift').length).toBe(1);
+    expect(root().querySelectorAll('.gift-tile').length).toBe(1);
     expect(root().textContent).not.toContain('Coffee');
   });
 
@@ -63,7 +63,7 @@ describe('RewardsComponent', () => {
         rewards: [{ id: 'r1', title: null, openedAt: null, redeemedAt: null }],
       }),
     );
-    (root().querySelector('.reveal .primary') as HTMLButtonElement).click();
+    (root().querySelector('.ready-hero .primary') as HTMLButtonElement).click();
     http.expectOne(`${API_BASE_URL}/rewards/open`).flush({ id: 'r1', title: 'Coffee' });
     flush(
       overview({

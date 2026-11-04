@@ -39,7 +39,10 @@
       </g>
     }
   </svg>
-  <p class="stage">{{ t(stage().titleKey) }}</p>
+  <p class="stage">
+    {{ t(stage().titleKey) }}
+    <app-info-tip [text]="t('treeHint')" />
+  </p>
   <p class="count">
     <strong>{{ actions() }}</strong> {{ t('treeCount') }}
     @if (extraLeaves() > 0) {

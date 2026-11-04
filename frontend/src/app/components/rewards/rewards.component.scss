@@ -155,6 +155,69 @@ button {
   text-decoration: line-through;
 }
 
+.hero {
+  align-items: center;
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-navy);
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  padding: 22px 16px;
+  text-align: center;
+}
+.hero .gift-icon {
+  font-size: 4rem;
+}
+.ready-hero {
+  background: color-mix(in srgb, var(--color-primary) 16%, var(--color-surface));
+  border: 2px solid var(--color-primary);
+}
+.progress-head {
+  color: var(--color-navy);
+  display: flex;
+  font:
+    700 0.88rem var(--font-body);
+  justify-content: space-between;
+}
+.progress-head strong {
+  color: var(--color-primary);
+}
+.gift-progress .bar {
+  height: 16px;
+}
+.gift-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.gift-tile {
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-navy);
+  display: grid;
+  font:
+    0.85rem var(--font-body);
+  gap: 4px;
+  justify-items: center;
+  padding: 14px 8px 6px;
+}
+.tile-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+.gift-tile .link-danger {
+  margin-left: 0;
+}
+.add-form {
+  border-top: 1px solid var(--color-border);
+  padding-top: 14px;
+}
 @keyframes gift-wiggle {
   0%,
   100% {

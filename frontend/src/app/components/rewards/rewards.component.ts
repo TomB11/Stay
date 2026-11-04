@@ -4,12 +4,13 @@ import { ApiService } from '../../core/api.service';
 import { LanguageService } from '../../core/i18n/language.service';
 import { TranslationKey } from '../../core/i18n/translation-key.type';
 import { MAX_REWARD_TITLE_LENGTH } from '../../rewards/constants/rewards-limits.constant';
+import { InfoTipComponent } from '../info-tip/info-tip.component';
 import { OpenedReward, RewardsOverview } from '../../rewards/models/rewards.interface';
 
 @Component({
   standalone: true,
   selector: 'app-rewards',
-  imports: [FormsModule],
+  imports: [FormsModule, InfoTipComponent],
   templateUrl: './rewards.component.html',
   styleUrl: './rewards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

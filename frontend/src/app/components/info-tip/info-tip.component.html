@@ -1,0 +1,4 @@
+<span class="tip">
+  <button type="button" class="trigger" [attr.aria-describedby]="tipId" [attr.aria-label]="text()">i</button>
+  <span class="bubble" role="tooltip" [id]="tipId">{{ text() }}</span>
+</span>
