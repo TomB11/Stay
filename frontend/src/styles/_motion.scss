@@ -1,0 +1,101 @@
+:root {
+  --motion-fast: 140ms;
+  --motion-base: 380ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes stay-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes stay-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes stay-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+@keyframes stay-spin-in {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+}
+
+// All motion is opt-in so users who prefer reduced motion get a static UI.
+@media (prefers-reduced-motion: no-preference) {
+  // A routed page fades in whenever the route changes.
+  router-outlet + * {
+    animation: stay-fade var(--motion-base) var(--ease-out) backwards;
+  }
+
+  // Cards and list items inside a page rise in one after another.
+  app-root :is(.panel, .card, .entry, .step, .legal-section, .summary-grid > div, .contacts > li) {
+    animation: stay-rise var(--motion-base) var(--ease-out) backwards;
+  }
+  @for $i from 2 through 8 {
+    app-root :is(.panel, .card, .entry, .step, .legal-section, .summary-grid > div, .contacts > li):nth-child(#{$i}) {
+      animation-delay: #{($i - 1) * 55}ms;
+    }
+  }
+
+  // Content that appears after a step change (headings, practice, recap) rises in too.
+  app-root section > :is(h1, .lead, .eyebrow, .practice, .session-recap, .question, .feedback-actions) {
+    animation: stay-rise var(--motion-base) var(--ease-out) backwards;
+  }
+  app-root section > .lead {
+    animation-delay: 60ms;
+  }
+
+  // Tactile feedback for anything clickable.
+  app-root :is(button, a.primary, a.btn, .btn-back, .btn-link, a.header-action):not(:disabled) {
+    transition-duration: var(--motion-fast);
+    transition-timing-function: var(--ease-out);
+  }
+  app-root :is(button, a.primary, a.btn, .btn-link, a.header-action):not(:disabled):active {
+    transform: scale(0.96);
+  }
+  app-root :is(.primary, a.header-action):not(:disabled):hover {
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-1px);
+  }
+  app-root :is(.primary, a.header-action):not(:disabled):active {
+    transform: scale(0.96);
+  }
+  app-root :is(.panel, .card, .step, .entry):hover {
+    box-shadow: var(--shadow-lift);
+  }
+
+  // Header: theme icon spins in, menus drop down, nav links rise in sequence.
+  app-root app-header :is(.theme-toggle, .menu-toggle, .header-account, .user-nav a, .mobile-menu-action, .language-switcher button) {
+    transition:
+      background-color var(--motion-fast) var(--ease-out),
+      border-color var(--motion-fast) var(--ease-out),
+      color var(--motion-fast) var(--ease-out),
+      transform var(--motion-fast) var(--ease-out);
+  }
+  app-root app-header :is(.theme-toggle, .menu-toggle, .header-account, .user-nav a, .mobile-menu-action):active {
+    transform: scale(0.95);
+  }
+  app-root app-header :is(.theme-toggle, .menu-toggle) svg {
+    animation: stay-spin-in 0.45s var(--ease-out);
+  }
+  app-root app-header .mobile-menu {
+    animation: stay-drop var(--motion-base) var(--ease-out);
+    transform-origin: top center;
+  }
+  app-root app-header :is(.mobile-menu > *, .user-nav a) {
+    animation: stay-rise var(--motion-base) var(--ease-out) backwards;
+  }
+  @for $i from 2 through 5 {
+    app-root app-header :is(.mobile-menu > *, .user-nav a):nth-child(#{$i}) {
+      animation-delay: #{($i - 1) * 45}ms;
+    }
+  }
+}
