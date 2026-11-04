@@ -222,6 +222,7 @@ export type TranslationKey =
   | 'progressLadderLabel'
   | 'progressStreakTitle'
   | 'progressStreakLabel'
+  | 'progressDetailsTitle'
   | 'rewardsTitle'
   | 'rewardsIntro'
   | 'rewardsError'

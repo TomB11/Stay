@@ -244,6 +244,7 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
     progressLadderLabel: 'steps mastered',
     progressStreakTitle: 'Days in a row',
     progressStreakLabel: 'days with some activity',
+    progressDetailsTitle: 'Detailed statistics and monitoring',
     rewardsTitle: 'My rewards',
     rewardsIntro:
       'Add things you look forward to (a coffee, a movie, a trip). For every 5 brave steps you earn a gift and a random one of your rewards opens. We reward effort, not results.',
@@ -552,6 +553,7 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
     progressLadderLabel: 'zvládnutých krokov',
     progressStreakTitle: 'Dni po sebe',
     progressStreakLabel: 'dní s nejakou aktivitou',
+    progressDetailsTitle: 'Podrobné štatistiky a monitoring',
     rewardsTitle: 'Moje odmeny',
     rewardsIntro:
       'Pridajte veci, na ktoré sa tešíte (káva, kino, výlet). Za každých 5 krokov odvahy získate darček a náhodne sa otvorí jedna z vašich odmien. Odmeňujeme snahu, nie výsledok.',
@@ -859,6 +861,7 @@ export const TRANSLATIONS: Record<Language, Record<TranslationKey, string>> = {
     progressLadderLabel: 'zvládnutých kroků',
     progressStreakTitle: 'Dny po sobě',
     progressStreakLabel: 'dní s nějakou aktivitou',
+    progressDetailsTitle: 'Podrobné statistiky a monitoring',
     rewardsTitle: 'Moje odměny',
     rewardsIntro:
       'Přidejte věci, na které se těšíte (káva, kino, výlet). Za každých 5 kroků odvahy získáte dárek a náhodně se otevře jedna z vašich odměn. Odměňujeme snahu, ne výsledek.',
