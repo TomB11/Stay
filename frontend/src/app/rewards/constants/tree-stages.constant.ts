@@ -18,6 +18,9 @@ export const TREE_STAGES: readonly TreeStage[] = [
   { id: 'tree', fromActions: 15, scale: 1, titleKey: 'treeStageTree' },
 ];
 
+/** From this many brave steps on, the tree is full grown and only adds new branches. */
+export const FULL_GROWN_ACTIONS = TREE_STAGES[TREE_STAGES.length - 1].fromActions;
+
 export function treeStageFor(actions: number): { stage: TreeStage; next: TreeStage | null } {
   let index = 0;
   TREE_STAGES.forEach((stage, i) => {

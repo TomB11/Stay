@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { LanguageService } from '../../core/i18n/language.service';
 import { TranslationKey } from '../../core/i18n/translation-key.type';
-import { LADDER_BADGES } from '../../rewards/constants/ladder-badges.constant';
+import {
+  BADGE_TIER_KEYS,
+  LADDER_BADGES,
+  badgeLevelFor,
+} from '../../rewards/constants/ladder-badges.constant';
 import { LadderStats } from '../../rewards/models/rewards.interface';
 
 @Component({
@@ -14,7 +18,18 @@ import { LadderStats } from '../../rewards/models/rewards.interface';
 export class LadderBadgesComponent {
   readonly ladder = input.required<LadderStats>();
   protected readonly badges = computed(() =>
-    LADDER_BADGES.map((badge) => ({ ...badge, earned: badge.isEarned(this.ladder()) })),
+    LADDER_BADGES.map((badge) => {
+      const progress = badgeLevelFor(badge, this.ladder());
+      return {
+        ...progress,
+        id: badge.id,
+        icon: badge.icon,
+        titleKey: badge.titleKey,
+        descriptionKey: badge.descriptionKey,
+        tierKey: progress.level > 0 ? BADGE_TIER_KEYS[progress.level - 1] : null,
+        maxLevel: badge.levels.length,
+      };
+    }),
   );
   private readonly language = inject(LanguageService);
 

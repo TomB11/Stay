@@ -1,58 +1,58 @@
 import { TranslationKey } from '../../core/i18n/translation-key.type';
 import { LadderStats } from '../models/rewards.interface';
 
-export interface LadderBadge {
+export interface BadgeTrack {
   id: string;
   icon: string;
   titleKey: TranslationKey;
   descriptionKey: TranslationKey;
-  isEarned: (ladder: LadderStats) => boolean;
+  /** Reads the value this badge levels up on. */
+  value: (ladder: LadderStats) => number;
+  /** Minimum value that reaches level 1, 2, 3, ... of the badge. */
+  levels: readonly number[];
 }
 
-/** Highest expected anxiety from which a mastered step counts as a "brave" one. */
-export const BRAVE_STEP_ANXIETY = 7;
+export const BADGE_TIER_KEYS: readonly TranslationKey[] = [
+  'badgeTierBronze',
+  'badgeTierSilver',
+  'badgeTierGold',
+  'badgeTierPlatinum',
+  'badgeTierDiamond',
+];
 
-export const LADDER_BADGES: readonly LadderBadge[] = [
+export const LADDER_BADGES: readonly BadgeTrack[] = [
   {
-    id: 'first-attempt',
+    id: 'courage',
     icon: '👣',
-    titleKey: 'badgeFirstAttemptTitle',
-    descriptionKey: 'badgeFirstAttemptDesc',
-    isEarned: (ladder) => ladder.attempts >= 1,
+    titleKey: 'badgeCourageTitle',
+    descriptionKey: 'badgeCourageDesc',
+    value: (ladder) => ladder.attempts,
+    levels: [1, 5, 15, 30, 60],
   },
   {
-    id: 'five-attempts',
-    icon: '🥾',
-    titleKey: 'badgeFiveAttemptsTitle',
-    descriptionKey: 'badgeFiveAttemptsDesc',
-    isEarned: (ladder) => ladder.attempts >= 5,
-  },
-  {
-    id: 'ten-attempts',
-    icon: '🧗',
-    titleKey: 'badgeTenAttemptsTitle',
-    descriptionKey: 'badgeTenAttemptsDesc',
-    isEarned: (ladder) => ladder.attempts >= 10,
-  },
-  {
-    id: 'first-mastered',
+    id: 'overcoming',
     icon: '🌱',
-    titleKey: 'badgeFirstMasteredTitle',
-    descriptionKey: 'badgeFirstMasteredDesc',
-    isEarned: (ladder) => ladder.masteredSteps >= 1,
+    titleKey: 'badgeOvercomingTitle',
+    descriptionKey: 'badgeOvercomingDesc',
+    value: (ladder) => ladder.masteredSteps,
+    levels: [1, 3, 6, 12, 24],
   },
   {
-    id: 'three-mastered',
-    icon: '🌿',
-    titleKey: 'badgeThreeMasteredTitle',
-    descriptionKey: 'badgeThreeMasteredDesc',
-    isEarned: (ladder) => ladder.masteredSteps >= 3,
-  },
-  {
-    id: 'brave-step',
+    id: 'brave-heart',
     icon: '🦁',
     titleKey: 'badgeBraveTitle',
     descriptionKey: 'badgeBraveDesc',
-    isEarned: (ladder) => ladder.highestMasteredAnxiety >= BRAVE_STEP_ANXIETY,
+    value: (ladder) => ladder.highestMasteredAnxiety,
+    levels: [3, 5, 7, 8, 9],
   },
 ];
+
+/** Returns the reached level (0 = locked) and the value needed for the next one. */
+export function badgeLevelFor(
+  track: BadgeTrack,
+  ladder: LadderStats,
+): { level: number; value: number; next: number | null } {
+  const value = track.value(ladder);
+  const level = track.levels.filter((threshold) => value >= threshold).length;
+  return { level, value, next: track.levels[level] ?? null };
+}

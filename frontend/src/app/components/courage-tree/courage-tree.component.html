@@ -4,10 +4,25 @@
     @if (stage().id === 'seed') {
       <ellipse class="seed" cx="100" cy="186" rx="7" ry="5" />
     } @else {
-      <g class="plant" [style.transform]="'scale(' + stage().scale + ')'">
+      <g class="plant" [style.transform]="'scale(' + plantScale() + ')'">
         <path class="trunk" d="M92 190 L96 110 Q100 100 104 110 L108 190 Z" />
         @if (stage().id !== 'sprout') {
           <path class="branch" d="M100 130 Q82 112 70 100 M100 120 Q118 106 132 92" />
+        }
+        @for (branch of branches(); track $index) {
+          <g class="extra-branch">
+            <path class="branch" [attr.d]="branch.path" />
+            @for (leaf of branch.leaves; track $index) {
+              <ellipse
+                class="leaf"
+                [class.shade-1]="leaf.shade === 1"
+                [class.shade-2]="leaf.shade === 2"
+                rx="7"
+                ry="4"
+                [attr.transform]="'translate(' + leaf.x + ' ' + leaf.y + ') rotate(' + leaf.rotation + ')'"
+              />
+            }
+          </g>
         }
         <g class="leaves">
           @for (leaf of leaves(); track $index) {
@@ -34,6 +49,7 @@
   @if (stepsToNextStage() > 0) {
     <p class="hint">{{ stepsToNextStage() }} {{ t('treeToNextStage') }}</p>
   } @else {
+    <p class="hint">{{ stepsToNextBranch() }} {{ t('treeToNextBranch') }}</p>
     <p class="hint">{{ t('treeHint') }}</p>
   }
 </div>
