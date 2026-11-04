@@ -10,6 +10,7 @@ import {
 import { Throttle } from '@nestjs/throttler';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto.js';
 import { RegisterDto } from './dto/register.dto.js';
+import { RefreshTokenDto } from './dto/refresh-token.dto.js';
 import type { AccountExport } from './models/account-export.interface.js';
 import type { AuthResponse } from './models/auth-user.interface.js';
 import { AUTH_THROTTLE } from './constants/auth-limits.constant.js';
@@ -30,6 +31,18 @@ export class AuthController {
   @Post('login')
   login(@Body() credentials: AuthCredentialsDto): Promise<AuthResponse> {
     return this.authService.login(credentials);
+  }
+
+  @Post('refresh')
+  @HttpCode(200)
+  refresh(@Body() body: RefreshTokenDto): Promise<AuthResponse> {
+    return this.authService.refresh(body.refreshToken);
+  }
+
+  @Post('logout')
+  @HttpCode(204)
+  logout(@Body() body: RefreshTokenDto): Promise<void> {
+    return this.authService.revokeRefreshToken(body.refreshToken);
   }
 
   @Get('export')

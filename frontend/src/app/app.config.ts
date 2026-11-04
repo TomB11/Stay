@@ -1,4 +1,5 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { provideServiceWorker } from '@angular/service-worker';
 import {
   provideHttpClient,
   withInterceptors,
@@ -14,5 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(withInterceptors([networkActivityInterceptor, authInterceptor])),
     provideRouter(routes),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerImmediately',
+    }),
   ],
 };

@@ -8,7 +8,7 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { AccountExport } from './models/account-export.interface.js';
 import { AuthResponse, AuthUser } from './models/auth-user.interface.js';
-import { TOKEN_LIFETIME_MS } from './constants/auth-limits.constant.js';
+import { TOKEN_LIFETIME_MS, REFRESH_TOKEN_LIFETIME_MS } from './constants/auth-limits.constant.js';
 import { DatabaseService } from '../database/database.service.js';
 
 @Injectable()
@@ -131,15 +131,52 @@ export class AuthService {
   /** Creates an access token, stores only its hash and removes sensitive fields from the response. */
   private async createResponse(user: AuthUser): Promise<AuthResponse> {
     const token = randomBytes(32).toString('hex');
+    const refreshToken = randomBytes(32).toString('hex');
     const now = Date.now();
     await this.database.query('DELETE FROM auth_tokens WHERE expires_at <= $1', [
       now,
     ]);
     await this.database.query(
+      'DELETE FROM refresh_tokens WHERE expires_at <= $1',
+      [now],
+    );
+    await this.database.query(
       'INSERT INTO auth_tokens (token_hash, user_id, expires_at) VALUES ($1, $2, $3)',
       [this.hashToken(token), user.id, now + TOKEN_LIFETIME_MS],
     );
-    return { token, user: { id: user.id, email: user.email } };
+    await this.database.query(
+      'INSERT INTO refresh_tokens (token_hash, user_id, expires_at) VALUES ($1, $2, $3)',
+      [this.hashToken(refreshToken), user.id, now + REFRESH_TOKEN_LIFETIME_MS],
+    );
+    return { token, refreshToken, user: { id: user.id, email: user.email } };
+  }
+
+  /** Exchanges a valid refresh token for a new token pair; the used refresh token is revoked (rotation). */
+  async refresh(refreshToken: string): Promise<AuthResponse> {
+    const tokenHash = this.hashToken(refreshToken);
+    const [record] = await this.database.query<{
+      userId: string;
+      expiresAt: string;
+    }>(
+      'DELETE FROM refresh_tokens WHERE token_hash = $1 RETURNING user_id AS "userId", expires_at AS "expiresAt"',
+      [tokenHash],
+    );
+    if (!record || Number(record.expiresAt) <= Date.now()) {
+      throw new UnauthorizedException('Authentication is required.');
+    }
+    const [user] = await this.database.query<AuthUser>(
+      'SELECT id, email, password_hash AS "passwordHash" FROM users WHERE id = $1',
+      [record.userId],
+    );
+    if (!user) throw new UnauthorizedException('Authentication is required.');
+    return this.createResponse(user);
+  }
+
+  /** Revokes a refresh token so the session cannot be renewed after sign-out. */
+  async revokeRefreshToken(refreshToken: string): Promise<void> {
+    await this.database.query('DELETE FROM refresh_tokens WHERE token_hash = $1', [
+      this.hashToken(refreshToken),
+    ]);
   }
   /** Tokens are high-entropy random values, so a fast hash is sufficient for storage. */
   private hashToken(token: string): string {

@@ -6,5 +6,6 @@ export interface AuthUser {
 
 export interface AuthResponse {
   token: string;
+  refreshToken: string;
   user: Pick<AuthUser, 'id' | 'email'>;
 }

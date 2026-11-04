@@ -27,7 +27,7 @@ AGENTS.md   Konvencie vývoja
 ```
 
 ### Backend (`backend/src`)
-- `auth/` – registrácia, prihlásenie (scrypt), tokeny uložené ako SHA-256 hash v Postgrese (platnosť 24 h), `AuthGuard`, `@CurrentUserId()`, limit 10 pokusov/min
+- `auth/` – registrácia, prihlásenie (scrypt), krátky access token (30 min) a rotujúci refresh token (30 dní) uložené ako SHA-256 hash v Postgrese, `POST /auth/refresh` a `/auth/logout` (odvolanie), `AuthGuard`, `@CurrentUserId()`, limit 10 pokusov/min
 - Účet (GDPR): registrácia vyžaduje súhlas so spracovaním údajov a potvrdenie veku 16+ (ukladá sa čas súhlasu), `GET /auth/export` a `DELETE /auth/account` (kaskádové zmazanie); v profile ich ovláda `account-settings`
 - Globálne: `ValidationPipe` (whitelist, DTO cez class-validator), `ThrottlerGuard` (120 požiadaviek/min), `helmet`
 - `sessions/` – ukladanie a výpis dokončených check-inov (vyžaduje token)
@@ -82,9 +82,9 @@ Zostáva (podľa priority):
 1. **Bezpečnosť a krízy:** psychológom schválený a rozšírený zoznam krízových fráz, overenie krízových čísel.
 2. **Obsah:** hotový expozičný rebríček a denník úzkosti; hotová stránka „Môj pokrok“; zostáva chladový podnet, worry time a kontrola všetkých textov psychológom. Texty denníka sú v databáze zatiaľ nešifrované (šifrovanie citlivých polí je v bode 3).
 2a. **Odpovede z vedených cvičení sa zatiaľ neukladajú** (ostávajú len v pamäti prehliadača). Ak sa majú ukladať do denníka, treba šifrovanie a súhlas.
-2b. **Režim Teraz offline** (service worker / PWA) a voliteľné uloženie do histórie po dokončení.
-3. **Backend:** šifrovanie citlivých polí, migrácie schémy, refresh tokeny/odhlásenie na serveri, throttler za proxy (nastaviť `trust proxy`), CORS pre produkciu.
+2b. **Režim Teraz offline:** hotové ako PWA (Angular service worker, `ngsw-config.json`, `manifest.webmanifest`, aktívny len v produkčnom builde; po prvej návšteve funguje `/now` bez siete a dá sa pridať na plochu). Zostáva voliteľné uloženie do histórie po dokončení.
+3. **Backend:** šifrovanie citlivých polí, migrácie schémy, throttler za proxy (nastaviť `trust proxy`), CORS pre produkciu. Refresh tokeny a odhlásenie na serveri sú hotové.
 5. **Pokrok:** trendy intenzity, spúšťače, čo pomohlo; história len vypisuje záznamy.
-6. **Frontend:** `API_BASE_URL` do environment konfigurácie, lazy routes, profil a nastavenia sú len placeholdery, preklad podľa jazyka prehliadača, trvalé uloženie jazyka, a11y audit, migrácia `@import` v SCSS na `@use`.
+6. **Frontend:** `API_BASE_URL` do environment konfigurácie, lazy routes, profil a nastavenia sú len placeholdery, jazyk sa ukladá a predvolí podľa prehliadača, a11y audit, migrácia `@import` v SCSS na `@use`.
 7. **Testy:** chýbajú unit testy backendových služieb a guardu, testy `ApiService`, interceptora a `SessionFlowComponent`.
 8. **Právo a prevádzka:** stránky `/privacy` a `/terms` sú hotové (sk/cs/en, odkazy v pätičke a pri súhlase pri registrácii), no pred spustením treba doplniť údaje prevádzkovateľa (placeholder v `privacyS1Body`) a nechať texty skontrolovať právnikom. Zostáva CI.

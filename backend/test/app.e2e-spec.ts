@@ -84,6 +84,51 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer()).get('/api/sessions').expect(401);
   });
 
+  describe('refresh tokens', () => {
+    const credentials = { email: 'refresh@example.com', password: 'secure-password' };
+    const registerUser = () =>
+      request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({ ...credentials, ...consent })
+        .expect(201);
+
+    it('rotates the refresh token and issues a working access token', async () => {
+      const first = (await registerUser()).body;
+      const refreshed = await request(app.getHttpServer())
+        .post('/api/auth/refresh')
+        .send({ refreshToken: first.refreshToken })
+        .expect(200);
+
+      expect(refreshed.body.refreshToken).not.toBe(first.refreshToken);
+      await request(app.getHttpServer())
+        .get('/api/sessions')
+        .set('Authorization', `Bearer ${refreshed.body.token}`)
+        .expect(200);
+      await request(app.getHttpServer())
+        .post('/api/auth/refresh')
+        .send({ refreshToken: first.refreshToken })
+        .expect(401);
+    });
+
+    it('rejects an unknown refresh token', () =>
+      request(app.getHttpServer())
+        .post('/api/auth/refresh')
+        .send({ refreshToken: 'nope' })
+        .expect(401));
+
+    it('revokes the refresh token on logout', async () => {
+      const { refreshToken } = (await registerUser()).body;
+      await request(app.getHttpServer())
+        .post('/api/auth/logout')
+        .send({ refreshToken })
+        .expect(204);
+      await request(app.getHttpServer())
+        .post('/api/auth/refresh')
+        .send({ refreshToken })
+        .expect(401);
+    });
+  });
+
   describe('validation', () => {
     const register = (email: string) =>
       request(app.getHttpServer())

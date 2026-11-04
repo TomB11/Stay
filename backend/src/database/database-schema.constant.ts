@@ -63,4 +63,10 @@ export const DATABASE_SCHEMA = `
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     expires_at BIGINT NOT NULL
   );
+
+  CREATE TABLE IF NOT EXISTS refresh_tokens (
+    token_hash TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    expires_at BIGINT NOT NULL
+  );
 `;
