@@ -402,6 +402,66 @@ describe('AppController (e2e)', () => {
     });
   });
 
+  describe('rewards', () => {
+    const registerUser = async (email: string) => {
+      const response = await request(app.getHttpServer())
+        .post('/api/auth/register')
+        .send({ email, password: 'secure-password', ...consent })
+        .expect(201);
+      return { Authorization: ['Bearer', response.body.token].join(' ') };
+    };
+    const diaryEntry = {
+      situation: 's',
+      thought: 't',
+      emotion: 'fear',
+      intensityBefore: 6,
+      alternativeThought: 'a',
+      intensityAfter: 4,
+    };
+
+    it('requires authentication', async () => {
+      await request(app.getHttpServer()).get('/api/rewards').expect(401);
+    });
+
+    it('earns a gift after five actions and hides wrapped titles', async () => {
+      const auth = await registerUser('rewards@example.com');
+      const server = app.getHttpServer();
+      await request(server).post('/api/rewards').set(auth).send({ title: 'Coffee' }).expect(201);
+      await request(server).post('/api/rewards').set(auth).send({ title: 'Cinema' }).expect(201);
+      await request(server).post('/api/rewards/open').set(auth).expect(400);
+      for (let i = 0; i < 5; i += 1) {
+        await request(server).post('/api/diary').set(auth).send(diaryEntry).expect(201);
+      }
+      const before = await request(server).get('/api/rewards').set(auth).expect(200);
+      expect(before.body.giftsAvailable).toBe(1);
+      expect(before.body.rewards.every((r: { title: unknown }) => r.title === null)).toBe(true);
+
+      const opened = await request(server).post('/api/rewards/open').set(auth).expect(200);
+      expect(['Coffee', 'Cinema']).toContain(opened.body.title);
+      await request(server).post('/api/rewards/open').set(auth).expect(400);
+      await request(server).post(`/api/rewards/${opened.body.id}/redeem`).set(auth).expect(204);
+
+      const after = await request(server).get('/api/rewards').set(auth).expect(200);
+      expect(after.body.giftsAvailable).toBe(0);
+      const redeemed = after.body.rewards.find((r: { id: string }) => r.id === opened.body.id);
+      expect(redeemed.title).toBe(opened.body.title);
+      expect(redeemed.redeemedAt).not.toBeNull();
+    });
+
+    it('does not let another user touch a reward', async () => {
+      const owner = await registerUser('reward-owner@example.com');
+      const other = await registerUser('reward-other@example.com');
+      const server = app.getHttpServer();
+      const created = await request(server)
+        .post('/api/rewards')
+        .set(owner)
+        .send({ title: 'Trip' })
+        .expect(201);
+      await request(server).delete(`/api/rewards/${created.body.id}`).set(other).expect(404);
+      await request(server).delete(`/api/rewards/${created.body.id}`).set(owner).expect(204);
+    });
+  });
+
   describe('insights', () => {
     it('requires authentication', async () => {
       await request(app.getHttpServer()).get('/api/insights').expect(401);

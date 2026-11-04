@@ -34,12 +34,13 @@ AGENTS.md   Konvencie vývoja
 - `exposure/` – expozičný rebríček: kroky (0–10) a pokusy pred/po, max 30 krokov na účet, vlastníctvo sa overuje pri každom volaní, zahrnuté v exporte a kaskádovom zmazaní
 - `diary/` – denník úzkosti (záznam myšlienok: situácia, myšlienka, emócia, intenzita pred/po, alternatíva), max 1000 záznamov, v exporte a kaskádovom zmazaní
 - `database/` – Postgres pripojenie (`pg`, Neon) a schéma; v teste PGlite (Postgres v pamäti)
-- API prefix `/api`: `GET /health`, `POST /auth/register`, `POST /auth/login`, `POST|GET /sessions`, `GET|POST /exposure`, `POST /exposure/:id/attempts`, `DELETE /exposure/:id`, `GET|POST /diary`, `DELETE /diary/:id`, `GET /insights`
+- API prefix `/api`: `GET /health`, `POST /auth/register`, `POST /auth/login`, `POST|GET /sessions`, `GET|POST /exposure`, `POST /exposure/:id/attempts`, `DELETE /exposure/:id`, `GET|POST /diary`, `DELETE /diary/:id`, `GET /insights`, `GET|POST /rewards`, `POST /rewards/open`, `POST /rewards/:id/redeem`, `DELETE /rewards/:id`
 
 ### Frontend (`frontend/src/app`)
 - `components/` – každý komponent vo vlastnom priečinku (šablóna, štýly, test)
 - `components/session-flow/` – priebeh pre Pred/Po: výber fázy → popis a intenzita → vedené cvičenie (`guided-exercise`, kroky v `sessions/constants/guided-steps.constant.ts`) → check-in → zhrnutie. Fáza „Neviem“ zostáva pri jednovetovej podpore.
 - `components/now-support/` – režim Teraz (`/now`): `breathing-guide`, `grounding-guide`, `relaxation-guide`, `crisis-help`
+- `components/rewards/` – „Moje odmeny“ (súčasť `/progress`): používateľ si pridá vlastné odmeny (káva, kino, výlet), za každých 5 krokov odvahy (cvičenie, záznam v denníku, pokus na rebríčku; `GIFT_EVERY_ACTIONS`) získa darček a náhodne sa otvorí jedna zabalená odmena. Obsah zabalených odmien API neposiela. Odmeňuje sa snaha, nie pokles úzkosti, a nie je tam žiadna séria, ktorú by bolo možné „stratiť“.
 - `components/progress/` – „Môj pokrok“ (`/progress`): trend úzkosti, účinok cvičení a denníka, rebríček, séria dní, odporúčanie odbornej pomoci (prahy v `backend/src/insights/constants` čakajú na schválenie psychológom)
 - `components/app-header/` – hlavička: skupina jazyk + vzhľad (SVG ikony), skupina účtu a navigácia pre prihláseného
 - `components/diary/` – denník úzkosti (`/diary`, po prihlásení); krízová detekcia beží nad textom formulára

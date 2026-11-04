@@ -5,6 +5,7 @@ import { Insights } from '../progress/models/insights.interface';
 import { DiaryEntry, NewDiaryEntry } from '../diary/models/diary-entry.interface';
 import { ExposureAttempt, ExposureStep } from '../exposure/models/exposure-step.interface';
 import { API_BASE_URL } from './api.constant';
+import { OpenedReward, Reward, RewardsOverview } from '../rewards/models/rewards.interface';
 
 /** Authorization headers are attached by the auth interceptor. */
 @Injectable({ providedIn: 'root' })
@@ -53,5 +54,25 @@ export class ApiService {
 
   deleteDiaryEntry(entryId: string) {
     return this.http.delete<void>(`${API_BASE_URL}/diary/${entryId}`);
+  }
+
+  getRewards() {
+    return this.http.get<RewardsOverview>(`${API_BASE_URL}/rewards`);
+  }
+
+  addReward(title: string) {
+    return this.http.post<Reward>(`${API_BASE_URL}/rewards`, { title });
+  }
+
+  openGift() {
+    return this.http.post<OpenedReward>(`${API_BASE_URL}/rewards/open`, {});
+  }
+
+  redeemReward(rewardId: string) {
+    return this.http.post<void>(`${API_BASE_URL}/rewards/${rewardId}/redeem`, {});
+  }
+
+  deleteReward(rewardId: string) {
+    return this.http.delete<void>(`${API_BASE_URL}/rewards/${rewardId}`);
   }
 }

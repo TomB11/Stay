@@ -1,0 +1,103 @@
+<section class="rewards">
+  <h2 class="section-title">{{ t('rewardsTitle') }}</h2>
+  <p class="hint">{{ t('rewardsIntro') }}</p>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ t('rewardsError') }}</p>
+  }
+
+  @if (overview(); as data) {
+    <div class="gift-progress">
+      <div
+        class="bar"
+        role="progressbar"
+        aria-valuemin="0"
+        [attr.aria-valuemax]="data.actionsPerGift"
+        [attr.aria-valuenow]="data.actionsPerGift - data.actionsToNextGift"
+        [attr.aria-label]="t('rewardsNextGift')"
+      >
+        <span [style.width.%]="progressPercent()"></span>
+      </div>
+      <span class="hint">
+        {{ data.actionsToNextGift }} {{ t('rewardsActionsToNext') }} · {{ data.actions }}
+        {{ t('rewardsActionsTotal') }}
+      </span>
+    </div>
+
+    @if (revealed(); as gift) {
+      <div class="reveal" role="status">
+        <span class="gift-icon open" aria-hidden="true">🎁</span>
+        <strong>{{ t('rewardsRevealed') }}</strong>
+        <p class="reward-title">{{ gift.title }}</p>
+        <button type="button" class="primary" (click)="redeem(gift.id)">
+          {{ t('rewardsRedeem') }}
+        </button>
+      </div>
+    } @else if (data.giftsAvailable > 0) {
+      <div class="reveal">
+        <span class="gift-icon ready" aria-hidden="true">🎁</span>
+        <strong>{{ t('rewardsReady') }}</strong>
+        @if (wrapped().length) {
+          <button type="button" class="primary" (click)="openGift()">
+            {{ t('rewardsOpen') }}
+          </button>
+        } @else {
+          <p class="hint">{{ t('rewardsAddToOpen') }}</p>
+        }
+      </div>
+    }
+
+    <form class="add-form" (ngSubmit)="add()">
+      <label for="reward-title">{{ t('rewardsAddLabel') }}</label>
+      <div class="add-row">
+        <input
+          id="reward-title"
+          name="title"
+          type="text"
+          autocomplete="off"
+          [maxLength]="maxTitle"
+          [placeholder]="t('rewardsAddHint')"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+        />
+        <button type="submit" class="primary" [disabled]="!title().trim()">
+          {{ t('rewardsAdd') }}
+        </button>
+      </div>
+    </form>
+
+    @if (wrapped().length) {
+      <h3>{{ t('rewardsWrappedTitle') }} ({{ wrapped().length }})</h3>
+      <ul class="gifts">
+        @for (reward of wrapped(); track reward.id) {
+          <li class="gift">
+            <span aria-hidden="true">🎁</span>
+            <span class="gift-name">{{ t('rewardsWrappedName') }}</span>
+            <button type="button" class="link-danger" (click)="remove(reward.id)">
+              {{ t('rewardsDelete') }}
+            </button>
+          </li>
+        }
+      </ul>
+    } @else if (!opened().length) {
+      <p class="hint">{{ t('rewardsEmpty') }}</p>
+    }
+
+    @if (opened().length) {
+      <h3>{{ t('rewardsOpenedTitle') }}</h3>
+      <ul class="gifts">
+        @for (reward of opened(); track reward.id) {
+          <li class="gift" [class.done]="reward.redeemedAt">
+            <span aria-hidden="true">{{ reward.redeemedAt ? '✅' : '🎉' }}</span>
+            <span class="gift-name">{{ reward.title }}</span>
+            @if (!reward.redeemedAt) {
+              <button type="button" class="link-action" (click)="redeem(reward.id)">
+                {{ t('rewardsRedeem') }}
+              </button>
+            }
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

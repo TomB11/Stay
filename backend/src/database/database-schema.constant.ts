@@ -58,6 +58,18 @@ export const DATABASE_SCHEMA = `
   CREATE INDEX IF NOT EXISTS diary_entries_user_id_idx
     ON diary_entries(user_id, created_at DESC);
 
+  CREATE TABLE IF NOT EXISTS rewards (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    title TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    opened_at TEXT,
+    redeemed_at TEXT
+  );
+
+  CREATE INDEX IF NOT EXISTS rewards_user_id_idx
+    ON rewards(user_id, created_at);
+
   CREATE TABLE IF NOT EXISTS auth_tokens (
     token_hash TEXT PRIMARY KEY,
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,

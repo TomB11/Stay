@@ -7,6 +7,7 @@ import { SessionsModule } from './sessions/sessions.module.js';
 import { InsightsModule } from './insights/insights.module.js';
 import { DiaryModule } from './diary/diary.module.js';
 import { ExposureModule } from './exposure/exposure.module.js';
+import { RewardsModule } from './rewards/rewards.module.js';
 import { AuthModule } from './auth/auth.module.js';
 import { DEFAULT_THROTTLE } from './auth/constants/auth-limits.constant.js';
 import { DatabaseModule } from './database/database.module.js';
@@ -20,6 +21,7 @@ import { DatabaseModule } from './database/database.module.js';
     ExposureModule,
     DiaryModule,
     InsightsModule,
+    RewardsModule,
   ],
   controllers: [AppController],
   providers: [

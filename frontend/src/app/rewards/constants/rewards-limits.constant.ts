@@ -1,0 +1,1 @@
+export const MAX_REWARD_TITLE_LENGTH = 100;

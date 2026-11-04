@@ -81,6 +81,12 @@ export class AuthService {
        FROM diary_entries WHERE user_id = $1 ORDER BY created_at DESC`,
       [userId],
     );
+    const rewards = await this.database.query<AccountExport['rewards'][number]>(
+      `SELECT id, title, created_at AS "createdAt", opened_at AS "openedAt",
+        redeemed_at AS "redeemedAt"
+       FROM rewards WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId],
+    );
     return {
       exportedAt: new Date().toISOString(),
       account,
@@ -88,6 +94,7 @@ export class AuthService {
       exposureSteps,
       exposureAttempts,
       diaryEntries,
+      rewards,
     };
   }
 

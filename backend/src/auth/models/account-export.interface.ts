@@ -26,6 +26,13 @@ export interface AccountExport {
     intensityAfter: number;
     createdAt: string;
   }[];
+  rewards: {
+    id: string;
+    title: string;
+    createdAt: string;
+    openedAt: string | null;
+    redeemedAt: string | null;
+  }[];
   exposureAttempts: {
     id: string;
     stepId: string;
